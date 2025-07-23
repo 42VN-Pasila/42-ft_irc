@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   system.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:30:42 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/23 12:35:16 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/23 18:29:03 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <set>
+#include "client.hpp"
+#include "channel.hpp"
 
 // Color codes
 #define RESET   "\033[0m"
