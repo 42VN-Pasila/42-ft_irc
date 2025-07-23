@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   system.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:30:42 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/23 18:29:03 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/07/24 01:08:54 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 // Logging macros
 #define LOG_SUCCESS(msg) std::cout << GREEN << msg << RESET
-#define LOG_ERROR(msg)   std::cerr << RED << msg << RESET << std::endl
-#define LOG_WARNING(msg) std::cout << YELLOW << msg << RESET << std::endl
-#define LOG_INFO(msg)    std::cout << BLUE << msg << RESET << std::endl
-#define LOG_DEBUG(msg)   std::cout << CYAN << msg << RESET << std::endl
+#define LOG_ERROR(msg)   std::cerr << RED << msg << RESET
+#define LOG_WARNING(msg) std::cout << YELLOW << msg << RESET
+#define LOG_INFO(msg)    std::cout << BLUE << msg << RESET
+#define LOG_DEBUG(msg)   std::cout << CYAN << msg << RESET

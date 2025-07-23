@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/23 18:30:44 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/07/24 00:26:18 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,37 +18,48 @@ class   Client;
 class   Channel
 {
     public  :
-        Channel(std::string topic);
+        Channel(const std::string& channelName) : _channelName(channelName),
+                                           _operator(nullptr),
+                                           _password(""),
+                                           _topic(""),
+                                           _onlyInvite(false),
+                                           _limit(0){};
         ~Channel() = default;
         
         //Getters
-        const std::string       getTopic() const;
-        const std::string       getOperator() const;
-        const std::string       getPassword() const;
-        const std::string       getName() const;
+        const std::string&      getTopic() const;
+        const Client*           getOperator() const;
+        const std::string&      getPassword() const;
+        const std::string&      getChannelName() const;
         const unsigned int      getLimit() const;
-        const bool              getStatus() const;    
+        const bool              getInviteStatus() const;    
+        const unsigned int      getQuantity() const;
         
         //Setters
         void                    setTopic(const std::string& topic);
-        void                    setOperator(const std::string& operatr);
         void                    setPassword(const std::string& password);
-        void                    setChannelName(const std::string& name);
+        void                    setOperator(const Client* target);
         void                    setLimit(const unsigned int& limit);
         void                    setInviteStatus(const bool& status);
 
         //Functional
-        void                    addUser(const Client& target);
-        void                    kickUser(const Client& target);
-        void                    setOperators(const Client& target);
+        void                    addUser(const Client* target);
+        void                    kickUser(const Client* target);
+        void                    removeOperator();
+        
+        //Validation
+        bool                    isOperator(const Client* target);
+        bool                    isMember(const Client* target);
+        bool                    isInviteOnly();
+        bool                    isEmpty();
         
     private :
         std::string             _topic;
-        std::string             _operator;
+        Client*                 _operator;
         std::string             _password;
         std::string             _channelName;
         unsigned int            _limit;
         bool                    _onlyInvite;
         
-        std::set<std::string>   _members;
+        std::set<Client*>       _members;
 };
