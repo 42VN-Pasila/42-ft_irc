@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 00:32:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/24 01:27:31 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/24 01:56:56 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,3 +64,16 @@ void    Channel::setInviteStatus(const bool& status)
     }
 }
 
+void    Channel::setLimit(const unsigned int& limit)
+{
+    if (limit > 1000)
+        LOG_WARNING("[CHANNEL] : Only support 1000 users");
+    else
+    {
+        this->_limit = limit;
+        LOG_SUCCESS("[CHANNEL] : Channel limits only ");
+        std::cout << std::to_string(limit);
+        LOG_SUCCESS(" member(s)");
+    }
+    std::cout << std::endl;
+}
