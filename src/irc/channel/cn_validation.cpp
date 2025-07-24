@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:21:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/24 11:24:56 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/24 11:27:39 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool    Channel::isOperator(const Client* target)
 
 bool    Channel::isMember(const Client* target)
 {
-    
+    return (this->_members.count(const_cast<Client*>(target)));
 }
 
 bool    Channel::isInviteOnly()
