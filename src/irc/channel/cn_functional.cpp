@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/25 00:00:10 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/25 01:30:55 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void    Channel::addUser(const Client* user)
         this->_invitation.erase(const_cast<Client*>(user));
     this->_members.insert(const_cast<Client*>(user));
     LOG_SUCCESS("[CHANNEL] : ");
-    std::cout << user->getName();
+    std::cout << user->getUserName();
     LOG_SUCCESS(" is added to the channel");
     std::cout << std::endl;
     
@@ -64,7 +64,7 @@ void    Channel::kickUser(const Client* user)
     }
     this->_members.erase(const_cast<Client*>(user));
         LOG_SUCCESS("[CHANNEL] : ");
-    std::cout << user->getName();
+    std::cout << user->getUserName();
     LOG_SUCCESS(" is removed out of the channel");
     std::cout << std::endl;
 }

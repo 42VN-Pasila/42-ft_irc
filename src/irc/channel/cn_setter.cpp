@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 00:32:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/25 00:16:41 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/25 01:31:12 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ void    Channel::setOperator(const Client* user)
     if (this->_operator != nullptr)
     {
         LOG_WARNING("[CHANNEL] : This channel is already being operated by ");
-        std::cout << this->_operator->getName() << std::endl;
+        std::cout << this->_operator->getUserName() << std::endl;
         return ;
     }
     else
     {
         this->_operator = const_cast<Client*>(user);
         LOG_SUCCESS("[CHANNEL] : Channel is now operated by : ");
-        std::cout << this->_operator->getName() <<std::endl;
+        std::cout << this->_operator->getUserName() <<std::endl;
     }
 }
 
