@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/24 11:36:31 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/24 23:36:19 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,17 @@ class   Channel
         //Functional
         void                    addUser(const Client* target);
         void                    kickUser(const Client* target);
+        void                    inviteUser(const Client* target);
         void                    removeOperator();
         
         //Validation
         bool                    isOperator(const Client* target);
         bool                    isMember(const Client* target);
+        bool                    isInvited(const Client* target);
         bool                    isInviteOnly();
         bool                    isEmpty();
+        bool                    isAvailable();
+         
         
     private :
         std::string             _topic;
