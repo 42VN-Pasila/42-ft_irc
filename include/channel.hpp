@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/24 11:00:31 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/24 11:36:31 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ class   Client;
 class   Channel
 {
     public  :
-        Channel(const std::string& channelName) : _channelName(channelName),
+    Channel(const std::string& channelName) : _topic(""),
                                            _operator(nullptr),
                                            _password(""),
-                                           _topic(""),
-                                           _onlyInvite(false),
-                                           _limit(0){};
+                                           _channelName(channelName),
+                                           _limit(0),
+                                           _onlyInvite(false){};
         ~Channel() = default;
         
         //Getters
