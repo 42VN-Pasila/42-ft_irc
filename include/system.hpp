@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:30:42 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/24 01:08:54 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/25 00:16:28 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 #include <set>
 #include "client.hpp"
 #include "channel.hpp"
+
+class Client;
+class Channel;
 
 // Color codes
 #define RESET   "\033[0m"
@@ -35,3 +38,5 @@
 #define LOG_WARNING(msg) std::cout << YELLOW << msg << RESET
 #define LOG_INFO(msg)    std::cout << BLUE << msg << RESET
 #define LOG_DEBUG(msg)   std::cout << CYAN << msg << RESET
+
+#define LIMIT_MEMBER 1000

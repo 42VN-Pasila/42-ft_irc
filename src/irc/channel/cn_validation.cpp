@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:21:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/24 23:53:11 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/25 00:17:58 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool    Channel::isOperator(const Client* user)
     {
         LOG_WARNING("[CHANNEL] : User cannot be null");
         std::cout << std::endl;
-        return ;
+        return false;
     }
     return (this->_operator == user);
 }
@@ -29,7 +29,7 @@ bool    Channel::isMember(const Client* user)
     {
         LOG_WARNING("[CHANNEL] : User cannot be null");
         std::cout << std::endl;
-        return ;
+        return false;
     }
     return (this->_members.count(const_cast<Client*>(user)));
 }
@@ -40,7 +40,7 @@ bool    Channel::isInvited(const Client* user)
     {
         LOG_WARNING("[CHANNEL] : User cannot be null");
         std::cout << std::endl;
-        return ;
+        return false;
     }
     return  (this->_invitation.count(const_cast<Client*>(user)));
 }
@@ -57,6 +57,8 @@ bool    Channel::isEmpty()
 
 bool   Channel::isAvailable()
 {
+    if (this->_limit == 0)
+        return true;
     return (this->_members.size() < this->_limit);
 }
 

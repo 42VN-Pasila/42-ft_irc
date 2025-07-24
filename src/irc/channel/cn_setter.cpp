@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 00:32:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/24 23:53:11 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/25 00:16:41 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void    Channel::setOperator(const Client* user)
     {
         LOG_WARNING("[CHANNEL] : This channel is already being operated by ");
         std::cout << this->_operator->getName() << std::endl;
+        return ;
     }
     else
     {
@@ -72,7 +73,7 @@ void    Channel::setInviteStatus(const bool& status)
 
 void    Channel::setLimit(const unsigned int& limit)
 {
-    if (limit > 1000)
+    if (limit > LIMIT_MEMBER)
         LOG_WARNING("[CHANNEL] : Only support 1000 users");
     else
     {
