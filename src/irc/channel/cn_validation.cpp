@@ -6,43 +6,43 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:21:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/24 23:36:24 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/24 23:53:11 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-bool    Channel::isOperator(const Client* target)
+bool    Channel::isOperator(const Client* user)
 {
-    if (target == nullptr)
+    if (user == nullptr)
     {
         LOG_WARNING("[CHANNEL] : User cannot be null");
         std::cout << std::endl;
         return ;
     }
-    return (this->_operator == target);
+    return (this->_operator == user);
 }
 
-bool    Channel::isMember(const Client* target)
+bool    Channel::isMember(const Client* user)
 {
-    if (target == nullptr)
+    if (user == nullptr)
     {
         LOG_WARNING("[CHANNEL] : User cannot be null");
         std::cout << std::endl;
         return ;
     }
-    return (this->_members.count(const_cast<Client*>(target)));
+    return (this->_members.count(const_cast<Client*>(user)));
 }
 
-bool    Channel::isInvited(const Client* target)
+bool    Channel::isInvited(const Client* user)
 {
-    if (target == nullptr)
+    if (user == nullptr)
     {
         LOG_WARNING("[CHANNEL] : User cannot be null");
         std::cout << std::endl;
         return ;
     }
-    return  (this->_invitation.count(const_cast<Client*>(target)));
+    return  (this->_invitation.count(const_cast<Client*>(user)));
 }
 
 bool    Channel::isInviteOnly()

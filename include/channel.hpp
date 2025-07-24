@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/24 23:36:19 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/24 23:53:11 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,20 @@ class   Channel
         //Setters
         void                    setTopic(const std::string& topic);
         void                    setPassword(const std::string& password);
-        void                    setOperator(const Client* target);
+        void                    setOperator(const Client* user);
         void                    setLimit(const unsigned int& limit);
         void                    setInviteStatus(const bool& status);
 
         //Functional
-        void                    addUser(const Client* target);
-        void                    kickUser(const Client* target);
-        void                    inviteUser(const Client* target);
+        void                    addUser(const Client* user);
+        void                    kickUser(const Client* user);
+        void                    inviteUser(const Client* user);
         void                    removeOperator();
         
         //Validation
-        bool                    isOperator(const Client* target);
-        bool                    isMember(const Client* target);
-        bool                    isInvited(const Client* target);
+        bool                    isOperator(const Client* user);
+        bool                    isMember(const Client* user);
+        bool                    isInvited(const Client* user);
         bool                    isInviteOnly();
         bool                    isEmpty();
         bool                    isAvailable();
