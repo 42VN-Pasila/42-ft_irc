@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:40:45 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/23 18:26:54 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/07/25 00:48:33 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,18 @@
 class Client
 {
     public  :
-        Client(std::string name);
+        Client(const std::string& userName, const std::string& nickName);
         ~Client() = default;
 
         //Getters
-        const   std::string getName() const;
-
+        const std::string   getUserName() const;
+        const std::string   getNickName() const;
+        
         //Setters
-        void    setName(const std::string& name);
+        void    setUserName(const std::string& name);
+        void    setNickName(const std::string& name);
         
     private :
-        std::string _usrname;
+        std::string _userName;
+        std::string _nickName;
 };
