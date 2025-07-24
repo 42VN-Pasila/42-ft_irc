@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 00:32:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/24 11:35:12 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/24 21:56:21 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void    Channel::setPassword(const std::string& password)
 
 void    Channel::setOperator(const Client* target)
 {
+    if (target == nullptr)
+    {
+        LOG_WARNING("[CHANNEL] : User cannot be null");
+        std::cout << std::endl;
+        return ;
+    }
     if (this->_operator != nullptr)
     {
         LOG_WARNING("[CHANNEL] : This channel is already being operated by ");

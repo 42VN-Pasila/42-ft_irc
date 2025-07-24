@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/24 11:06:22 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/24 21:56:03 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,22 @@
 
 void    addUser(const Client* target)
 {
-    
+    if (target == nullptr)
+    {
+        LOG_WARNING("[CHANNEL] : User cannot be null");
+        std::cout << std::endl;
+        return ;
+    }
 }
 
 void    Channel::kickUser(const Client* target)
 {
+    if (target == nullptr)
+    {
+        LOG_WARNING("[CHANNEL] : User cannot be null");
+        std::cout << std::endl;
+        return ;
+    }
     if (!this->isMember(target))
     {
         LOG_WARNING("[CHANNEL] : User is not in the channel");
