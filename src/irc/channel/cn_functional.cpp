@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/24 23:58:40 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/25 00:00:10 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void    Channel::addUser(const Client* user)
         std::cout << std::endl;
         return;
     }
-    if  (this->isAvailable())
+    if  (!this->isAvailable())
     {
         LOG_WARNING("[CHANNEL] : Channel is full");
         std::cout << std::endl;
