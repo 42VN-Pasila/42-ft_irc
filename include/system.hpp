@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:30:42 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/25 00:16:28 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/25 10:35:41 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@
 #include <set>
 #include "client.hpp"
 #include "channel.hpp"
+#include "server.hpp"
 
 class Client;
 class Channel;
+class Server;
 
 // Color codes
 #define RESET   "\033[0m"

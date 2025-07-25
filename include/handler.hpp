@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 01:28:47 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/25 01:43:08 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/25 10:32:26 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ void    handlerInvite(Client* user, Channel* channel, Client* targetUser);
 
 void    handlerTopic(Client* user, Channel* channel, const std::string& topic);
 
-void    handlerModeI(Client* user, Channel* channel, Client* targetUser, bool mode);
+void    handlerModeI(Client* user, Channel* channel, bool mode);
 
-void    handlerModeT(Client* user, Channel* channel, Client* targetUser, bool mode);
+void    handlerModeT(Client* user, Channel* channel, bool mode);
 
-void    handlerModeK(Client* user, Channel* channel, Client* targetUser, bool mode);
+void    handlerModeK(Client* user, Channel* channel, const std::string& password);
 
-void    handlerModeO(Client* user, Channel* channel, Client* targetUser, bool mode);
+void    handlerModeO(Client* user, Channel* channel, bool mode);
 
-void    handlerModeL(Client* user, Channel* channel, Client* targetUser, bool mode);
+void    handlerModeL(Client* user, Channel* channel, unsigned int limit);
