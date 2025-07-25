@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:21:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/25 00:17:58 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/25 11:27:58 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool    Channel::isMember(const Client* user)
         std::cout << std::endl;
         return false;
     }
-    return (this->_members.count(const_cast<Client*>(user)));
+    return (this->_members.count(user->getUserName()));
 }
 
 bool    Channel::isInvited(const Client* user)
@@ -42,7 +42,7 @@ bool    Channel::isInvited(const Client* user)
         std::cout << std::endl;
         return false;
     }
-    return  (this->_invitation.count(const_cast<Client*>(user)));
+    return  (this->_invitation.count(user->getUserName()));
 }
 
 bool    Channel::isInviteOnly()

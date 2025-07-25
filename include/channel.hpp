@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/24 23:53:11 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/25 11:21:46 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ class   Channel
         unsigned int            _limit;
         bool                    _onlyInvite;
         
-        std::set<Client*>       _members;
-        std::set<Client*>       _invitation;
+        std::map<std::string, Client*>       _members;
+        std::map<std::string, Client*>       _invitation;
 };

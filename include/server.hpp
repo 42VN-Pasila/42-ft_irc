@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/25 11:01:00 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/25 11:13:26 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ class Server
 
         bool    isServerClient(const Client* client);
         bool    isServerChannel(const Channel* channel);
+        bool    isServerChannelName(std::string& channelName);
         
-        void    cmdJoin(Client* client, Channel* channel);
+        void    cmdJoin(Client* client, std::string& channelName);
         
     private :
         unsigned int        _port;
