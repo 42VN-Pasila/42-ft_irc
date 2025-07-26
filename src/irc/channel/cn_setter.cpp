@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 00:32:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 04:09:40 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/27 01:05:40 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,14 @@ void    Channel::setTopic(const std::string& topic)
 
 void    Channel::setPassword(const std::string& password)
 {
+    if (password.empty())
+    {
+        LOG_WARNING("[CHANNEL] : Password must not be empty string");
+        std::cout << std::endl;
+        return ;
+    }
     this->_password = password;
-    LOG_SUCCESS("[CHANNEL] : Password is set");
+    LOG_SUCCESS("[CHANNEL] : New password is set");
     std::cout << std::endl;
 }
 

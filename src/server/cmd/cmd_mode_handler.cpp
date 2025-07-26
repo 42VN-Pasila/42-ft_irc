@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/27 00:58:46 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/27 01:08:05 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void    Server::handlerModeT(Client* client, std::string& channelName, bool mode
     
 }
 
-void    Server::handlerModeK(Client* client, std::string& channelName, const std::string& pass = "", bool mode)
+void    Server::handlerModeK(Client* client, std::string& channelName, const std::string& pass, bool mode)
 {
     if (!this->hasServerChannel(channelName))
     {
@@ -66,6 +66,10 @@ void    Server::handlerModeK(Client* client, std::string& channelName, const std
         std::cout << std::endl;
         return ;
     }
+    if (mode == on)
+        this->_channelList[channelName]->setPassword(pass);
+    else
+        this->_channelList[channelName]->unsetPassword();
 }
 
 void    Server::handlerModeO(Client* client, std::string& channelName, std::string& nickName, bool mode)
@@ -79,7 +83,7 @@ void    Server::handlerModeO(Client* client, std::string& channelName, std::stri
     
 }
 
-void    Server::handlerModeL(Client* client, std::string& channelName, const unsigned int limit = 0, bool mode)
+void    Server::handlerModeL(Client* client, std::string& channelName, const unsigned int limit, bool mode)
 {
     if (!this->hasServerChannel(channelName))
     {

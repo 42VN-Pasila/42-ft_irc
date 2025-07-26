@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/26 05:15:51 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/27 01:03:09 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ class   Channel
         void                    setOperator(const Client* user);
         void                    setLimit(const unsigned int& limit);
         void                    setInviteStatus(const bool& status);
+
+        //Unsettes
+        void                    unsetPassword();
 
         //Functional
         void                    addUser(const Client* user);
