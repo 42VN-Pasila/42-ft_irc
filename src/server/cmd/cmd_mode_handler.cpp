@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_mode_handler.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/26 17:40:53 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/07/27 00:58:46 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,19 @@ void    Server::handlerModeI(Client* client, std::string& channelName, bool mode
         std::cout << std::endl;
         return ;
     }
+    if (!this->_channelList[channelName]->isMember(client))
+    {
+        LOG_WARNING("[CHANNEL] : You are not the member of this channel");
+        std::cout << std::endl;
+        return ;
+    }
+    if (!this->_channelList[channelName]->isOperator(client))
+    {
+        LOG_WARNING("[CHANNEL] : You are not the operator");
+        std::cout << std::endl;
+        return ;
+    }
+    this->_channelList[channelName]->setInviteStatus(mode);
 }
 
 void    Server::handlerModeT(Client* client, std::string& channelName, bool mode)
@@ -41,7 +54,18 @@ void    Server::handlerModeK(Client* client, std::string& channelName, const std
         std::cout << std::endl;
         return ;
     }
-    
+    if (!this->_channelList[channelName]->isMember(client))
+    {
+        LOG_WARNING("[CHANNEL] : You are not the member of this channel");
+        std::cout << std::endl;
+        return ;
+    }
+    if (!this->_channelList[channelName]->isOperator(client))
+    {
+        LOG_WARNING("[CHANNEL] : You are not the operator");
+        std::cout << std::endl;
+        return ;
+    }
 }
 
 void    Server::handlerModeO(Client* client, std::string& channelName, std::string& nickName, bool mode)
@@ -60,6 +84,18 @@ void    Server::handlerModeL(Client* client, std::string& channelName, const uns
     if (!this->hasServerChannel(channelName))
     {
         LOG_WARNING("[SERVER] : Channel is not in the server");
+        std::cout << std::endl;
+        return ;
+    }
+    if (!this->_channelList[channelName]->isMember(client))
+    {
+        LOG_WARNING("[CHANNEL] : You are not the member of this channel");
+        std::cout << std::endl;
+        return ;
+    }
+    if (!this->_channelList[channelName]->isOperator(client))
+    {
+        LOG_WARNING("[CHANNEL] : You are not the operator");
         std::cout << std::endl;
         return ;
     }
