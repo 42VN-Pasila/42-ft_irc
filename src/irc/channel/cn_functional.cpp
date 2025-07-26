@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 03:02:41 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/26 04:03:58 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void    Channel::addUser(const Client* user)
         return ;
     }
     if  (this->isInviteOnly() &&  this->isInvited(user))
-        this->_invitation.erase(user->getUserName());
-    this->_members.insert({user->getUserName(),const_cast<Client*>(user)});
+        this->_invitation.erase(user->getNickName());
+    this->_members.insert({user->getNickName(),const_cast<Client*>(user)});
     LOG_SUCCESS("[CHANNEL] : Welcome ");
-    std::cout << user->getUserName();
+    std::cout << user->getNickName();
     LOG_SUCCESS(" to the channel");
     std::cout << std::endl;
     
@@ -62,9 +62,9 @@ void    Channel::kickUser(const Client* user)
         std::cout << std::endl;
         return ;
     }
-    this->_members.erase(user->getUserName());
+    this->_members.erase(user->getNickName());
         LOG_SUCCESS("[CHANNEL] : ");
-    std::cout << user->getUserName();
+    std::cout << user->getNickName();
     LOG_SUCCESS(" is removed out of the channel");
     std::cout << std::endl;
 }
@@ -108,7 +108,7 @@ void    Channel::inviteUser(const Client* user)
         std::cout << std::endl;
         return ;
     }
-    this->_invitation.insert({user->getUserName(),const_cast<Client*>(user)});
+    this->_invitation.insert({user->getNickName(),const_cast<Client*>(user)});
     LOG_SUCCESS("[CHANNEL] : User is invited");
     std::cout << std::endl;
 }

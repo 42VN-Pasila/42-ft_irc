@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sv_cmd_execution.cpp                               :+:      :+:    :+:   */
+/*   sv_handler.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 03:31:54 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/26 03:57:56 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-void    Server::cmdJoin(Client* client, std::string& channelName, std::string& pass)
+void    Server::handlerJoin(Client* client, std::string& channelName, std::string& pass)
 {
     if (!this->isServerClient(client))
     {
@@ -32,3 +32,5 @@ void    Server::cmdJoin(Client* client, std::string& channelName, std::string& p
     else
         this->_channelList[channelName]->addUser(client);
 }
+
+
