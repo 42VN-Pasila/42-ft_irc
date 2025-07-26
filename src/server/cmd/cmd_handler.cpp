@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_handler.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 05:46:50 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/26 15:16:13 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,16 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
     }
     if (target[0] == '#')
     {
-        if (!this->hasServerChannel(target))
+        std::string channelName = target.substr(1);
+        if (!this->hasServerChannel(channelName))
         {
             LOG_WARNING("[SERVER] : Channel is not in the server");
+            std::cout << std::endl;
+            return; 
+        }
+        if (!this->_channelList[channelName]->isMember(client))
+        {
+            LOG_WARNING("[CHANNEL] : User is not in the channel");
             std::cout << std::endl;
             return; 
         }
@@ -78,6 +85,12 @@ void    Server::handlerPart(Client* client, std::string& channelName, std::strin
         LOG_WARNING("[SERVER] : Channel is not in the server");
         std::cout << std::endl;
         return;
+    }
+    if (!this->_channelList[channelName]->isMember(client))
+    {
+        LOG_WARNING("[CHANNEL] : User is not in the channel");
+        std::cout << std::endl;
+        return; 
     }
     else
     {
