@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 05:33:57 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/26 05:42:50 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,23 @@ void    Server::handlerJoin(Client* client, std::string& channelName, std::strin
 
 void    Server::handlerPrivmsg(Client* client, std::string& target, std::string& msg)
 {
-    
+    if (!this->isServerClient(client))
+    {
+        LOG_WARNING("[SERVER] : Client is not in the server");
+        std::cout << std::endl;
+        return;
+    }
+    if (target[0] == '#')
+    {
+        if (!this->hasServerChannel(target))
+        {
+            LOG_WARNING("[SERVER] : Channel is not in the server");
+            std::cout << std::endl;
+            return; 
+        }
+        else
+            //send msg to channel
+    }
 }
 
 void    Server::handlerPart(Client* client, std::string& channelName, std::string& msg)
