@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 05:17:23 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/26 05:30:18 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ class Server
         
         //cmdHandler
         void    handlerJoin(Client* client, std::string& channelName, std::string& pass);
-        void    handlerPart(Client* client, std::string& channelName, std::string& msg);
         void    handlerPrivmsg(Client* client, std::string& target, std::string& msg);
+        void    handlerPart(Client* client, std::string& channelName, std::string& msg);
         void    handlerInvite(Client* client, std::string& channelName, std::string& nickname);
         void    handlerKick(Client* client, std::string& channelName, std::string& targetUser);
         void    handlerTopic(Client* client, std::string& channelName, std::string& topic);
