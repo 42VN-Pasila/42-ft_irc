@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sv_handler.cpp                                     :+:      :+:    :+:   */
+/*   cmd_handler.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 03:57:56 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/26 05:17:29 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,7 @@ void    Server::handlerJoin(Client* client, std::string& channelName, std::strin
         this->_channelList[channelName]->addUser(client);
 }
 
-
+void    Server::handlerPart(Client* client, std::string& channelName, std::string& msg)
+{
+    
+}

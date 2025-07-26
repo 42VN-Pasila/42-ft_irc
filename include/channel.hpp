@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/26 03:07:46 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/26 05:15:51 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ class   Channel
         void                    addUser(const Client* user);
         void                    kickUser(const Client* user);
         void                    inviteUser(const Client* user);
+        void                    removeUser(const Client* user);
         void                    removeOperator();
         
         //Validation

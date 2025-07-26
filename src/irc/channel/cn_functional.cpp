@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 04:03:58 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/26 05:16:32 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,26 @@ void    Channel::inviteUser(const Client* user)
     }
     this->_invitation.insert({user->getNickName(),const_cast<Client*>(user)});
     LOG_SUCCESS("[CHANNEL] : User is invited");
+    std::cout << std::endl;
+}
+
+void    Channel::removeUser(const Client* user)
+{
+    if (user == nullptr)
+    {
+        LOG_WARNING("[CHANNEL] : User cannot be null");
+        std::cout << std::endl;
+        return ;
+    }
+    if (!this->isMember(user))
+    {
+        LOG_WARNING("[CHANNEL] : User is not in the channel");
+        std::cout << std::endl;
+        return ;
+    }
+    this->_members.erase(user->getNickName());
+        LOG_SUCCESS("[CHANNEL] : ");
+    std::cout << user->getNickName();
+    LOG_SUCCESS(" left the channel");
     std::cout << std::endl;
 }
