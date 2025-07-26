@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 05:30:18 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/26 05:44:21 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ class Server
         bool    isServerClient(const Client* client);
         bool    isServerChannel(const Channel* channel);
         bool    hasServerChannel(std::string& channelName);
+        bool    hasServerClient(std::string& clientName);
         
         //cmdHandler
         void    handlerJoin(Client* client, std::string& channelName, std::string& pass);

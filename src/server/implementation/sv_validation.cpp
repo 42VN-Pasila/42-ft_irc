@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:48:25 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 03:38:52 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/26 05:44:48 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,7 @@ bool    Server::isServerClient(const Client* client)
     return (this->_clientList.count(client->getUserName()));
 }
 
+bool    Server::hasServerChannel(std::string& clientName)
+{
+    return (this->_clientList.count(clientName));
+}
