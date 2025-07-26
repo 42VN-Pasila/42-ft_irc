@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/27 01:08:05 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/27 01:12:14 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,8 @@ void    Server::handlerModeL(Client* client, std::string& channelName, const uns
         std::cout << std::endl;
         return ;
     }
-    
+    if (mode == on)
+        this->_channelList[channelName]->setLimit(limit);
+    else
+        this->_channelList[channelName]->unsetLimit();
 }

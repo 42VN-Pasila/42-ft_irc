@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/27 01:03:09 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/27 01:09:21 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ class   Channel
 
         //Unsettes
         void                    unsetPassword();
+        void                    unsetLimit();
 
         //Functional
         void                    addUser(const Client* user);

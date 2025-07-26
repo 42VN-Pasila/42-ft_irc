@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 01:02:43 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/27 01:04:08 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/27 01:11:03 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,15 @@ void    Channel::unsetPassword()
         return ;
     }
     this->_password = "";
+}
+
+void    Channel::unsetLimit()
+{
+    if (this->_limit == 0)
+    {
+        LOG_WARNING("[CHANNEL] : This channel does not have limit");
+        std::cout << std::endl;
+        return ;
+    }
+    this->_limit = 0;
 }
