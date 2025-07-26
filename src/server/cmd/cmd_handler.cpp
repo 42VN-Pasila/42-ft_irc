@@ -6,7 +6,7 @@
 /*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 15:16:13 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/07/26 15:57:45 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void    Server::handlerJoin(Client* client, std::string& channelName, std::string& pass)
 {
-    if (!this->isServerClient(client))
+    if (client == nulllptr)
     {
-        LOG_WARNING("[SERVER] : You are not in server");
+        LOG_WARNING("[SERVER] : User cannot be null");
         std::cout << std::endl;
-        return;
+        return ;
     }
     if (!this->hasServerChannel(channelName))
     {
@@ -35,11 +35,11 @@ void    Server::handlerJoin(Client* client, std::string& channelName, std::strin
 
 void    Server::handlerPrivmsg(Client* client, std::string& target, std::string& msg)
 {
-    if (!this->isServerClient(client))
+    if (client == nulllptr)
     {
-        LOG_WARNING("[SERVER] : You are not in the server");
+        LOG_WARNING("[SERVER] : User cannot be null");
         std::cout << std::endl;
-        return;
+        return ;
     }
     if (target[0] == '#')
     {
@@ -74,11 +74,11 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
 
 void    Server::handlerPart(Client* client, std::string& channelName, std::string& msg)
 {
-    if (!this->isServerClient(client))
+    if (client == nulllptr)
     {
-        LOG_WARNING("[SERVER] : You are not in the server");
+        LOG_WARNING("[SERVER] : User cannot be null");
         std::cout << std::endl;
-        return;
+        return ;
     }
     if (!this->hasServerChannel(channelName))
     {
@@ -96,6 +96,47 @@ void    Server::handlerPart(Client* client, std::string& channelName, std::strin
     {
         this->_channelList[channelName]->removeUser(client);
         if (!msg.empty())
-            handlerPrivmsg(client, channelName, msg);
+            handlerPrivmsg(client, std::to_string("#") + channelName, msg);
     }
+}
+
+void    Server::handlerKick(Client* client, std::string& channelName, std::string& targetUser)
+{
+    if (client == nulllptr)
+    {
+        LOG_WARNING("[SERVER] : User cannot be null");
+        std::cout << std::endl;
+        return ;
+    }
+    if (!this->hasServerChannel(channelName))
+    {
+        LOG_WARNING("[SERVER] : Channel is not in the server");
+        std::cout << std::endl;
+        return;
+    }
+    if (!this->_channelList[channelName]->isMember(client))
+    {
+        LOG_WARNING("[CHANNEL] : User is not in the channel");
+        std::cout << std::endl;
+        return; 
+    }
+    if (!this->_channelList[channelName]->isOperator(client))
+    {
+        LOG_WARNING("[CHANNEL] : User is not the operator of the channel");
+        std::cout << std::endl;
+        return; 
+    }
+    if (!this->hasServerClient(targetUser))
+    {
+        LOG_WARNING("[SERVER] : Receiver is not in the server");
+        std::cout << std::endl;
+        return; 
+    }
+    if (!this->_channelList[channelName]->isMember(this->_clientList[targetUser]))
+    {
+        LOG_WARNING("[CHANNEL] : Receiver is not in the channel");
+        std::cout << std::endl;
+        return; 
+    }
+    this->_channelList[channelName]->kickUser(this->_clientList[targetUser]);
 }
