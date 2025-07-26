@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_handler.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 15:57:45 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/07/26 22:58:38 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void    Server::handlerJoin(Client* client, std::string& channelName, std::string& pass)
 {
-    if (client == nulllptr)
+    if (client == nullptr)
     {
         LOG_WARNING("[SERVER] : User cannot be null");
         std::cout << std::endl;
@@ -35,7 +35,7 @@ void    Server::handlerJoin(Client* client, std::string& channelName, std::strin
 
 void    Server::handlerPrivmsg(Client* client, std::string& target, std::string& msg)
 {
-    if (client == nulllptr)
+    if (client == nullptr)
     {
         LOG_WARNING("[SERVER] : User cannot be null");
         std::cout << std::endl;
@@ -74,7 +74,7 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
 
 void    Server::handlerPart(Client* client, std::string& channelName, std::string& msg)
 {
-    if (client == nulllptr)
+    if (client == nullptr)
     {
         LOG_WARNING("[SERVER] : User cannot be null");
         std::cout << std::endl;
@@ -94,15 +94,16 @@ void    Server::handlerPart(Client* client, std::string& channelName, std::strin
     }
     else
     {
+        std::string channel = "#" + channelName;
         this->_channelList[channelName]->removeUser(client);
         if (!msg.empty())
-            handlerPrivmsg(client, std::to_string("#") + channelName, msg);
+            handlerPrivmsg(client, channel, msg);
     }
 }
 
 void    Server::handlerKick(Client* client, std::string& channelName, std::string& targetUser)
 {
-    if (client == nulllptr)
+    if (client == nullptr)
     {
         LOG_WARNING("[SERVER] : User cannot be null");
         std::cout << std::endl;
