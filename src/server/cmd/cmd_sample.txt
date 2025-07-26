@@ -1,0 +1,42 @@
+1. JOIN - Join a channel:
+JOIN #channel
+JOIN #channel password
+JOIN #channel1,#channel2 password1,password2
+
+
+2. PART - Leave a channel:
+PART #channel
+PART #channel :Goodbye message
+PART #channel1,#channel2 :Leaving multiple channels
+
+
+3. PRIVMSG - Send message:
+PRIVMSG #channel :Hello everyone!
+PRIVMSG nickname :Private message
+PRIVMSG #channel1,#channel2 :Message to multiple targets
+
+
+4. KICK - Remove user from channel:
+KICK #channel nickname
+KICK #channel nickname :Reason for kick
+KICK #channel nick1,nick2 :Kick multiple users
+
+
+5. INVITE - Invite user to channel:
+INVITE nickname #channel
+
+
+6. TOPIC - Set/view channel topic:
+TOPIC #channel
+TOPIC #channel :New topic here
+
+
+7. MODE - Change channel modes:
+MODE #channel +i          (invite-only on)
+MODE #channel -i          (invite-only off)
+MODE #channel +k password (set password)
+MODE #channel -k          (remove password)
+MODE #channel +l 50       (set user limit)
+MODE #channel -l          (remove limit)
+MODE #channel +o nickname (give operator)
+MODE #channel -o nickname (remove operator)

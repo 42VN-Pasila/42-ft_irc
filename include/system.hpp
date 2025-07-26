@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:30:42 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/25 10:35:41 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/26 04:38:13 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,3 +42,5 @@ class Server;
 #define LOG_DEBUG(msg)   std::cout << CYAN << msg << RESET
 
 #define LIMIT_MEMBER 1000
+#define on true
+#define off false
