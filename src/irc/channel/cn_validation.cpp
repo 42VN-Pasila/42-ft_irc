@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:21:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/25 11:27:58 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/26 03:10:10 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ bool    Channel::isInvited(const Client* user)
         return false;
     }
     return  (this->_invitation.count(user->getUserName()));
+}
+
+bool    Channel::isRequiredPassword()
+{
+    return (!this->_password.empty());
 }
 
 bool    Channel::isInviteOnly()

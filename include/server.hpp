@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/25 11:38:25 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/26 03:06:01 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,17 @@ class Server
         Server(unsigned int port, std::string& password) : _port(port),
                                                         _password(password){};
         ~Server() = default;
-
-        
         
         //Validation
         bool    isServerClient(const Client* client);
         bool    isServerChannel(const Channel* channel);
-        bool    isServerChannelName(std::string& channelName);
+        bool    hasServerChannel(std::string& channelName);
         
+        //cmdHandler
         void    cmdJoin(Client* client, std::string& channelName);
+        
+        //Utility
+        void    passwordRequired(Channel* channel);
         
     private :
         unsigned int        _port;

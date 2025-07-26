@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/25 11:25:20 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/26 03:02:41 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void    Channel::addUser(const Client* user)
     if  (this->isInviteOnly() &&  this->isInvited(user))
         this->_invitation.erase(user->getUserName());
     this->_members.insert({user->getUserName(),const_cast<Client*>(user)});
-    LOG_SUCCESS("[CHANNEL] : ");
+    LOG_SUCCESS("[CHANNEL] : Welcome ");
     std::cout << user->getUserName();
-    LOG_SUCCESS(" is added to the channel");
+    LOG_SUCCESS(" to the channel");
     std::cout << std::endl;
     
 }

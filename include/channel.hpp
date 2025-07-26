@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/25 11:21:46 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/26 03:07:46 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ class   Channel
         bool                    isOperator(const Client* user);
         bool                    isMember(const Client* user);
         bool                    isInvited(const Client* user);
+        bool                    isRequiredPassword();
         bool                    isInviteOnly();
         bool                    isEmpty();
         bool                    isAvailable();

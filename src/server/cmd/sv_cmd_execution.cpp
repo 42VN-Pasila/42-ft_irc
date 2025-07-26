@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/25 11:45:55 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/26 03:04:52 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@ void    Server::cmdJoin(Client* client, std::string& channelName)
         std::cout << std::endl;
         return;
     }
-    if (!this->isServerChannelName(channelName))
+    if (!this->hasServerChannel(channelName))
     {
-        //create
+        
+        Channel* newChannel = new Channel(channelName);
+        this->_channelList.insert({channelName, newChannel});
+        newChannel->addUser(client);
+        newChannel->setOperator(client);
     }
     else
-    {
-        //add
-    }
-    
+        this->_channelList[channelName]->addUser(client);
 }
