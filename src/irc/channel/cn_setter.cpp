@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 00:32:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/27 10:50:40 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 00:35:38 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void    Channel::setPassword(const std::string& password)
     std::cout << std::endl;
 }
 
-void    Channel::setOperator(const Client* user)
+void    Channel::setOperator(Client* user)
 {
     if (user == nullptr)
     {
@@ -54,7 +54,7 @@ void    Channel::setOperator(const Client* user)
     }
     else
     {
-        this->_operator = const_cast<Client*>(user);
+        this->_operator = user;
         LOG_SUCCESS("[CHANNEL] : Channel is now operated by : ");
         std::cout << this->_operator->getNickName() <<std::endl;
     }

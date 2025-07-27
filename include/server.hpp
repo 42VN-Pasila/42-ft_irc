@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/27 22:48:50 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 00:32:42 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ class Server
         void    handlerModeL(Client& client, std::string& channelName, const unsigned int limit = 0, bool mode);
         
         //Utility
-        bool    passwordRequired(Channel* channel, const std::string& pass = "");
+        bool    passwordRequired(Channel& channel, const std::string& pass = "");
         
     private :
         unsigned int        _port;
