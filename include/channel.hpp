@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/27 01:09:21 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/27 10:56:19 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ class   Channel
         void                    setInviteStatus(const bool& status);
 
         //Unsettes
+        void                    unsetTopic();
         void                    unsetPassword();
         void                    unsetLimit();
 
@@ -69,6 +70,7 @@ class   Channel
         std::string             _password;
         std::string             _channelName;
         unsigned int            _limit;
+        bool                    _topicRight;
         bool                    _onlyInvite;
         
         std::map<std::string, Client*>       _members;

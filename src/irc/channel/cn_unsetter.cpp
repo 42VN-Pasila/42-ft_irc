@@ -6,11 +6,22 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 01:02:43 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/27 01:11:03 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/27 10:52:18 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
+
+void    Channel::unsetTopic()
+{
+    if (this->_topic.empty())
+    {
+        LOG_WARNING("[CHANNEL] : This channel does not have topic");
+        std::cout << std::endl;
+        return ;
+    }
+    this->_topic = "";
+}
 
 void    Channel::unsetPassword()
 {

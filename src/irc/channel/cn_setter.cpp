@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 00:32:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/27 01:05:40 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/27 10:50:40 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 void    Channel::setTopic(const std::string& topic)
 {
+    if (topic.empty())
+    {
+        LOG_WARNING("[CHANNEL] : Topic must not be empty string");
+        std::cout << std::endl;
+        return ;
+    }
     this->_topic = topic;
     LOG_SUCCESS("[CHANNEL] : Channel's topic is changed to ");
     std::cout << topic << std::endl;
