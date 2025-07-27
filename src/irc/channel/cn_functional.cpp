@@ -6,13 +6,13 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 05:16:32 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 00:59:34 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-void    Channel::addUser(const Client* user)
+void    Channel::addUser(Client* user)
 {
     if (user == nullptr)
     {
@@ -48,7 +48,7 @@ void    Channel::addUser(const Client* user)
     
 }
 
-void    Channel::kickUser(const Client* user)
+void    Channel::kickUser(Client* user)
 {
     if (user == nullptr)
     {
@@ -82,7 +82,7 @@ void    Channel::removeOperator()
     std::cout << std::endl;
 }
 
-void    Channel::inviteUser(const Client* user)
+void    Channel::inviteUser(Client* user)
 {
     if (user == nullptr)
     {
@@ -113,7 +113,7 @@ void    Channel::inviteUser(const Client* user)
     std::cout << std::endl;
 }
 
-void    Channel::removeUser(const Client* user)
+void    Channel::removeUser(Client* user)
 {
     if (user == nullptr)
     {

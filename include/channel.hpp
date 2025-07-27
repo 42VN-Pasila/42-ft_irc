@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/28 00:35:26 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 01:00:06 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class   Channel
         
         //Getters
         const std::string&      getTopic() const;
-        Client*                 getOperator() const;
+        const Client*           getOperator() const;
         const std::string&      getPassword() const;
         const std::string&      getChannelName() const;
         const unsigned int      getLimit() const;
@@ -49,16 +49,16 @@ class   Channel
         void                    unsetLimit();
 
         //Functional
-        void                    addUser(Client& user);
-        void                    kickUser(Client& user);
-        void                    inviteUser(Client& user);
-        void                    removeUser(Client& user);
+        void                    addUser(Client* user);
+        void                    kickUser(Client* user);
+        void                    inviteUser(Client* user);
+        void                    removeUser(Client* user);
         void                    removeOperator();
         
         //Validation
-        bool                    isOperator(Client& user);
-        bool                    isMember(Client& user);
-        bool                    isInvited(Client& user);
+        bool                    isOperator(Client* user);
+        bool                    isMember(Client* user);
+        bool                    isInvited(Client* user);
         bool                    isRequiredPassword();
         bool                    isInviteOnly();
         bool                    isEmpty();
@@ -74,6 +74,6 @@ class   Channel
         bool                    _topicRight;
         bool                    _onlyInvite;
         
-        std::map<std::string, Client&>       _members;
-        std::map<std::string, Client&>       _invitation;
+        std::map<std::string, Client*>       _members;
+        std::map<std::string, Client*>       _invitation;
 };

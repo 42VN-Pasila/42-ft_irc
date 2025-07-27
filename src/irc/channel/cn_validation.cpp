@@ -6,13 +6,13 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:21:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 04:09:51 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 01:00:19 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-bool    Channel::isOperator(const Client* user)
+bool    Channel::isOperator(Client* user)
 {
     if (user == nullptr)
     {
@@ -23,7 +23,7 @@ bool    Channel::isOperator(const Client* user)
     return (this->_operator == user);
 }
 
-bool    Channel::isMember(const Client* user)
+bool    Channel::isMember(Client* user)
 {
     if (user == nullptr)
     {
@@ -34,7 +34,7 @@ bool    Channel::isMember(const Client* user)
     return (this->_members.count(user->getNickName()));
 }
 
-bool    Channel::isInvited(const Client* user)
+bool    Channel::isInvited(Client* user)
 {
     if (user == nullptr)
     {

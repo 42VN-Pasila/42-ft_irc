@@ -6,28 +6,28 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/28 00:32:29 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 01:02:50 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-void    Server::handlerJoin(Client& client, std::string& channelName, std::string& pass)
+void    Server::handlerJoin(Client* client, std::string& channelName, std::string& pass)
 {
     if (!this->hasServerChannel(channelName))
     {
-        Channel newChannel = Channel(channelName);
+        Channel* newChannel = new Channel(channelName);
         this->_channelList.insert({channelName, newChannel});
-        newChannel.addUser(client);
-        newChannel.setOperator(client);
+        newChannel->addUser(client);
+        newChannel->setOperator(client);
     }
     else if (!this->passwordRequired(this->_channelList[channelName], pass))
         return ;
     else
-        this->_channelList[channelName].addUser(client);
+        this->_channelList[channelName]->addUser(client);
 }
 
-void    Server::handlerPrivmsg(Client& client, std::string& target, std::string& msg)
+void    Server::handlerPrivmsg(Client* client, std::string& target, std::string& msg)
 {
     if (target[0] == '#')
     {
@@ -38,7 +38,7 @@ void    Server::handlerPrivmsg(Client& client, std::string& target, std::string&
             std::cout << std::endl;
             return; 
         }
-        if (!this->_channelList[channelName].isMember(client))
+        if (!this->_channelList[channelName]->isMember(client))
         {
             LOG_WARNING("[CHANNEL] : User is not in the channel");
             std::cout << std::endl;
@@ -60,7 +60,7 @@ void    Server::handlerPrivmsg(Client& client, std::string& target, std::string&
     }
 }
 
-void    Server::handlerPart(Client& client, std::string& channelName, std::string& msg)
+void    Server::handlerPart(Client* client, std::string& channelName, std::string& msg)
 {
     if (!this->hasServerChannel(channelName))
     {
@@ -68,7 +68,7 @@ void    Server::handlerPart(Client& client, std::string& channelName, std::strin
         std::cout << std::endl;
         return;
     }
-    if (!this->_channelList[channelName].isMember(client))
+    if (!this->_channelList[channelName]->isMember(client))
     {
         LOG_WARNING("[CHANNEL] : User is not in the channel");
         std::cout << std::endl;
@@ -77,13 +77,13 @@ void    Server::handlerPart(Client& client, std::string& channelName, std::strin
     else
     {
         std::string channel = "#" + channelName;
-        this->_channelList[channelName].removeUser(client);
+        this->_channelList[channelName]->removeUser(client);
         if (!msg.empty())
             handlerPrivmsg(client, channel, msg);
     }
 }
 
-void    Server::handlerKick(Client& client, std::string& channelName, std::string& targetUser)
+void    Server::handlerKick(Client* client, std::string& channelName, std::string& targetUser)
 {
     if (!this->hasServerChannel(channelName))
     {
@@ -91,13 +91,13 @@ void    Server::handlerKick(Client& client, std::string& channelName, std::strin
         std::cout << std::endl;
         return;
     }
-    if (!this->_channelList[channelName].isMember(client))
+    if (!this->_channelList[channelName]->isMember(client))
     {
         LOG_WARNING("[CHANNEL] : User is not in the channel");
         std::cout << std::endl;
         return; 
     }
-    if (!this->_channelList[channelName].isOperator(client))
+    if (!this->_channelList[channelName]->isOperator(client))
     {
         LOG_WARNING("[CHANNEL] : User is not the operator of the channel");
         std::cout << std::endl;
@@ -109,11 +109,11 @@ void    Server::handlerKick(Client& client, std::string& channelName, std::strin
         std::cout << std::endl;
         return; 
     }
-    if (!this->_channelList[channelName].isMember(this->_clientList[targetUser]))
+    if (!this->_channelList[channelName]->isMember(this->_clientList[targetUser]))
     {
         LOG_WARNING("[CHANNEL] : Receiver is not in the channel");
         std::cout << std::endl;
         return; 
     }
-    this->_channelList[channelName].kickUser(this->_clientList[targetUser]);
+    this->_channelList[channelName]->kickUser(this->_clientList[targetUser]);
 }

@@ -6,13 +6,13 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:48:25 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 05:44:48 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 01:04:25 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-bool    Server::isServerChannel(const Channel* channel)
+bool    Server::isServerChannel(Channel* channel)
 {
     return (this->_channelList.count(channel->getChannelName()));
 }
@@ -22,7 +22,7 @@ bool    Server::hasServerChannel(std::string& channelName)
     return (this->_channelList.count(channelName));
 }
 
-bool    Server::isServerClient(const Client* client)
+bool    Server::isServerClient(Client* client)
 {
     return (this->_clientList.count(client->getUserName()));
 }
