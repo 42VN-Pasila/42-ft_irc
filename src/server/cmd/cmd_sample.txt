@@ -39,4 +39,7 @@ MODE #channel -k          (remove password)
 MODE #channel +l 50       (set user limit)
 MODE #channel -l          (remove limit)
 MODE #channel +o nickname (give operator)
-MODE #channel -o nickname (remove operator)
+MODE #channel -o nickname (remove operator) 
+// if + send on, otherwise send off, do not need to return true/false
+// if pass or nick .empty() is true, return error, 
+
