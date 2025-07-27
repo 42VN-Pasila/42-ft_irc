@@ -6,13 +6,13 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 22:58:38 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/27 22:08:31 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-void    Server::handlerJoin(Client* client, std::string& channelName, std::string& pass)
+void    Server::handlerJoin(Client& client, std::string& channelName, std::string& pass)
 {
     if (client == nullptr)
     {
@@ -33,14 +33,8 @@ void    Server::handlerJoin(Client* client, std::string& channelName, std::strin
         this->_channelList[channelName]->addUser(client);
 }
 
-void    Server::handlerPrivmsg(Client* client, std::string& target, std::string& msg)
+void    Server::handlerPrivmsg(Client& client, std::string& target, std::string& msg)
 {
-    if (client == nullptr)
-    {
-        LOG_WARNING("[SERVER] : User cannot be null");
-        std::cout << std::endl;
-        return ;
-    }
     if (target[0] == '#')
     {
         std::string channelName = target.substr(1);
@@ -72,14 +66,8 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
     }
 }
 
-void    Server::handlerPart(Client* client, std::string& channelName, std::string& msg)
+void    Server::handlerPart(Client& client, std::string& channelName, std::string& msg)
 {
-    if (client == nullptr)
-    {
-        LOG_WARNING("[SERVER] : User cannot be null");
-        std::cout << std::endl;
-        return ;
-    }
     if (!this->hasServerChannel(channelName))
     {
         LOG_WARNING("[SERVER] : Channel is not in the server");
@@ -101,14 +89,8 @@ void    Server::handlerPart(Client* client, std::string& channelName, std::strin
     }
 }
 
-void    Server::handlerKick(Client* client, std::string& channelName, std::string& targetUser)
+void    Server::handlerKick(Client& client, std::string& channelName, std::string& targetUser)
 {
-    if (client == nullptr)
-    {
-        LOG_WARNING("[SERVER] : User cannot be null");
-        std::cout << std::endl;
-        return ;
-    }
     if (!this->hasServerChannel(channelName))
     {
         LOG_WARNING("[SERVER] : Channel is not in the server");

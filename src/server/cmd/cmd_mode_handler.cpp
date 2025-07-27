@@ -6,13 +6,13 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/27 01:12:14 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/27 23:16:32 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-void    Server::handlerModeI(Client* client, std::string& channelName, bool mode)
+void    Server::handlerModeI(Client& client, std::string& channelName, bool mode)
 {
     if (!this->hasServerChannel(channelName))
     {
@@ -20,7 +20,7 @@ void    Server::handlerModeI(Client* client, std::string& channelName, bool mode
         std::cout << std::endl;
         return ;
     }
-    if (!this->_channelList[channelName]->isMember(client))
+    if (!this->_channelList[channelName]->isMember(&client))
     {
         LOG_WARNING("[CHANNEL] : You are not the member of this channel");
         std::cout << std::endl;
@@ -35,7 +35,7 @@ void    Server::handlerModeI(Client* client, std::string& channelName, bool mode
     this->_channelList[channelName]->setInviteStatus(mode);
 }
 
-void    Server::handlerModeT(Client* client, std::string& channelName, bool mode)
+void    Server::handlerModeT(Client& client, std::string& channelName, bool mode)
 {
     if (!this->hasServerChannel(channelName))
     {
@@ -46,7 +46,7 @@ void    Server::handlerModeT(Client* client, std::string& channelName, bool mode
     
 }
 
-void    Server::handlerModeK(Client* client, std::string& channelName, const std::string& pass, bool mode)
+void    Server::handlerModeK(Client& client, std::string& channelName, const std::string& pass, bool mode)
 {
     if (!this->hasServerChannel(channelName))
     {
@@ -72,7 +72,7 @@ void    Server::handlerModeK(Client* client, std::string& channelName, const std
         this->_channelList[channelName]->unsetPassword();
 }
 
-void    Server::handlerModeO(Client* client, std::string& channelName, std::string& nickName, bool mode)
+void    Server::handlerModeO(Client& client, std::string& channelName, std::string& nickName, bool mode)
 {
     if (!this->hasServerChannel(channelName))
     {
@@ -83,7 +83,7 @@ void    Server::handlerModeO(Client* client, std::string& channelName, std::stri
     
 }
 
-void    Server::handlerModeL(Client* client, std::string& channelName, const unsigned int limit, bool mode)
+void    Server::handlerModeL(Client& client, std::string& channelName, const unsigned int limit, bool mode)
 {
     if (!this->hasServerChannel(channelName))
     {

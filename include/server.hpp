@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 05:44:21 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/27 22:48:50 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,23 @@ class Server
         ~Server() = default;
         
         //Validation
-        bool    isServerClient(const Client* client);
-        bool    isServerChannel(const Channel* channel);
+        bool    isServerClient(Client& client);
+        bool    isServerChannel(Channel& channel);
         bool    hasServerChannel(std::string& channelName);
         bool    hasServerClient(std::string& clientName);
         
         //cmdHandler
-        void    handlerJoin(Client* client, std::string& channelName, std::string& pass);
-        void    handlerPrivmsg(Client* client, std::string& target, std::string& msg);
-        void    handlerPart(Client* client, std::string& channelName, std::string& msg);
-        void    handlerInvite(Client* client, std::string& channelName, std::string& nickname);
-        void    handlerKick(Client* client, std::string& channelName, std::string& targetUser);
-        void    handlerTopic(Client* client, std::string& channelName, std::string& topic);
-        void    handlerModeI(Client* client, std::string& channelName, bool mode);
-        void    handlerModeT(Client* client, std::string& channelName, bool mode);
-        void    handlerModeK(Client* client, std::string& channelName, const std::string& pass = "", bool mode);
-        void    handlerModeO(Client* client, std::string& channelName, std::string& nickName, bool mode);
-        void    handlerModeL(Client* client, std::string& channelName, const unsigned int limit = 0, bool mode);
+        void    handlerJoin(Client& client, std::string& channelName, std::string& pass);
+        void    handlerPrivmsg(Client& client, std::string& target, std::string& msg);
+        void    handlerPart(Client& client, std::string& channelName, std::string& msg);
+        void    handlerInvite(Client& client, std::string& channelName, std::string& nickname);
+        void    handlerKick(Client& client, std::string& channelName, std::string& targetUser);
+        void    handlerTopic(Client& client, std::string& channelName, std::string& topic);
+        void    handlerModeI(Client& client, std::string& channelName, bool mode);
+        void    handlerModeT(Client& client, std::string& channelName, bool mode);
+        void    handlerModeK(Client& client, std::string& channelName, const std::string& pass = "", bool mode);
+        void    handlerModeO(Client& client, std::string& channelName, std::string& nickName, bool mode);
+        void    handlerModeL(Client& client, std::string& channelName, const unsigned int limit = 0, bool mode);
         
         //Utility
         bool    passwordRequired(Channel* channel, const std::string& pass = "");
@@ -46,6 +46,6 @@ class Server
     private :
         unsigned int        _port;
         std::string        _password;
-        std::map<std::string, Client*>   _clientList;
-        std::map<std::string, Channel*>  _channelList;
+        std::map<std::string, Client&>   _clientList;
+        std::map<std::string, Channel&>  _channelList;
 };
