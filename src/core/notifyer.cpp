@@ -6,7 +6,13 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/28 10:14:08 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 12:10:16 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "system.hpp"
+
+void    Notifyer::notifySuccess(Client* client, int code, std::string msg)
+{
+    
+}

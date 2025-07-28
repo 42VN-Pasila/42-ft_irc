@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:30:42 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 04:38:13 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 11:48:11 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
 #include "client.hpp"
 #include "channel.hpp"
 #include "server.hpp"
+#include "notifyer.hpp"
 
+class Notifyer;
 class Client;
 class Channel;
 class Server;
