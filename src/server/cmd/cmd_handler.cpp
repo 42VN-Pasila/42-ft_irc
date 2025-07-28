@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/28 22:24:53 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 23:46:36 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,7 @@ void    Server::handlerPart(Client* client, std::string& channelName, std::strin
     if (!this->hasServerChannel(channelName))
         Notifyer::notifyError(client, 403);
     if (!this->_channelList[channelName]->isMember(client))
-    {
-        LOG_WARNING("[CHANNEL] : User is not in the channel");
-        std::cout << std::endl;
-        return; 
-    }
+        Notifyer::notifyError(client, 442);
     else
     {
         std::string channel = "#" + channelName;
@@ -72,28 +68,12 @@ void    Server::handlerKick(Client* client, std::string& channelName, std::strin
     if (!this->hasServerChannel(channelName))
         Notifyer::notifyError(client, 403);
     if (!this->_channelList[channelName]->isMember(client))
-    {
-        LOG_WARNING("[CHANNEL] : User is not in the channel");
-        std::cout << std::endl;
-        return; 
-    }
+        Notifyer::notifyError(client, 442);
     if (!this->_channelList[channelName]->isOperator(client))
-    {
-        LOG_WARNING("[CHANNEL] : User is not the operator of the channel");
-        std::cout << std::endl;
-        return; 
-    }
+        Notifyer::notifyError(client, 482);
     if (!this->hasServerClient(targetUser))
-    {
-        LOG_WARNING("[SERVER] : Receiver is not in the server");
-        std::cout << std::endl;
-        return; 
-    }
+        Notifyer::notifyError(client, 444);
     if (!this->_channelList[channelName]->isMember(this->_clientList[targetUser]))
-    {
-        LOG_WARNING("[CHANNEL] : Receiver is not in the channel");
-        std::cout << std::endl;
-        return; 
-    }
+        Notifyer::notifyError(client, 445);
     this->_channelList[channelName]->kickUser(this->_clientList[targetUser]);
 }
