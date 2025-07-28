@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/28 14:10:07 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 14:15:55 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,8 @@ void    Notifyer::notifyError(Client* client, int code, const std::string& msg)
 
 void    Notifyer::notifyBroadcast(Channel* channel, const std::string& msg)
 {
-    std::string message = ":irc.server " + channel->getChannelName() + " " + msg + RESET;
+    std::string message = "[SERVER] : [" + channel->getChannelName() + "] :" + msg + RESET;
     
     for (auto& pair : channel->getMemberList())
-    {
-        
-    }
+        sendMsg(pair.second, CYAN + message);
 }

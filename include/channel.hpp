@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/28 01:00:06 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 14:14:06 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ class   Channel
         ~Channel() = default;
         
         //Getters
-        const std::string&      getTopic() const;
-        const Client*           getOperator() const;
-        const std::string&      getPassword() const;
-        const std::string&      getChannelName() const;
-        const unsigned int      getLimit() const;
-        const bool              getInviteStatus() const;    
-        const unsigned int      getQuantity() const;
+        const std::string&                      getTopic() const;
+        const Client*                           getOperator() const;
+        const std::string&                      getPassword() const;
+        const std::string&                      getChannelName() const;
+        const unsigned int                      getLimit() const;
+        const bool                              getInviteStatus() const;    
+        const unsigned int                      getQuantity() const;
+        const std::map<std::string, Client*>    getMemberList() const;
         
         //Setters
         void                    setTopic(const std::string& topic);

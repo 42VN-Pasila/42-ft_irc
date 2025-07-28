@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 23:17:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/24 00:31:28 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 14:13:23 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,9 @@ const bool  Channel::getInviteStatus() const
 const unsigned int  Channel::getQuantity() const
 {
     return this->_members.size();
+}
+
+const std::map<std::string, Client*> Channel::getMemberList() const
+{
+    return this->_members;
 }
