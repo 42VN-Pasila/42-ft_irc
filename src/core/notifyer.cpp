@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/28 14:00:13 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 14:10:07 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,8 @@ void    Notifyer::notifyBroadcast(Channel* channel, const std::string& msg)
 {
     std::string message = ":irc.server " + channel->getChannelName() + " " + msg + RESET;
     
-    sendMsg(client, CYAN + message);   
+    for (auto& pair : channel->getMemberList())
+    {
+        
+    }
 }
