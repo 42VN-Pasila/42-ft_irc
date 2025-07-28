@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/28 19:05:58 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 20:54:12 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 #include "system.hpp"
 
-#define ERR_NOSUCHNICK          " :No such nick/channel"
+#define ERR_NOSUCHNICK          " :No such nickname in the server"
 #define ERR_NONICKNAMEGIVEN     " :No nickname given"  
 #define ERR_ERRONEUSNICKNAME    " :Erroneous nickname"
 #define ERR_NICKNAMEINUSE       " :Nickname is already in use"
-#define ERR_NOSUCHCHANNEL       " :No such channel"
+#define ERR_NOSUCHCHANNEL       " :No such channel in the server"
 #define ERR_CANNOTSENDTOCHAN    " :Cannot send to channel"
-#define ERR_NOTONCHANNEL        " :You're not on that channel" 
-#define ERR_USERONCHANNEL       " :is already on channel"
+#define ERR_NOTONCHANNEL        " :User is not on that channel" 
+#define ERR_USERONCHANNEL       " :User is already on channel"
 #define ERR_CHANNELISFULL       " :Cannot join channel : Channel is full"
 #define ERR_INVITEONLYCHAN      " :Cannot join channel : Channel is in only invited mode"
 #define ERR_BADCHANNELKEY       " :Cannot join channel (+k)"

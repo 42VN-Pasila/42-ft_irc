@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/28 01:02:50 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 22:24:53 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,16 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
     {
         std::string channelName = target.substr(1);
         if (!this->hasServerChannel(channelName))
-        {
-            LOG_WARNING("[SERVER] : Channel is not in the server");
-            std::cout << std::endl;
-            return; 
-        }
+            Notifyer::notifyError(client, 403);
         if (!this->_channelList[channelName]->isMember(client))
-        {
-            LOG_WARNING("[CHANNEL] : User is not in the channel");
-            std::cout << std::endl;
-            return; 
-        }
+            Notifyer::notifyError(client, 442);
         else
             //send msg to channel
     }
     else
     {
-        if (!this->hasServerClient(target))
-        {
-            LOG_WARNING("[SERVER] : Receiver is not in the server");
-            std::cout << std::endl;
-            return; 
-        }
+        if (!this->hasServerClient(target)) 
+            Notifyer::notifyError(client, 442);
         else
             //send msg to client   
     }
@@ -63,11 +51,7 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
 void    Server::handlerPart(Client* client, std::string& channelName, std::string& msg)
 {
     if (!this->hasServerChannel(channelName))
-    {
-        LOG_WARNING("[SERVER] : Channel is not in the server");
-        std::cout << std::endl;
-        return;
-    }
+        Notifyer::notifyError(client, 403);
     if (!this->_channelList[channelName]->isMember(client))
     {
         LOG_WARNING("[CHANNEL] : User is not in the channel");
@@ -86,11 +70,7 @@ void    Server::handlerPart(Client* client, std::string& channelName, std::strin
 void    Server::handlerKick(Client* client, std::string& channelName, std::string& targetUser)
 {
     if (!this->hasServerChannel(channelName))
-    {
-        LOG_WARNING("[SERVER] : Channel is not in the server");
-        std::cout << std::endl;
-        return;
-    }
+        Notifyer::notifyError(client, 403);
     if (!this->_channelList[channelName]->isMember(client))
     {
         LOG_WARNING("[CHANNEL] : User is not in the channel");
