@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/28 23:46:36 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/29 02:09:13 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,42 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
     {
         std::string channelName = target.substr(1);
         if (!this->hasServerChannel(channelName))
+        {
             Notifyer::notifyError(client, 403);
+            return ;
+        }
         if (!this->_channelList[channelName]->isMember(client))
+        {
             Notifyer::notifyError(client, 442);
+            return ;
+        }
         else
-            //send msg to channel
+            Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
     }
     else
     {
-        if (!this->hasServerClient(target)) 
+        if (!this->hasServerClient(target))
+        {
             Notifyer::notifyError(client, 442);
+            return ;
+        } 
         else
-            //send msg to client   
+            Notifyer::sendMsg(this->_clientList[target], msg); 
     }
 }
 
 void    Server::handlerPart(Client* client, std::string& channelName, std::string& msg)
 {
     if (!this->hasServerChannel(channelName))
+    {
         Notifyer::notifyError(client, 403);
+        return ;
+    }
     if (!this->_channelList[channelName]->isMember(client))
+    {
         Notifyer::notifyError(client, 442);
+        return ;
+    }
     else
     {
         std::string channel = "#" + channelName;
@@ -66,14 +81,29 @@ void    Server::handlerPart(Client* client, std::string& channelName, std::strin
 void    Server::handlerKick(Client* client, std::string& channelName, std::string& targetUser)
 {
     if (!this->hasServerChannel(channelName))
+    {
         Notifyer::notifyError(client, 403);
+        return ;
+    }
     if (!this->_channelList[channelName]->isMember(client))
+    {
         Notifyer::notifyError(client, 442);
+        return ;
+    }
     if (!this->_channelList[channelName]->isOperator(client))
+    {
         Notifyer::notifyError(client, 482);
+        return ;
+    }
     if (!this->hasServerClient(targetUser))
+    {
         Notifyer::notifyError(client, 444);
+        return ;
+    }
     if (!this->_channelList[channelName]->isMember(this->_clientList[targetUser]))
+    {
         Notifyer::notifyError(client, 445);
+        return ;
+    }
     this->_channelList[channelName]->kickUser(this->_clientList[targetUser]);
 }
