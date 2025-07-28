@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/28 11:49:42 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 13:56:23 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 #define ERR_CANNOTSENDTOCHAN    " :Cannot send to channel"
 #define ERR_NOTONCHANNEL        " :You're not on that channel" 
 #define ERR_USERONCHANNEL       " :is already on channel"
-#define ERR_CHANNELISFULL       " :Cannot join channel (+l)"
-#define ERR_INVITEONLYCHAN      " :Cannot join channel (+i)"
+#define ERR_CHANNELISFULL       " :Cannot join channel : Channel is full"
+#define ERR_INVITEONLYCHAN      " :Cannot join channel : Channel is in only invited mode"
 #define ERR_BADCHANNELKEY       " :Cannot join channel (+k)"
 #define ERR_CHANOPRIVSNEEDED    " :You're not channel operator"
 #define ERR_NOPRIVILEGES        " :Permission Denied- You're not an IRC operator"
@@ -35,11 +35,13 @@
 class   Notifyer
 {
     public  :
-        static void notifySuccess(Client* client, int code, std::string msg = "");
+        static void notifySuccess(Client* client, int code, const std::string& msg = "");
         
-        static void notifyError(Client*  client, int code, std::string msg = "");
+        static void notifyError(Client*  client, int code, const std::string& msg = "");
     
-        static void notifyBroadcast(Channel* channel, std::string msg = "");
+        static void notifyBroadcast(Channel* channel, const std::string& msg = "");
+
+        static void sendMsg(Client* client, const std::string& msg = "");
         
     private :
         inline static const std::map<int, std::string> _notifyCode = 
