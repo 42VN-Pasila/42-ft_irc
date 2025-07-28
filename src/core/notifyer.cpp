@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/28 14:15:55 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 19:03:58 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,34 @@ void    Notifyer::sendMsg(Client* client, const std::string& msg)
                             " is not connected to the server socket";
         LOG_WARNING(error);    
     }
-}
-
-void    Notifyer::notifySuccess(Client* client, int code, const std::string& msg)
-{
-    std::string message = "[SERVER] :" + std::to_string(code) + ": ["
-                        + client->getNickName() + "] " + msg + RESET;
-
-    sendMsg(client, GREEN + message);    
-}
-
-void    Notifyer::notifyError(Client* client, int code, const std::string& msg)
-{
-    std::string message = "[SERVER] :" + std::to_string(code) + ": ["
-                        + client->getNickName() + "] " + msg + RESET;
     
-    sendMsg(client, YELLOW + message);                    
+    ssize_t sent = send(socket, msg.c_str(), msg.length(), 0);
+    
+    if (sent != msg.length())
+    {
+        
+    }
+}
+
+void    Notifyer::notifySuccess(Client* client, const std::string& msg)
+{
+    std::string message = "[SERVER] : [" + client->getNickName() + "] " + msg;
+
+    sendMsg(client, GREEN + message + RESET);    
+}
+
+void    Notifyer::notifyError(Client* client, int code)
+{
+    std::string message = "[SERVER] :" + std::to_string(code) + ": ["
+                        + client->getNickName() + "] " + Notifyer::_notifyCode[code];
+    
+    sendMsg(client, YELLOW + message + RESET);                    
 }
 
 void    Notifyer::notifyBroadcast(Channel* channel, const std::string& msg)
 {
-    std::string message = "[SERVER] : [" + channel->getChannelName() + "] :" + msg + RESET;
+    std::string message = "[SERVER] : [" + channel->getChannelName() + "] :" + msg;
     
     for (auto& pair : channel->getMemberList())
-        sendMsg(pair.second, CYAN + message);
+        sendMsg(pair.second, CYAN + message + RESET);
 }

@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/28 13:56:23 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/28 19:05:58 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@
 class   Notifyer
 {
     public  :
-        static void notifySuccess(Client* client, int code, const std::string& msg = "");
+        static void notifySuccess(Client* client, const std::string& msg = "");
         
-        static void notifyError(Client*  client, int code, const std::string& msg = "");
+        static void notifyError(Client*  client, int code);
     
         static void notifyBroadcast(Channel* channel, const std::string& msg = "");
 
         static void sendMsg(Client* client, const std::string& msg = "");
         
     private :
-        inline static const std::map<int, std::string> _notifyCode = 
+        inline static std::map<int, std::string> _notifyCode = 
         {
             {401, ERR_NOSUCHNICK},
             {431, ERR_NONICKNAMEGIVEN},
