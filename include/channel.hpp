@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/29 14:18:30 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/29 14:25:31 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ class   Channel
         int                    removeOperator();
         
         //Validation
-        int                    isOperator(Client* user);
-        int                    isMember(Client* user);
-        int                    isInvited(Client* user);
+        int                     isOperator(Client* user);
+        int                     isMember(Client* user);
+        int                     isInvited(Client* user);
         bool                    isRequiredPassword();
         bool                    isInviteOnly();
         bool                    isEmpty();
