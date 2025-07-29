@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/29 12:53:50 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 00:53:48 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ class Server
         void    handlerJoin(Client* client, std::string& channelName, std::string& pass);
         void    handlerPrivmsg(Client* client, std::string& target, std::string& msg);
         void    handlerPart(Client* client, std::string& channelName, std::string& msg);
-        void    handlerInvite(Client* client, std::string& channelName, std::string& nickname);
+        void    handlerInvite(Client* client, std::string& channelName, std::string& targetUser);
         void    handlerKick(Client* client, std::string& channelName, std::string& targetUser);
-        void    handlerTopic(Client* client, std::string& channelName, std::string& topic);
+        void    handlerTopic(Client* client, std::string& channelName, const std::string& topic = "");
         void    handlerModeI(Client* client, std::string& channelName, bool mode);
         void    handlerModeT(Client* client, std::string& channelName, bool mode);
         void    handlerModeK(Client* client, std::string& channelName, const std::string& pass = "", bool mode);
-        void    handlerModeO(Client* client, std::string& channelName, std::string& nickName, bool mode);
+        void    handlerModeO(Client* client, std::string& channelName, std::string& targetUser, bool mode);
         void    handlerModeL(Client* client, std::string& channelName, const unsigned int limit = 0, bool mode);
         
         //Utility

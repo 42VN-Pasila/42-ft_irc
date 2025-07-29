@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/29 17:04:59 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 00:59:25 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void    Server::handlerModeI(Client* client, std::string& channelName, bool mode
     code = this->_channelList[channelName]->setInviteStatus(mode);
     if (code == -1)
     {
-        msg = (mode == on ? "[SERVER] : [CHANNEL] : Invite-only mode enabled" : "[SERVER] : [CHANNEL] : Invite-only mode disabled");
+        msg = (mode == on ? "[SERVER] : [CHANNEL] : Invite-only mode enabled" 
+                            : "[SERVER] : [CHANNEL] : Invite-only mode disabled");
         Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
     }
     else     
@@ -42,7 +43,8 @@ void    Server::handlerModeT(Client* client, std::string& channelName, bool mode
         code = this->_channelList[channelName]->unsetTopicRight();
     if (code == -1)
     {
-        msg = (mode == on ? "[SERVER] : [CHANNEL] : Invite-only mode enabled" : "[SERVER] : [CHANNEL] : Invite-only mode disabled");
+        msg = (mode == on ? "[SERVER] : [CHANNEL] : Topic mode enabled only for operator" 
+                            : "[SERVER] : [CHANNEL] : Topic mode enabled for all members");
         Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
     }
     else     
@@ -62,20 +64,21 @@ void    Server::handlerModeK(Client* client, std::string& channelName, const std
         code = this->_channelList[channelName]->unsetPassword();
     if (code == -1)
     {
-        msg = (mode == on ? "[SERVER] : [CHANNEL] : New password is set" : "[SERVER] : [CHANNEL] : Password is removed");
+        msg = (mode == on ? "[SERVER] : [CHANNEL] : New password is set"
+                            : "[SERVER] : [CHANNEL] : Password is removed");
         Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
     }
     else     
         Notifyer::notifyError(client, code);
 }
 
-void    Server::handlerModeO(Client* client, std::string& channelName, std::string& nickName, bool mode)
+void    Server::handlerModeO(Client* client, std::string& channelName, std::string& targetUser, bool mode)
 {
-    if (!this->hasServerChannel(channelName))
-    {
-        Notifyer::notifyError(client, 403);
+    if (!validateOperator(client, channelName))
         return ;
-    } 
+    if (!validateTarget(client, channelName, targetUser))
+        return ;
+    
 }
 
 void    Server::handlerModeL(Client* client, std::string& channelName, const unsigned int limit, bool mode)

@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/29 16:04:56 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 01:14:18 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,40 @@ void    Server::handlerKick(Client* client, std::string& channelName, std::strin
     {
         std::string msg = "[SERVER] : " + client->getNickName() + " has been kicked out of the channel";
         Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
+    }
+    else
+        Notifyer::notifyError(client, code);
+}
+
+void    Server::handlerTopic(Client* client, std::string& channelName, const std::string& topic)
+{
+    if (!validateChannel(client, channelName))
+        return ;
+    if (topic.empty())
+    {
+        Notifyer::sendMsg(client, this->_channelList[channelName]->getTopic());
+        return ;
+    }
+    if (!validateOperator(client, channelName))
+        return ;
+    std::string msg = "[SERVER] : [CHANNEL] : Topic : " + this->_channelList[channelName]->getTopic();
+    Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
+}
+
+void    Server::handlerInvite(Client* client, std::string& channelName, std::string& targetUser)
+{
+    int code;
+    
+    if (!validateOperator(client, channelName))
+        return ;
+    if (!validateTarget(client, channelName, targetUser))
+        return ;
+    code = this->_channelList[channelName]->inviteUser(this->_clientList[targetUser]);
+    if (code == -1)
+    {
+        std::string msg = "[SERVER] : [CHANNEL] " + channelName + " send you an invitation from "
+                                                                + client->getNickName();
+        Notifyer::sendMsg(this->_clientList[targetUser], msg);                             
     }
     else
         Notifyer::notifyError(client, code);

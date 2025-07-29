@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 00:32:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/29 17:08:01 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 00:27:01 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 int    Channel::setTopic(const std::string& topic)
 {
-    if (topic.empty())
-        return 483;
     this->_topic = topic;
-    LOG_SUCCESS("[CHANNEL] : Channel's topic is changed to ");
-    std::cout << topic << std::endl;
+    return -1;
 }
 
 int    Channel::setPassword(const std::string& password)
