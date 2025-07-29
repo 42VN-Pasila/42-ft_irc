@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/29 14:15:11 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/29 16:03:32 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,8 @@ int    Channel::addUser(Client* user)
         return 447;
     if  (this->isInviteOnly() &&  this->isInvited(user))
         this->_invitation.erase(user->getNickName());
-    this->_members.insert({user->getNickName(),const_cast<Client*>(user)});
-    LOG_SUCCESS("[CHANNEL] : Welcome ");
-    std::cout << user->getNickName();
-    LOG_SUCCESS(" to the channel");
-    std::cout << std::endl;
-    
+    this->_members.insert({user->getNickName(), user});
+    return -1;
 }
 
 int    Channel::kickUser(Client* user)
@@ -76,8 +72,6 @@ int    Channel::removeUser(Client* user)
     if (!this->isMember(user))
         return 442;
     this->_members.erase(user->getNickName());
-        LOG_SUCCESS("[CHANNEL] : ");
-    std::cout << user->getNickName();
-    LOG_SUCCESS(" left the channel");
-    std::cout << std::endl;
+    return -1;
+    
 }
