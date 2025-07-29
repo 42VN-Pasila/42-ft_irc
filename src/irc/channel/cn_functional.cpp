@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/29 16:03:32 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/29 16:13:43 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ int    Channel::kickUser(Client* user)
     if (!this->isMember(user))
         return 442;
     this->_members.erase(user->getNickName());
-        LOG_SUCCESS("[CHANNEL] : ");
-    std::cout << user->getNickName();
-    LOG_SUCCESS(" is removed out of the channel");
-    std::cout << std::endl;
+    return -1;
 }
 
 int    Channel::removeOperator()

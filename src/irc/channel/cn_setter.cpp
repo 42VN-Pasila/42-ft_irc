@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 00:32:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/29 14:33:12 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/29 17:08:01 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ int    Channel::setPassword(const std::string& password)
     if (password.empty())
         return 484;
     this->_password = password;
-    LOG_SUCCESS("[CHANNEL] : New password is set");
-    std::cout << std::endl;
+    return -1;
 }
 
 int    Channel::setOperator(Client* user)
@@ -51,14 +50,8 @@ int    Channel::setInviteStatus(const bool& status)
     else if (!this->_onlyInvite && !status)
         return 455;
     else
-    {
         this->_onlyInvite = status;
-        if (status)
-            LOG_SUCCESS("[CHANNEL] : Invite-only mode enabled");
-        else
-            LOG_SUCCESS("[CHANNEL] : Invite-only mode disabled");
-        std::cout << std::endl;
-    }
+    return -1;
 }
 
 int    Channel::setLimit(const unsigned int& limit)
@@ -66,11 +59,14 @@ int    Channel::setLimit(const unsigned int& limit)
     if (limit > LIMIT_MEMBER)
         return 456;
     else
-    {
         this->_limit = limit;
-        LOG_SUCCESS("[CHANNEL] : Channel limits only ");
-        std::cout << std::to_string(limit);
-        LOG_SUCCESS(" member(s)");
-    }
-    std::cout << std::endl;
+    return -1;
+}
+
+int     Channel::setTopicRight()
+{
+    if (this->_topicRight)
+        return 454;
+    this->_topicRight = true;
+    return -1;
 }
