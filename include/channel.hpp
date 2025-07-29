@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/29 02:33:18 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/29 14:18:30 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,30 +38,30 @@ class   Channel
         const std::map<std::string, Client*>    getMemberList() const;
         
         //Setters
-        void                    setTopic(const std::string& topic);
-        void                    setTopicRight();
-        void                    setPassword(const std::string& password);
-        void                    setOperator(Client* user);
-        void                    setLimit(const unsigned int& limit);
-        void                    setInviteStatus(const bool& status);
+        int                    setTopic(const std::string& topic);
+        int                    setTopicRight();
+        int                    setPassword(const std::string& password);
+        int                    setOperator(Client* user);
+        int                    setLimit(const unsigned int& limit);
+        int                    setInviteStatus(const bool& status);
 
         //Unsettes
-        void                    unsetTopic();
-        void                    unsetTopicRight();
-        void                    unsetPassword();
-        void                    unsetLimit();
+        int                    unsetTopic();
+        int                    unsetTopicRight();
+        int                    unsetPassword();
+        int                    unsetLimit();
 
         //Functional
-        void                    addUser(Client* user);
-        void                    kickUser(Client* user);
-        void                    inviteUser(Client* user);
-        void                    removeUser(Client* user);
-        void                    removeOperator();
+        int                    addUser(Client* user);
+        int                    kickUser(Client* user);
+        int                    inviteUser(Client* user);
+        int                    removeUser(Client* user);
+        int                    removeOperator();
         
         //Validation
-        bool                    isOperator(Client* user);
-        bool                    isMember(Client* user);
-        bool                    isInvited(Client* user);
+        int                    isOperator(Client* user);
+        int                    isMember(Client* user);
+        int                    isInvited(Client* user);
         bool                    isRequiredPassword();
         bool                    isInviteOnly();
         bool                    isEmpty();
