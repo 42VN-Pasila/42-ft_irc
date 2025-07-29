@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/29 02:34:56 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/29 12:59:21 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,15 @@
 
 void    Server::handlerModeI(Client* client, std::string& channelName, bool mode)
 {
-    if (!this->hasServerChannel(channelName))
-    {
-        Notifyer::notifyError(client, 403);
+    if (!validateOperator(client, channelName))
         return ;
-    }
-    if (!this->_channelList[channelName]->isMember(client))
-    {
-        Notifyer::notifyError(client, 442);
-        return ;
-    }
-    if (!this->_channelList[channelName]->isOperator(client))
-    {
-        Notifyer::notifyError(client, 482);
-        return ;
-    }
     this->_channelList[channelName]->setInviteStatus(mode);
 }
 
 void    Server::handlerModeT(Client* client, std::string& channelName, bool mode)
 {
-    if (!this->hasServerChannel(channelName))
-    {
-        Notifyer::notifyError(client, 403);
+    if (!validateOperator(client, channelName))
         return ;
-    }
-    if (!this->_channelList[channelName]->isMember(client))
-    {
-        Notifyer::notifyError(client, 442);
-        return ;
-    }
-    if (!this->_channelList[channelName]->isOperator(client))
-    {
-        Notifyer::notifyError(client, 482);
-        return ;
-    }
     if (mode == on)
         this->_channelList[channelName]->setTopicRight();
     else
@@ -57,21 +31,8 @@ void    Server::handlerModeT(Client* client, std::string& channelName, bool mode
 
 void    Server::handlerModeK(Client* client, std::string& channelName, const std::string& pass, bool mode)
 {
-    if (!this->hasServerChannel(channelName))
-    {
-        Notifyer::notifyError(client, 403);
+    if (!validateOperator(client, channelName))
         return ;
-    }
-    if (!this->_channelList[channelName]->isMember(client))
-    {
-        Notifyer::notifyError(client, 442);
-        return ;
-    }
-    if (!this->_channelList[channelName]->isOperator(client))
-    {
-        Notifyer::notifyError(client, 482);
-        return ;
-    }
     if (mode == on)
         this->_channelList[channelName]->setPassword(pass);
     else
@@ -90,21 +51,8 @@ void    Server::handlerModeO(Client* client, std::string& channelName, std::stri
 
 void    Server::handlerModeL(Client* client, std::string& channelName, const unsigned int limit, bool mode)
 {
-    if (!this->hasServerChannel(channelName))
-    {
-        Notifyer::notifyError(client, 403);
+    if (!validateOperator(client, channelName))
         return ;
-    }
-    if (!this->_channelList[channelName]->isMember(client))
-    {
-        Notifyer::notifyError(client, 442);
-        return ;
-    }
-    if (!this->_channelList[channelName]->isOperator(client))
-    {
-        Notifyer::notifyError(client, 482);
-        return ;
-    }
     if (mode == on)
         this->_channelList[channelName]->setLimit(limit);
     else
