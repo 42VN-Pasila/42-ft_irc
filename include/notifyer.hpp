@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/28 23:37:55 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/29 03:02:50 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #define ERR_USERONCHANNEL       " :User is already on channel"
 #define ERR_TARGNOTONSERVER     " :Receiver is not on that server"
 #define ERR_TARGNOTONCHANNEL    " :Receiver is not on that channel"
+#define ERR_INCRPASSWORD        " :Cannot join channel : Incorrect password"
 #define ERR_CHANNELISFULL       " :Cannot join channel : Channel is full"
 #define ERR_INVITEONLYCHAN      " :Cannot join channel : Channel is in only invited mode"
 #define ERR_BADCHANNELKEY       " :Cannot join channel (+k)"
@@ -58,6 +59,7 @@ class   Notifyer
             {443, ERR_USERONCHANNEL},
             {444, ERR_TARGNOTONSERVER},
             {445, ERR_TARGNOTONCHANNEL},
+            {470, ERR_INCRPASSWORD},
             {471, ERR_CHANNELISFULL},
             {473, ERR_INVITEONLYCHAN},
             {475, ERR_BADCHANNELKEY},

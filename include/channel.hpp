@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/28 14:14:06 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/29 02:33:18 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ class   Channel
         
         //Setters
         void                    setTopic(const std::string& topic);
+        void                    setTopicRight();
         void                    setPassword(const std::string& password);
         void                    setOperator(Client* user);
         void                    setLimit(const unsigned int& limit);
@@ -46,6 +47,7 @@ class   Channel
 
         //Unsettes
         void                    unsetTopic();
+        void                    unsetTopicRight();
         void                    unsetPassword();
         void                    unsetLimit();
 

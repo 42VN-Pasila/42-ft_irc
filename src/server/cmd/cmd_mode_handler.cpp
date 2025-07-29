@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/29 01:41:10 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/29 02:34:56 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,20 @@ void    Server::handlerModeT(Client* client, std::string& channelName, bool mode
         Notifyer::notifyError(client, 403);
         return ;
     }
-    
+    if (!this->_channelList[channelName]->isMember(client))
+    {
+        Notifyer::notifyError(client, 442);
+        return ;
+    }
+    if (!this->_channelList[channelName]->isOperator(client))
+    {
+        Notifyer::notifyError(client, 482);
+        return ;
+    }
+    if (mode == on)
+        this->_channelList[channelName]->setTopicRight();
+    else
+        this->_channelList[channelName]->unsetTopicRight();
 }
 
 void    Server::handlerModeK(Client* client, std::string& channelName, const std::string& pass, bool mode)
