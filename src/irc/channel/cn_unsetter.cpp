@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 01:02:43 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/29 16:39:18 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 22:08:36 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,15 @@ int    Channel::unsetTopicRight()
     if (!this->_topicRight)
         return 453;
     this->_topicRight = false;
+    return -1;
+}
+
+int     Channel::unsetOperator(Client* client)
+{
+    if (this->getOperator() == nullptr)
+        return 452;
+    if (this->getOperator() != client)
+        return 482;
+    this->_operator = nullptr;
     return -1;
 }

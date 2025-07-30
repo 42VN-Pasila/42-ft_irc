@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/30 10:57:16 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 22:09:38 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ void    Server::handlerModeL(Client* client, std::string& channelName, const uns
     std::string msg;
     
     if (!validateOperator(client, channelName))
-    return ;
+        return ;
     if (mode == on)
         code = this->_channelList[channelName]->setLimit(limit);
-        else
+    else
         code = this->_channelList[channelName]->unsetLimit();
     if (code == -1)
     {
@@ -96,9 +96,23 @@ void    Server::handlerModeL(Client* client, std::string& channelName, const uns
 
 void    Server::handlerModeO(Client* client, std::string& channelName, std::string& targetUser, bool mode)
 {
+    int code = -1;
+    std::string msg;
+    
     if (!validateOperator(client, channelName))
         return ;
     if (!validateTarget(client, channelName, targetUser))
         return ;
-    
+    if (mode == on)
+        code = this->_channelList[channelName]->setOperator(client);
+    else
+            code = this->_channelList[channelName]->unsetOperator(client);
+    if (code == -1)
+    {
+        msg = (mode == on ? "[SERVER] : [CHANNEL] : Channel is now operated by " + client->getNickName()
+                            : "[SERVER] : [CHANNEL] : Channel is now not operated");
+        Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
+    }
+    else     
+        Notifyer::notifyError(client, code);
 }
