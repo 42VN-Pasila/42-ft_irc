@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/30 22:09:38 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 22:14:26 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void    Server::handlerModeL(Client* client, std::string& channelName, const uns
         Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
     }
     else     
-    Notifyer::notifyError(client, code);
+        Notifyer::notifyError(client, code);
     
 }
 
