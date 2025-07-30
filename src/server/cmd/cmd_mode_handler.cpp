@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/30 00:59:25 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 10:57:16 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,33 +72,33 @@ void    Server::handlerModeK(Client* client, std::string& channelName, const std
         Notifyer::notifyError(client, code);
 }
 
-void    Server::handlerModeO(Client* client, std::string& channelName, std::string& targetUser, bool mode)
-{
-    if (!validateOperator(client, channelName))
-        return ;
-    if (!validateTarget(client, channelName, targetUser))
-        return ;
-    
-}
-
 void    Server::handlerModeL(Client* client, std::string& channelName, const unsigned int limit, bool mode)
 {
     int         code;
     std::string msg;
     
     if (!validateOperator(client, channelName))
-        return ;
+    return ;
     if (mode == on)
         code = this->_channelList[channelName]->setLimit(limit);
-    else
+        else
         code = this->_channelList[channelName]->unsetLimit();
     if (code == -1)
     {
         msg = (mode == on ? "[SERVER] : [CHANNEL] : Channel now limits only " + std::to_string(limit) + " members"
-                            : "[SERVER] : [CHANNEL] : Channel now has no limit on member list");
+        : "[SERVER] : [CHANNEL] : Channel now has no limit on member list");
         Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
     }
     else     
-        Notifyer::notifyError(client, code);
+    Notifyer::notifyError(client, code);
+    
+}
+
+void    Server::handlerModeO(Client* client, std::string& channelName, std::string& targetUser, bool mode)
+{
+    if (!validateOperator(client, channelName))
+        return ;
+    if (!validateTarget(client, channelName, targetUser))
+        return ;
     
 }

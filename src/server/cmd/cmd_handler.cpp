@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/30 01:14:18 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 10:43:43 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void    Server::handlerJoin(Client* client, std::string& channelName, std::strin
     {
         std::string msg = "[SERVER] : Welcome " + client->getNickName() + " to the channel";
         Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
+        Notifyer::sendMsg(client, this->_channelList[channelName]->getTopic());
+        
     }
     else
         Notifyer::notifyError(client, code);  
