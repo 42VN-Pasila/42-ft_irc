@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 00:58:36 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/31 02:16:39 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/31 02:20:55 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool    prs_validPassword(char *av)
 {
-    std::string password = std::to_string(*av);
+    std::string password(av);
     
     if (password.empty())
     {
@@ -40,7 +40,7 @@ bool    prs_validPassword(char *av)
 bool    prs_validPort(char *av)
 {
     int                 value;
-    std::string         port = std::to_string(*av);
+    std::string         port(av);
     
     if (port.empty())
     {
@@ -64,7 +64,7 @@ bool    prs_validPort(char *av)
         throw std::runtime_error("Invalid arguments : Port is not a valid integer");
         return false;
     }
-    if (6000 < value && value < 7000)
+    if (value < 6000 || value > 7000)
     {
         throw std::runtime_error("Invalid arguments : Port range is only 6000-7000");
         return false;
@@ -80,9 +80,9 @@ bool    prs_program(int ac, char **av)
         std::cout << std::endl;
         return false;
     }
-    if (!prs_validPort(*av + 1))
+    if (!prs_validPort(av[1]))
         return false;
-    if (!prs_validPassword(*av + 2))
+    if (!prs_validPassword(av[2]))
         return false;
     return true;
 }
