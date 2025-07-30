@@ -6,30 +6,38 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 01:02:43 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/27 01:11:03 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 22:50:08 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-void    Channel::unsetPassword()
+int    Channel::unsetTopic()
 {
-    if (this->_password.empty())
-    {
-        LOG_WARNING("[CHANNEL] : This channel does not have password");
-        std::cout << std::endl;
-        return ;
-    }
-    this->_password = "";
+    this->_topic = "";
+    return -1;
 }
 
-void    Channel::unsetLimit()
+int    Channel::unsetPassword()
+{
+    if (this->_password.empty())
+        return 484;
+    this->_password = "";
+    return -1;
+}
+
+int    Channel::unsetLimit()
 {
     if (this->_limit == 0)
-    {
-        LOG_WARNING("[CHANNEL] : This channel does not have limit");
-        std::cout << std::endl;
-        return ;
-    }
+        return 459;
     this->_limit = 0;
+    return -1;
+}
+
+int    Channel::unsetTopicRight()
+{
+    if (!this->_topicRight)
+        return 453;
+    this->_topicRight = false;
+    return -1;
 }

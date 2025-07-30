@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/27 01:09:21 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 23:00:39 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,40 +23,46 @@ class   Channel
                                            _password(""),
                                            _channelName(channelName),
                                            _limit(0),
+                                           _topicRight(false),
                                            _onlyInvite(false){};
         ~Channel() = default;
         
         //Getters
-        const std::string&      getTopic() const;
-        const Client*           getOperator() const;
-        const std::string&      getPassword() const;
-        const std::string&      getChannelName() const;
-        const unsigned int      getLimit() const;
-        const bool              getInviteStatus() const;    
-        const unsigned int      getQuantity() const;
+        const std::string&                      getTopic() const;
+        const Client*                           getOperator() const;
+        const std::string&                      getPassword() const;
+        const std::string&                      getChannelName() const;
+        const unsigned int                      getLimit() const;
+        const bool                              getInviteStatus() const;    
+        const unsigned int                      getQuantity() const;
+        const std::map<std::string, Client*>    getMemberList() const;
         
         //Setters
-        void                    setTopic(const std::string& topic);
-        void                    setPassword(const std::string& password);
-        void                    setOperator(const Client* user);
-        void                    setLimit(const unsigned int& limit);
-        void                    setInviteStatus(const bool& status);
+        int                    setTopic(const std::string& topic);
+        int                    setTopicRight();
+        int                    setPassword(const std::string& password);
+        int                    setOperator(Client* user);
+        int                    setLimit(const unsigned int& limit);
+        int                    setInviteStatus(const bool& status);
 
         //Unsettes
-        void                    unsetPassword();
-        void                    unsetLimit();
+        int                    unsetTopic();
+        int                    unsetTopicRight();
+        int                    unsetPassword();
+        int                    unsetLimit();
 
         //Functional
-        void                    addUser(const Client* user);
-        void                    kickUser(const Client* user);
-        void                    inviteUser(const Client* user);
-        void                    removeUser(const Client* user);
-        void                    removeOperator();
+        int                    addUser(Client* user);
+        int                    kickUser(Client* user);
+        int                    inviteUser(Client* user);
+        int                    removeUser(Client* user);
+        int                    removeOperator(Client* client);
         
         //Validation
-        bool                    isOperator(const Client* user);
-        bool                    isMember(const Client* user);
-        bool                    isInvited(const Client* user);
+        int                     isOperator(Client* user);
+        int                     isMember(Client* user);
+        int                     isInvited(Client* user);
+        bool                    isTopicRight();
         bool                    isRequiredPassword();
         bool                    isInviteOnly();
         bool                    isEmpty();
@@ -69,6 +75,7 @@ class   Channel
         std::string             _password;
         std::string             _channelName;
         unsigned int            _limit;
+        bool                    _topicRight;
         bool                    _onlyInvite;
         
         std::map<std::string, Client*>       _members;

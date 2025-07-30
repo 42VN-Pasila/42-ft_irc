@@ -6,42 +6,30 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:21:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/26 04:09:51 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 23:34:43 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-bool    Channel::isOperator(const Client* user)
+int    Channel::isOperator(Client* user)
 {
     if (user == nullptr)
-    {
-        LOG_WARNING("[CHANNEL] : User cannot be null");
-        std::cout << std::endl;
-        return false;
-    }
+        return 446;
     return (this->_operator == user);
 }
 
-bool    Channel::isMember(const Client* user)
+int    Channel::isMember(Client* user)
 {
     if (user == nullptr)
-    {
-        LOG_WARNING("[CHANNEL] : User cannot be null");
-        std::cout << std::endl;
-        return false;
-    }
+        return 446;
     return (this->_members.count(user->getNickName()));
 }
 
-bool    Channel::isInvited(const Client* user)
+int    Channel::isInvited(Client* user)
 {
     if (user == nullptr)
-    {
-        LOG_WARNING("[CHANNEL] : User cannot be null");
-        std::cout << std::endl;
-        return false;
-    }
+        return 446;
     return  (this->_invitation.count(user->getNickName()));
 }
 
@@ -67,3 +55,7 @@ bool   Channel::isAvailable()
     return (this->_members.size() < this->_limit);
 }
 
+bool   Channel::isTopicRight()
+{
+    return this->_topicRight;
+}

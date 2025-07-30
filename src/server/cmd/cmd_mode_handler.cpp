@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/27 01:12:14 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/31 00:21:17 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,97 +14,109 @@
 
 void    Server::handlerModeI(Client* client, std::string& channelName, bool mode)
 {
-    if (!this->hasServerChannel(channelName))
-    {
-        LOG_WARNING("[SERVER] : Channel is not in the server");
-        std::cout << std::endl;
+    int         code;
+    std::string msg;
+    
+    if (!validateOperator(client, channelName))
         return ;
-    }
-    if (!this->_channelList[channelName]->isMember(client))
+    code = this->_channelList[channelName]->setInviteStatus(mode);
+    if (code == -1)
     {
-        LOG_WARNING("[CHANNEL] : You are not the member of this channel");
-        std::cout << std::endl;
-        return ;
+        msg = (mode == on ? "[SERVER] : [CHANNEL] : Invite-only mode enabled" 
+                            : "[SERVER] : [CHANNEL] : Invite-only mode disabled");
+        Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
     }
-    if (!this->_channelList[channelName]->isOperator(client))
-    {
-        LOG_WARNING("[CHANNEL] : You are not the operator");
-        std::cout << std::endl;
-        return ;
-    }
-    this->_channelList[channelName]->setInviteStatus(mode);
+    else     
+        Notifyer::notifyError(client, code);
 }
 
 void    Server::handlerModeT(Client* client, std::string& channelName, bool mode)
 {
-    if (!this->hasServerChannel(channelName))
-    {
-        LOG_WARNING("[SERVER] : Channel is not in the server");
-        std::cout << std::endl;
-        return ;
-    }
+    int         code;
+    std::string msg;
     
+    if (!validateOperator(client, channelName))
+        return ;
+    if (mode == on)
+        code = this->_channelList[channelName]->setTopicRight();
+    else
+        code = this->_channelList[channelName]->unsetTopicRight();
+    if (code == -1)
+    {
+        msg = (mode == on ? "[SERVER] : [CHANNEL] : Topic mode enabled only for operator" 
+                            : "[SERVER] : [CHANNEL] : Topic mode enabled for all members");
+        Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
+    }
+    else     
+        Notifyer::notifyError(client, code);
 }
 
 void    Server::handlerModeK(Client* client, std::string& channelName, const std::string& pass, bool mode)
 {
-    if (!this->hasServerChannel(channelName))
-    {
-        LOG_WARNING("[SERVER] : Channel is not in the server");
-        std::cout << std::endl;
-        return ;
-    }
-    if (!this->_channelList[channelName]->isMember(client))
-    {
-        LOG_WARNING("[CHANNEL] : You are not the member of this channel");
-        std::cout << std::endl;
-        return ;
-    }
-    if (!this->_channelList[channelName]->isOperator(client))
-    {
-        LOG_WARNING("[CHANNEL] : You are not the operator");
-        std::cout << std::endl;
-        return ;
-    }
-    if (mode == on)
-        this->_channelList[channelName]->setPassword(pass);
-    else
-        this->_channelList[channelName]->unsetPassword();
-}
-
-void    Server::handlerModeO(Client* client, std::string& channelName, std::string& nickName, bool mode)
-{
-    if (!this->hasServerChannel(channelName))
-    {
-        LOG_WARNING("[SERVER] : Channel is not in the server");
-        std::cout << std::endl;
-        return ;
-    }
+    int         code;
+    std::string msg;
     
+    if (!validateOperator(client, channelName))
+        return ;
+    if (mode == on)
+        code = this->_channelList[channelName]->setPassword(pass);
+    else
+        code = this->_channelList[channelName]->unsetPassword();
+    if (code == -1)
+    {
+        msg = (mode == on ? "[SERVER] : [CHANNEL] : New password is set"
+                            : "[SERVER] : [CHANNEL] : Password is removed");
+        Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
+    }
+    else     
+        Notifyer::notifyError(client, code);
 }
 
 void    Server::handlerModeL(Client* client, std::string& channelName, const unsigned int limit, bool mode)
 {
-    if (!this->hasServerChannel(channelName))
-    {
-        LOG_WARNING("[SERVER] : Channel is not in the server");
-        std::cout << std::endl;
+    int         code;
+    std::string msg;
+    
+    if (!validateOperator(client, channelName))
         return ;
-    }
-    if (!this->_channelList[channelName]->isMember(client))
-    {
-        LOG_WARNING("[CHANNEL] : You are not the member of this channel");
-        std::cout << std::endl;
-        return ;
-    }
-    if (!this->_channelList[channelName]->isOperator(client))
-    {
-        LOG_WARNING("[CHANNEL] : You are not the operator");
-        std::cout << std::endl;
-        return ;
-    }
     if (mode == on)
-        this->_channelList[channelName]->setLimit(limit);
+        code = this->_channelList[channelName]->setLimit(limit);
     else
-        this->_channelList[channelName]->unsetLimit();
+        code = this->_channelList[channelName]->unsetLimit();
+    if (code == -1)
+    {
+        msg = (mode == on ? "[SERVER] : [CHANNEL] : Channel now limits only " + std::to_string(limit) + " members"
+        : "[SERVER] : [CHANNEL] : Channel now has no limit on member list");
+        Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
+    }
+    else     
+        Notifyer::notifyError(client, code);
+    
+}
+
+void    Server::handlerModeO(Client* client, std::string& channelName, std::string& targetUser, bool mode)
+{
+    int code = -1;
+    std::string msg;
+    
+    if (!validateChannel(client, channelName))
+        return ;
+    if (!validateTarget(client, channelName, targetUser))
+        return ;
+    if (mode == on)
+        code = this->_channelList[channelName]->setOperator(this->_clientList[targetUser]);
+    else
+    {
+        if (!validateOperator(client, channelName))
+            return ;
+        code = this->_channelList[channelName]->removeOperator(this->_clientList[targetUser]);
+    }
+    if (code == -1)
+    {
+        msg = (mode == on ? "[SERVER] : [CHANNEL] : Channel is now operated by " + targetUser
+                            : "[SERVER] : [CHANNEL] : Channel is now not operated");
+        Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
+    }
+    else     
+        Notifyer::notifyError(client, code);
 }

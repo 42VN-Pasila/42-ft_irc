@@ -6,87 +6,65 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 00:32:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/27 01:05:40 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 22:49:24 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-void    Channel::setTopic(const std::string& topic)
+int    Channel::setTopic(const std::string& topic)
 {
     this->_topic = topic;
-    LOG_SUCCESS("[CHANNEL] : Channel's topic is changed to ");
-    std::cout << topic << std::endl;
+    return -1;
 }
 
-void    Channel::setPassword(const std::string& password)
+int    Channel::setPassword(const std::string& password)
 {
     if (password.empty())
-    {
-        LOG_WARNING("[CHANNEL] : Password must not be empty string");
-        std::cout << std::endl;
-        return ;
-    }
+        return 484;
     this->_password = password;
-    LOG_SUCCESS("[CHANNEL] : New password is set");
-    std::cout << std::endl;
+    return -1;
 }
 
-void    Channel::setOperator(const Client* user)
+int    Channel::setOperator(Client* user)
 {
     if (user == nullptr)
-    {
-        LOG_WARNING("[CHANNEL] : User cannot be null");
-        std::cout << std::endl;
-        return ;
-    }
+        return 446;
     if (this->_operator != nullptr)
-    {
-        LOG_WARNING("[CHANNEL] : This channel is already being operated by ");
-        std::cout << this->_operator->getNickName() << std::endl;
-        return ;
-    }
+        return 451;
     else
     {
-        this->_operator = const_cast<Client*>(user);
+        this->_operator = user;
         LOG_SUCCESS("[CHANNEL] : Channel is now operated by : ");
         std::cout << this->_operator->getNickName() <<std::endl;
     }
+    return -1;
 }
 
-void    Channel::setInviteStatus(const bool& status)
+int    Channel::setInviteStatus(const bool& status)
 {
     if (this->_onlyInvite && status)
-    {
-        LOG_WARNING("[CHANNEL] : This channel is already set to only invited mode");
-        std::cout << std::endl;
-    }
+        return 454;
     else if (!this->_onlyInvite && !status)
-    {
-        LOG_WARNING("[CHANNEL] : This channel is already unset only invited mode");
-        std::cout << std::endl;
-    }
+        return 455;
     else
-    {
         this->_onlyInvite = status;
-        if (status)
-            LOG_SUCCESS("[CHANNEL] : Invite-only mode enabled");
-        else
-            LOG_SUCCESS("[CHANNEL] : Invite-only mode disabled");
-        std::cout << std::endl;
-    }
+    return -1;
 }
 
-void    Channel::setLimit(const unsigned int& limit)
+int    Channel::setLimit(const unsigned int& limit)
 {
     if (limit > LIMIT_MEMBER)
-        LOG_WARNING("[CHANNEL] : Only support 1000 users");
+        return 456;
     else
-    {
         this->_limit = limit;
-        LOG_SUCCESS("[CHANNEL] : Channel limits only ");
-        std::cout << std::to_string(limit);
-        LOG_SUCCESS(" member(s)");
-    }
-    std::cout << std::endl;
+    return -1;
+}
+
+int     Channel::setTopicRight()
+{
+    if (this->_topicRight)
+        return 454;
+    this->_topicRight = true;
+    return -1;
 }
