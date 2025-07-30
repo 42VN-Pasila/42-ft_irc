@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 00:32:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/30 00:27:01 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 22:49:24 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int    Channel::setOperator(Client* user)
         LOG_SUCCESS("[CHANNEL] : Channel is now operated by : ");
         std::cout << this->_operator->getNickName() <<std::endl;
     }
+    return -1;
 }
 
 int    Channel::setInviteStatus(const bool& status)

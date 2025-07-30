@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/30 20:14:30 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 22:52:01 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 #define ERR_NEEDMOREPARAMS      " :Not enough parameters"              //461
 #define ERR_NOPRIVILEGES        " :Permission Denied- You're not an IRC operator"    //481
-#define ERR_CHANOPRIVSNEEDED    " :You're not channel operator"        //482
+#define ERR_CHANOPRIVSNEEDED    " :User is not channel operator"        //482
 #define ERR_UNKNOWNCOMMAND      " :Unknown command"                    //421
 
 #define ERR_USERCANNOTBENULL    " :User cannot be null"                //446

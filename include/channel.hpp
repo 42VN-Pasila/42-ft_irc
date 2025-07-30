@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/30 22:05:48 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 22:51:20 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,13 @@ class   Channel
         int                    unsetTopicRight();
         int                    unsetPassword();
         int                    unsetLimit();
-        int                    unsetOperator(Client* client1);
 
         //Functional
         int                    addUser(Client* user);
         int                    kickUser(Client* user);
         int                    inviteUser(Client* user);
         int                    removeUser(Client* user);
-        int                    removeOperator();
+        int                    removeOperator(Client* client);
         
         //Validation
         int                     isOperator(Client* user);

@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/29 16:13:43 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 22:52:21 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ int    Channel::kickUser(Client* user)
     return -1;
 }
 
-int    Channel::removeOperator()
+int    Channel::removeOperator(Client* client)
 {
-    if (this->_operator == nullptr)
+    if (this->getOperator() == nullptr)
         return 452;
+    if (this->getOperator() != client)
+        return 482;
     this->_operator = nullptr;
-    LOG_SUCCESS("[CHANNEL] : Channel now has no operator");
-    std::cout << std::endl;
+    return -1;
 }
 
 int    Channel::inviteUser(Client* user)
@@ -58,8 +59,7 @@ int    Channel::inviteUser(Client* user)
     if (this->isMember(user))
         return 443;
     this->_invitation.insert({user->getNickName(),const_cast<Client*>(user)});
-    LOG_SUCCESS("[CHANNEL] : User is invited");
-    std::cout << std::endl;
+    return -1;
 }
 
 int    Channel::removeUser(Client* user)
