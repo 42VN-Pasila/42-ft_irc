@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:21:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/29 14:18:11 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 23:34:43 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,3 +55,7 @@ bool   Channel::isAvailable()
     return (this->_members.size() < this->_limit);
 }
 
+bool   Channel::isTopicRight()
+{
+    return this->_topicRight;
+}

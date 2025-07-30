@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/30 10:43:43 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 23:33:09 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void    Server::handlerKick(Client* client, std::string& channelName, std::strin
     code = this->_channelList[channelName]->kickUser(this->_clientList[targetUser]);
     if (code == -1)
     {
-        std::string msg = "[SERVER] : " + client->getNickName() + " has been kicked out of the channel";
+        std::string msg = "[SERVER] : " + targetUser + " has been kicked out of the channel by " + client->getNickName();
         Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
     }
     else
@@ -117,16 +117,26 @@ void    Server::handlerKick(Client* client, std::string& channelName, std::strin
 
 void    Server::handlerTopic(Client* client, std::string& channelName, const std::string& topic)
 {
+    int code;
+    
     if (!validateChannel(client, channelName))
         return ;
     if (topic.empty())
     {
-        Notifyer::sendMsg(client, this->_channelList[channelName]->getTopic());
+        std::string currentTopic = this->_channelList[channelName]->getTopic();
+        if (currentTopic.empty())
+            Notifyer::sendMsg(client, "[SERVER] : [CHANNEL] : Topic : [empty]");
+        else
+            Notifyer::sendMsg(client, "[SERVER] : [CHANNEL] : Topic : " + currentTopic);
         return ;
     }
-    if (!validateOperator(client, channelName))
-        return ;
-    std::string msg = "[SERVER] : [CHANNEL] : Topic : " + this->_channelList[channelName]->getTopic();
+    if (this->_channelList[channelName]->isTopicRight())
+    {
+        if (!validateOperator(client, channelName))
+            return ;   
+    }
+    code = this->_channelList[channelName]->setTopic(topic);
+    std::string msg = "[SERVER] : [CHANNEL] : Topic : " + topic;
     Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
 }
 

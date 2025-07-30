@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/30 22:51:10 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/30 22:56:03 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void    Server::handlerModeO(Client* client, std::string& channelName, std::stri
     if (mode == on)
         code = this->_channelList[channelName]->setOperator(this->_clientList[targetUser]);
     else
-            code = this->_channelList[channelName]->removeOperator(client);
+        code = this->_channelList[channelName]->removeOperator(this->_clientList[targetUser]);
     if (code == -1)
     {
         msg = (mode == on ? "[SERVER] : [CHANNEL] : Channel is now operated by " + client->getNickName()
