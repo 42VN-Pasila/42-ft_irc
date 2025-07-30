@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/30 22:56:03 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/31 00:21:17 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,17 +99,21 @@ void    Server::handlerModeO(Client* client, std::string& channelName, std::stri
     int code = -1;
     std::string msg;
     
-    if (!validateOperator(client, channelName))
+    if (!validateChannel(client, channelName))
         return ;
     if (!validateTarget(client, channelName, targetUser))
         return ;
     if (mode == on)
         code = this->_channelList[channelName]->setOperator(this->_clientList[targetUser]);
     else
+    {
+        if (!validateOperator(client, channelName))
+            return ;
         code = this->_channelList[channelName]->removeOperator(this->_clientList[targetUser]);
+    }
     if (code == -1)
     {
-        msg = (mode == on ? "[SERVER] : [CHANNEL] : Channel is now operated by " + client->getNickName()
+        msg = (mode == on ? "[SERVER] : [CHANNEL] : Channel is now operated by " + targetUser
                             : "[SERVER] : [CHANNEL] : Channel is now not operated");
         Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
     }
