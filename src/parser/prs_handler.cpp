@@ -1,32 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.hpp                                         :+:      :+:    :+:   */
+/*   prs_handler.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/31 02:23:59 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/31 11:02:58 by siuol            ###   ########.fr       */
+/*   Created: 2025/07/31 10:49:51 by siuol             #+#    #+#             */
+/*   Updated: 2025/07/31 11:01:59 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-
 #include "system.hpp"
-
-enum    cmdType{
-    JOIN,
-    PART,
-    PRIVMSG,
-    KICK,
-    INVITE,
-    TOPIC,
-    MODEI,
-    MODEK,
-    MODEL,
-    MODEO
-};
-
-//System
-bool    prs_program(int ac, char **av);
-bool    prs_validPassword(char *av);
