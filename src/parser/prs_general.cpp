@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/02 05:06:44 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/02 05:31:54 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,26 @@ static std::vector<std::string>    split(std::string& cmd)
 
 static std::string cmdType[]{"JOIN", "PRIVMSG", "PART", "KICK", "TOPIC", "MODE"};
 
-static  void    exec_cmd(Client* client, std::vector<std::string> cmds)
+void    Server::exec_cmd(Client* client, std::vector<std::string> cmds)
 {
-    
+    for (int i = 0; i < 5; i++)
+    {
+        if (cmds[0] == cmdType[i])
+        {
+            (this->*_cmdExec[i])(client, cmds[1], cmds[2]);
+            return ;
+        }
+    }
+    if (cmds[0] == cmdType[5])
+    {
+        this->exec_mode(client, cmds);
+        return;
+    }
+    else
+    {
+        Notifyer::notifyError(client, 486); 
+        return ;
+    }
 }
 
 void    Server::prs_cmd(Client* client, std::string& command)

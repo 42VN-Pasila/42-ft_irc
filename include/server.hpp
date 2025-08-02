@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/02 05:02:46 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/02 05:24:51 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ class Server
 
         //Main
         void    prs_cmd(Client* client, std::string& command);
+        void    exec_cmd(Client* client, std::vector<std::string> cmds);
         
         
     private :
@@ -60,7 +61,7 @@ class Server
         
         using Handler = void(Server::*)(Client* client, std::string& channelName, std::string& target);
 
-        Handler cmdExec[6] = 
+        Handler _cmdExec[6] = 
         {
             &Server::handlerJoin,
             &Server::handlerPrivmsg,

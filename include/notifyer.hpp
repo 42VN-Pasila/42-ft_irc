@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/02 05:06:19 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/02 05:31:42 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@
 #define ERR_TOPICEMPTY          " :Topic cannot be empty"              //483
 #define ERR_PASSWORDEMPTY       " :Password cannot be empty"           //484
 #define ERR_EMPTYCMD            " :Command cannot be empty"            //485
+#define ERR_WRONGCMD            " :Command not found"                  //486 
 
 class   Notifyer
 {
