@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 00:58:36 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/31 02:20:55 by siuol            ###   ########.fr       */
+/*   Updated: 2025/07/31 02:24:35 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool    prs_validPassword(char *av)
     return true;
 }
 
-bool    prs_validPort(char *av)
+static bool    prs_validPort(char *av)
 {
     int                 value;
     std::string         port(av);

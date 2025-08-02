@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/30 00:53:48 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/02 16:30:41 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,44 @@ class Server
         bool    validateTarget(Client* client, std::string& channelName, std::string& target);
         
         //cmdHandler
-        void    handlerJoin(Client* client, std::string& channelName, std::string& pass);
+        void    handlerJoin(Client* client, std::string& channel, std::string& pass);
         void    handlerPrivmsg(Client* client, std::string& target, std::string& msg);
-        void    handlerPart(Client* client, std::string& channelName, std::string& msg);
-        void    handlerInvite(Client* client, std::string& channelName, std::string& targetUser);
-        void    handlerKick(Client* client, std::string& channelName, std::string& targetUser);
-        void    handlerTopic(Client* client, std::string& channelName, const std::string& topic = "");
+        void    handlerPart(Client* client, std::string& channel, std::string& msg);
+        void    handlerInvite(Client* client, std::string& channel, std::string& targetUser);
+        void    handlerKick(Client* client, std::string& channel, std::string& targetUser);
+        void    handlerTopic(Client* client, std::string& channel, const std::string& topic = "");
+        void    wrapperTopic(Client* client, std::string& channel, std::string& topic);
         void    handlerModeI(Client* client, std::string& channelName, bool mode);
         void    handlerModeT(Client* client, std::string& channelName, bool mode);
         void    handlerModeK(Client* client, std::string& channelName, const std::string& pass = "", bool mode);
         void    handlerModeO(Client* client, std::string& channelName, std::string& targetUser, bool mode);
         void    handlerModeL(Client* client, std::string& channelName, const unsigned int limit = 0, bool mode);
         
+        
         //Utility
         bool    passwordRequired(Channel* channel, const std::string& pass = "");
+
+        //Main
+        void    prs_cmd(Client* client, std::string& command);
+        void    exec_cmd(Client* client, std::vector<std::string> cmds);
+        
         
     private :
         unsigned int        _port;
         std::string        _password;
         std::map<std::string, Client*>   _clientList;
         std::map<std::string, Channel*>  _channelList;
+        
+        using Handler = void(Server::*)(Client* client, std::string& channelName, std::string& target);
+
+        Handler _cmdExec[6] = 
+        {
+            &Server::handlerJoin,
+            &Server::handlerPrivmsg,
+            &Server::handlerPart,
+            &Server::handlerKick,
+            &Server::handlerInvite,
+            &Server::wrapperTopic
+        }; 
 };
+
