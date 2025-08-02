@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/30 23:33:09 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/02 04:01:39 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void    Server::handlerPart(Client* client, std::string& channelName, std::strin
     {
         std::string channel = "#" + channelName;
         code = this->_channelList[channelName]->removeUser(client);
+        if (this->_channelList[channelName]->getOperator() == client)
+            code = this->_channelList[channelName]->removeOperator(client);
         if (code == -1)
         {
             std::string msg = "[SERVER] : " + client->getNickName() + " has left the channel";
@@ -138,6 +140,11 @@ void    Server::handlerTopic(Client* client, std::string& channelName, const std
     code = this->_channelList[channelName]->setTopic(topic);
     std::string msg = "[SERVER] : [CHANNEL] : Topic : " + topic;
     Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
+}
+
+void    Server::wrapperTopic(Client* client, std::string& channelName, std::string& topic)
+{
+    handlerTopic(client, channelName, topic);
 }
 
 void    Server::handlerInvite(Client* client, std::string& channelName, std::string& targetUser)

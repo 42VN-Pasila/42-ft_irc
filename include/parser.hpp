@@ -6,26 +6,13 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 02:23:59 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/31 11:02:58 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/01 11:48:56 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "system.hpp"
-
-enum    cmdType{
-    JOIN,
-    PART,
-    PRIVMSG,
-    KICK,
-    INVITE,
-    TOPIC,
-    MODEI,
-    MODEK,
-    MODEL,
-    MODEO
-};
 
 //System
 bool    prs_program(int ac, char **av);

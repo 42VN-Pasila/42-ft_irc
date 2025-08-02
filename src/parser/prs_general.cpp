@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_cmd.cpp                                        :+:      :+:    :+:   */
+/*   prs_general.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/31 20:44:56 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/02 05:06:44 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
 
-std::vector<std::string>    split(std::string cmd)
+static std::vector<std::string>    split(std::string& cmd)
 {
     std::istringstream          stream(cmd);
     std::vector<std::string>    command;
@@ -21,11 +21,23 @@ std::vector<std::string>    split(std::string cmd)
 
     while (stream >> token)
         command.push_back(token);
-
     return command;
 }
 
-cmdType    prs_cmd(std::string command)
+static std::string cmdType[]{"JOIN", "PRIVMSG", "PART", "KICK", "TOPIC", "MODE"};
+
+static  void    exec_cmd(Client* client, std::vector<std::string> cmds)
 {
-    if () 
+    
+}
+
+void    Server::prs_cmd(Client* client, std::string& command)
+{
+    if (command.empty())
+    {
+        Notifyer::notifyError(client, 485); 
+        return ;
+    }
+    std::vector<std::string> cmdPack = split(command); 
+    exec_cmd(client, cmdPack);
 }
