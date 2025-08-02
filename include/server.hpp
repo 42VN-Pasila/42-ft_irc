@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/02 05:24:51 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/02 05:43:42 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ class Server
         bool    validateTarget(Client* client, std::string& channelName, std::string& target);
         
         //cmdHandler
-        void    handlerJoin(Client* client, std::string& channelName, std::string& pass);
+        void    handlerJoin(Client* client, std::string& channel, std::string& pass);
         void    handlerPrivmsg(Client* client, std::string& target, std::string& msg);
-        void    handlerPart(Client* client, std::string& channelName, std::string& msg);
-        void    handlerInvite(Client* client, std::string& channelName, std::string& targetUser);
-        void    handlerKick(Client* client, std::string& channelName, std::string& targetUser);
-        void    handlerTopic(Client* client, std::string& channelName, const std::string& topic = "");
-        void    wrapperTopic(Client* client, std::string& channelName, std::string& topic);
+        void    handlerPart(Client* client, std::string& channel, std::string& msg);
+        void    handlerInvite(Client* client, std::string& channel, std::string& targetUser);
+        void    handlerKick(Client* client, std::string& channel, std::string& targetUser);
+        void    handlerTopic(Client* client, std::string& channel, const std::string& topic = "");
+        void    wrapperTopic(Client* client, std::string& channel, std::string& topic);
         void    handlerModeI(Client* client, std::string& channelName, bool mode);
         void    handlerModeT(Client* client, std::string& channelName, bool mode);
         void    handlerModeK(Client* client, std::string& channelName, const std::string& pass = "", bool mode);

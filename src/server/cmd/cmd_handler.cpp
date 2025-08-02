@@ -6,16 +6,18 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/02 04:01:39 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/02 05:44:10 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-void    Server::handlerJoin(Client* client, std::string& channelName, std::string& pass)
+void    Server::handlerJoin(Client* client, std::string& channel, std::string& pass)
 {
     int code;
     int subCode;
+    std::string channelName = channel.substr(1);
+    
     if (!this->hasServerChannel(channelName))
     {
         Channel* newChannel = new Channel(channelName);
@@ -73,15 +75,15 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
     }
 }
 
-void    Server::handlerPart(Client* client, std::string& channelName, std::string& msg)
+void    Server::handlerPart(Client* client, std::string& channel, std::string& msg)
 {
     int code;
+    std::string channelName = channel.substr(1);
     
     if (!validateChannel(client, channelName))
         return ;
     else
     {
-        std::string channel = "#" + channelName;
         code = this->_channelList[channelName]->removeUser(client);
         if (this->_channelList[channelName]->getOperator() == client)
             code = this->_channelList[channelName]->removeOperator(client);
@@ -100,9 +102,11 @@ void    Server::handlerPart(Client* client, std::string& channelName, std::strin
     }
 }
 
-void    Server::handlerKick(Client* client, std::string& channelName, std::string& targetUser)
+void    Server::handlerKick(Client* client, std::string& channel, std::string& targetUser)
 {
     int code;
+    std::string channelName = channel.substr(1);
+    
     if (!validateOperator(client, channelName))
         return ;
     if (!validateTarget(client, channelName, targetUser))
@@ -117,9 +121,10 @@ void    Server::handlerKick(Client* client, std::string& channelName, std::strin
         Notifyer::notifyError(client, code);
 }
 
-void    Server::handlerTopic(Client* client, std::string& channelName, const std::string& topic)
+void    Server::handlerTopic(Client* client, std::string& channel, const std::string& topic)
 {
     int code;
+    std::string channelName = channel.substr(1);
     
     if (!validateChannel(client, channelName))
         return ;
@@ -142,14 +147,15 @@ void    Server::handlerTopic(Client* client, std::string& channelName, const std
     Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
 }
 
-void    Server::wrapperTopic(Client* client, std::string& channelName, std::string& topic)
+void    Server::wrapperTopic(Client* client, std::string& channel, std::string& topic)
 {
-    handlerTopic(client, channelName, topic);
+    handlerTopic(client, channel, topic);
 }
 
-void    Server::handlerInvite(Client* client, std::string& channelName, std::string& targetUser)
+void    Server::handlerInvite(Client* client, std::string& channel, std::string& targetUser)
 {
     int code;
+    std::string channelName = channel.substr(1);
     
     if (!validateOperator(client, channelName))
         return ;
