@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/02 16:30:41 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/02 19:27:44 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ class Server
         void    prs_cmd(Client* client, std::string& command);
         void    exec_cmd(Client* client, std::vector<std::string> cmds);
         
-        
+        unsigned int getPort( void ) const;
+		void 		 setPort( unsigned int port );
+		
     private :
         unsigned int        _port;
         std::string        _password;

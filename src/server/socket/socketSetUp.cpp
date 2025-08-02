@@ -1,32 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sv_utility.cpp                                     :+:      :+:    :+:   */
+/*   socketSetUp.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/26 03:06:19 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/02 19:18:35 by tripham          ###   ########.fr       */
+/*   Created: 2025/08/02 19:20:51 by tripham           #+#    #+#             */
+/*   Updated: 2025/08/02 19:21:00 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "system.hpp"
+#include "server.hpp"
 
-bool    Server::passwordRequired(Channel* channel, const std::string& pass)
-{
-    if (channel->isRequiredPassword())
-    {
-        if (pass != channel->getPassword())
-            return false;
-        return true;
-    }
-    return true;
-}
-
-unsigned int Server::getPort() const {
-	return this->_port;
-}
-
-void Server::setPort (unsigned int port) {
-	this->_port = port;
-}

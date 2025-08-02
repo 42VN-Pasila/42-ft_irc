@@ -3,21 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 18:24:18 by caonguye          #+#    #+#             */
-/*   Updated: 2025/08/02 18:27:17 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/02 19:27:29 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "systeem.hpp"
+#include "system.hpp"
 
 int main(int ac, char** av)
 {
     try
     {
         prs_program(ac, av);
+		
+		unsigned int port = static_cast<unsigned int>(std::atoi(av[1]));
+    	std::string password = av[2];
+
         // Tao Server()
+		Server server(port, password);
         // ket noi socket vao server
     }
     catch(const std::exception& e)
