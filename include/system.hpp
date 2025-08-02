@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   system.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:30:42 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/31 11:03:20 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/02 19:31:16 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <vector>
 #include <set>
 #include <sys/socket.h>
+#include <netinet/in.h>
 #include <charconv>
 #include <sstream>
 #include <functional>
