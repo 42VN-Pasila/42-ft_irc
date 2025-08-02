@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   prs_general.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/02 05:31:54 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/02 17:58:30 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
-
-
-static std::vector<std::string>    split(std::string& cmd)
-{
-    std::istringstream          stream(cmd);
-    std::vector<std::string>    command;
-    std::string                 token;
-
-    while (stream >> token)
-        command.push_back(token);
-    return command;
-}
 
 static std::string cmdType[]{"JOIN", "PRIVMSG", "PART", "KICK", "TOPIC", "MODE"};
 
