@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/03 09:58:43 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/03 11:22:23 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,20 @@ class Server
         void    handlerModeO(Client* client, std::string& channelName, std::string& targetUser, bool mode);
         void    handlerModeL(Client* client, std::string& channelName, const unsigned int limit = 0, bool mode);
         
+        //Getter
+        const std::string getPass() const;
         
         //Utility
         bool    passwordRequired(Channel* channel, const std::string& pass = "");
 
-        //Main
+        //Parse
+        void    prs_signin(Client* client, std::string cmd);
+        void    prs_signinPASS(Client* client, std::vector<std::string> command);
+        void    prs_signinNICK(Client* client, std::vector<std::string> command);
+        void    prs_signinUSER(Client* client, std::vector<std::string> command);
         void    prs_cmd(Client* client, std::string& command);
+
+        //Exec
         void    exec_cmd(Client* client, std::vector<std::string> cmds);
         
         

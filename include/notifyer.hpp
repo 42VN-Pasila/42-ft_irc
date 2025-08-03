@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/02 05:31:42 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/03 11:15:23 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@
 #define ERR_USERONCHANNEL       " :User is already on channel"         //443
 #define ERR_TARGNOTONSERVER     " :Receiver is not on that server"     //444
 #define ERR_TARGNOTONCHANNEL    " :Receiver is not on that channel"    //445
+
+#define ERR_SIGNINPASS          " :You must input password"             //415
+#define ERR_SIGNININVPASS       " :Invalid password"                    //416
+#define ERR_SIGNINNICK          " :You must input nickname"             //417
+#define ERR_SIGNINUSER          " :You must input username and realname" //418
 
 #define ERR_CHANNELINCRPASSWORD " :Cannot join channel : Incorrect password"         //470
 #define ERR_CHANNELISFULL       " :Cannot join channel : Channel is full"            //471
