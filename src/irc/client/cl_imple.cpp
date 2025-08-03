@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 00:43:21 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/03 10:10:20 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/03 13:12:37 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,27 @@ Client::Client(int socket) : _userName(""),
                                                     _socket(socket),
                                                     _clientStatus(PASS){};
 
-const std::string   Client::getUserName() const
+std::string   Client::getUserName() const
 {
     return this->_userName;
 }
 
-const std::string   Client::getNickName() const
+std::string   Client::getNickName() const
 {
     return this->_nickName;
 }
 
-const std::string   Client::getRealName() const
+std::string   Client::getRealName() const
 {
     return this->_realName;
 }
 
-const int   Client::getSocket() const
+int   Client::getSocket() const
 {
     return this->_socket;
 }
 
-const status    Client::getStatus() const
+status    Client::getStatus() const
 {
     return this->_clientStatus;
 }

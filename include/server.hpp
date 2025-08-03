@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/03 11:22:23 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/03 13:15:56 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ class Server
         void    handlerKick(Client* client, std::string& channel, std::string& targetUser);
         void    handlerTopic(Client* client, std::string& channel, const std::string& topic = "");
         void    wrapperTopic(Client* client, std::string& channel, std::string& topic);
-        void    handlerModeI(Client* client, std::string& channelName, bool mode);
-        void    handlerModeT(Client* client, std::string& channelName, bool mode);
-        void    handlerModeK(Client* client, std::string& channelName, const std::string& pass = "", bool mode);
-        void    handlerModeO(Client* client, std::string& channelName, std::string& targetUser, bool mode);
-        void    handlerModeL(Client* client, std::string& channelName, const unsigned int limit = 0, bool mode);
+        void    handlerModeI(Client* client, std::string& channelName, bool = false);
+        void    handlerModeT(Client* client, std::string& channelName, bool = false);
+        void    handlerModeK(Client* client, std::string& channelName, const std::string& pass = "", bool mode = false);
+        void    handlerModeO(Client* client, std::string& channelName, std::string& targetUser, bool mode  = false);
+        void    handlerModeL(Client* client, std::string& channelName, const unsigned int limit = 0, bool = false);
         
         //Getter
         const std::string getPass() const;

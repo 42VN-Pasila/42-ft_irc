@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:40:45 by caonguye          #+#    #+#             */
-/*   Updated: 2025/08/03 10:10:03 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/03 13:12:51 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ class Client
         ~Client() = default;
 
         //Getters
-        const std::string   getUserName() const;
-        const std::string   getNickName() const;
-        const std::string   getRealName() const;
-        const int           getSocket()   const;
-        const status        getStatus()   const;
+        std::string   getUserName() const;
+        std::string   getNickName() const;
+        std::string   getRealName() const;
+        int           getSocket()   const;
+        status        getStatus()   const;
         
         //Setters
         void    setUserName(const std::string& name);

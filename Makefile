@@ -6,7 +6,7 @@
 #    By: siuol <siuol@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/23 12:06:23 by siuol             #+#    #+#              #
-#    Updated: 2025/07/23 12:32:06 by siuol            ###   ########.fr        #
+#    Updated: 2025/08/03 13:10:18 by siuol            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 		= ircserv
 CC			= c++
 FLAG		= -Wall -Wextra -Werror -std=c++20
 RM			= rm -rf
-INCLUDE 	= -Iinclude include/system.hpp
+INCLUDE 	= -Iinclude
 
 #--DIRECTORIES--
 SRC			= src
@@ -24,10 +24,10 @@ SRV			= src/server
 IRC			= src/irc
 
 #CORE
-CORE_SRC	=	$(CORE)/CORE.cpp
+CORE_SRC	=	$(CORE)/main.cpp
 
 #PARSING
-PRS_SRC		= 
+PRS_SRC		= $(PRS)/prs_system.cpp
 
 #SERVER
 SRV_SRC	=
@@ -42,7 +42,7 @@ OBJS		= ${SRCS:.cpp=.o}
 all : $(NAME)
 
 %.o : %.cpp
-		@$(CC) $(FLAG) -c $< -o $@
+		@$(CC) $(FLAG) $(INCLUDE) -c $< -o $@
 
 $(NAME): $(OBJS)
 		@$(CC) $(FLAG) $(INCLUDE) $(OBJS) -o $@
