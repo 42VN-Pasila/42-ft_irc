@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:39:35 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/03 12:30:39 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/03 12:44:52 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,17 @@ void    Server::prs_signinUSER(Client* client, std::vector<std::string> command)
         Notifyer::notifyError(client, 418);
         return ;
     }
-    
+    client->setUserName(command[1]);
+    std::string realName = "";
+    for (int i = 4; i < command.size(); i++)
+    {
+        if (i == 4)
+            realName += command[i].substr(1);
+        else
+            realName = realName + " " + command[i];
+    }
+    client->setRealName(realName);
+    client->setStatus(COMPLETE);
 }
 
 void    Server::prs_signinNICK(Client* client, std::vector<std::string> command)
