@@ -6,18 +6,17 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 00:43:21 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/28 13:14:56 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/03 10:10:20 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-Client::Client(std::string& userName, 
-                std::string& nickName,
-                std::string& realName, int socket) : _userName(userName),
-                                                    _nickName(nickName),
-                                                    _realName(realName),
-                                                    _socket(socket){};
+Client::Client(int socket) : _userName(""),
+                                                    _nickName(""),
+                                                    _realName(""),
+                                                    _socket(socket),
+                                                    _clientStatus(PASS){};
 
 const std::string   Client::getUserName() const
 {
@@ -39,6 +38,11 @@ const int   Client::getSocket() const
     return this->_socket;
 }
 
+const status    Client::getStatus() const
+{
+    return this->_clientStatus;
+}
+
 void    Client::setUserName(const std::string& userName)
 {
     this->_userName = userName;
@@ -52,4 +56,9 @@ void    Client::setNickName(const std::string& nickName)
 void    Client::setRealName(const std::string& realName)
 {
     this->_realName = realName;
+}
+
+void    Client::setStatus(status newStatus)
+{
+    this->_clientStatus = newStatus;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_signin.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:39:35 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/02 18:03:17 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/03 00:08:26 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,6 @@
 void    prs_signin(std::string cmd)
 {
     std::vector<std::string>    command  = split(cmd);
+    
+    
 }

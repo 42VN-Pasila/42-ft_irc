@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/02 16:30:41 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/03 09:58:43 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ class Server
         std::string        _password;
         std::map<std::string, Client*>   _clientList;
         std::map<std::string, Channel*>  _channelList;
+        std::map<int, Client*>           _socketList;
         
         using Handler = void(Server::*)(Client* client, std::string& channelName, std::string& target);
 
