@@ -6,16 +6,24 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/04 02:47:57 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/05 01:05:30 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-static std::string cmdType[]{"JOIN", "PRIVMSG", "PART", "KICK", "TOPIC", "MODE"};
-
 void    Server::execCommand(Client* client, std::string cmd, std::string fullCommand)
 {
+    if (cmd == "JOIN")
+        this->parseJoin(client, fullCommand);
+    else if (cmd == "PART" || cmd == "PRIVMSG" || cmd == "KICK")
+        this->parseMultiTargets(client, fullCommand);
+    else if (cmd == "INVITE" || cmd == "TOPIC")
+        this->parseSingleTargets(client, fullCommand);
+    else if (cmd == "MODE")
+        
+    else
+        Notifyer::notifyError(client, 421);
     
 }
 

@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/05 00:59:07 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/05 01:00:36 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ class Server
 
         //ParseCmd
         void    parseJoin(Client* client, std::string fullCommand);
-        void    parseMultiTargets(Client* client, std::string fullCommand);
         void    parseSingleTargets(Client* client, std::string fullCommand);
+        void    parseMultiTargets(Client* client, std::string fullCommand);
         
         //Exec
         void    execCommand(Client* client, std::string cmd, std::string fullCommand);

@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:49:51 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/05 00:54:12 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/05 01:06:55 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ void    Server::parseJoin(Client* client, std::string fullCommand)
     std::vector<std::string>    passwordPack;
     
     cmdPack = parseSplit(fullCommand);
+    if (cmdPack.size() > 3 || cmdPack.size() < 2)
+    {
+        Notifyer::notifyError(client, );
+        return;
+    }
     channelPack = parseSplitComma(cmdPack[1]);
     
     if (cmdPack.size() > 2)
@@ -30,3 +35,12 @@ void    Server::parseJoin(Client* client, std::string fullCommand)
     }
 }
 
+void    Server::parseSingleTargets(Client* client, std::string fullCommand)
+{
+    
+}
+
+void    Server::parseMultiTargets(Client* client, std::string fullCommand)
+{
+    
+}
