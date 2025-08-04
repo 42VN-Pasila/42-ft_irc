@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 02:23:59 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/02 17:59:11 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/04 21:41:42 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 #include "system.hpp"
 
 //System
-bool                        prs_program(int ac, char **av);
+bool                        prs_program(int ac, char **av, int *port);
 bool                        prs_validPassword(char *av);
 std::vector<std::string>    split(std::string& cmd);

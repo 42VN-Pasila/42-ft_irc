@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/02 16:30:41 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/04 22:22:16 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 class Server
 {
     public  :
-        Server(unsigned int port, const std::string& password) : _port(port),
-                                                        _password(password){};
+        Server(unsigned int port, const std::string& password) : server_fd(-2),
+                                                                _port(port),
+                                                                _password(password){};
         ~Server() = default;
         
         //Validation
@@ -48,12 +49,17 @@ class Server
         //Utility
         bool    passwordRequired(Channel* channel, const std::string& pass = "");
 
+        //Launch
+        void    initSocket();
+        void    bindAndListen();
+
         //Main
         void    prs_cmd(Client* client, std::string& command);
         void    exec_cmd(Client* client, std::vector<std::string> cmds);
         
         
     private :
+        int             server_fd;
         unsigned int        _port;
         std::string        _password;
         std::map<std::string, Client*>   _clientList;

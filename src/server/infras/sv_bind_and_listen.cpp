@@ -1,31 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   sv_bind_and_listen.cpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/02 18:24:18 by caonguye          #+#    #+#             */
-/*   Updated: 2025/08/04 22:18:13 by htran-th         ###   ########.fr       */
+/*   Created: 2025/08/04 19:14:41 by htran-th          #+#    #+#             */
+/*   Updated: 2025/08/04 22:39:06 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-int main(int ac, char** av)
-{
-    try
-    {
-        int iport;
-        prs_program(ac, av, &iport);
-        // Tao Server()
-        // ket noi socket vao server
-        launchServer(av[2], &iport)
-        
-    }
-    catch(const std::exception& e)
-    {
-        LOG_RED(e.what());
-        std::cout << std::endl;
-    } 
+void Server::bindAndListen() {
+    
 }

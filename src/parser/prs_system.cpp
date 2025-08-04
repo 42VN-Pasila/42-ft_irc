@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prs_system.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 00:58:36 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/31 02:24:35 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/04 21:41:08 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool    prs_validPassword(char *av)
     return true;
 }
 
-static bool    prs_validPort(char *av)
+static bool    prs_validPort(char *av, int *iport)
 {
     int                 value;
     std::string         port(av);
@@ -69,10 +69,11 @@ static bool    prs_validPort(char *av)
         throw std::runtime_error("Invalid arguments : Port range is only 6000-7000");
         return false;
     }
+    *iport = value;
     return true;
 }
 
-bool    prs_program(int ac, char **av)
+bool    prs_program(int ac, char **av, int *iport)
 {
     if (ac != 3)
     {
@@ -80,7 +81,7 @@ bool    prs_program(int ac, char **av)
         std::cout << std::endl;
         return false;
     }
-    if (!prs_validPort(av[1]))
+    if (!prs_validPort(av[1], iport))
         return false;
     if (!prs_validPassword(av[2]))
         return false;

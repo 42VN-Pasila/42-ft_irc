@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   sv_socket_init.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/02 18:24:18 by caonguye          #+#    #+#             */
-/*   Updated: 2025/08/04 22:18:13 by htran-th         ###   ########.fr       */
+/*   Created: 2025/08/04 19:35:59 by htran-th          #+#    #+#             */
+/*   Updated: 2025/08/04 22:36:13 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-int main(int ac, char** av)
-{
-    try
-    {
-        int iport;
-        prs_program(ac, av, &iport);
-        // Tao Server()
-        // ket noi socket vao server
-        launchServer(av[2], &iport)
-        
+void Server::initSocket() {
+    server_fd = socket(AF_INET, SOCK_STREAM, 0);
+    if (server_fd < 0) {
+        throw std::runtime_error("Server: socket creating failed!");
     }
-    catch(const std::exception& e)
-    {
-        LOG_RED(e.what());
-        std::cout << std::endl;
-    } 
 }
