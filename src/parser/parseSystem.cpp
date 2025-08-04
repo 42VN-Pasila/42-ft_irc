@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_system.cpp                                     :+:      :+:    :+:   */
+/*   parseSystem.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 00:58:36 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/31 02:24:35 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/04 02:25:13 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-bool    prs_validPassword(char *av)
+bool    parseValidPass(char *av)
 {
     std::string password(av);
     
@@ -37,7 +37,7 @@ bool    prs_validPassword(char *av)
     return true;
 }
 
-static bool    prs_validPort(char *av)
+static bool    parseValidPort(char *av)
 {
     int                 value;
     std::string         port(av);
@@ -72,7 +72,7 @@ static bool    prs_validPort(char *av)
     return true;
 }
 
-bool    prs_program(int ac, char **av)
+bool    parseProgram(int ac, char **av)
 {
     if (ac != 3)
     {
@@ -80,9 +80,9 @@ bool    prs_program(int ac, char **av)
         std::cout << std::endl;
         return false;
     }
-    if (!prs_validPort(av[1]))
+    if (!parseValidPort(av[1]))
         return false;
-    if (!prs_validPassword(av[2]))
+    if (!parseValidPass(av[2]))
         return false;
     return true;
 }

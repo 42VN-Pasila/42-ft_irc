@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_signin.cpp                                     :+:      :+:    :+:   */
+/*   parseSignin.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:39:35 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/03 12:44:52 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/04 02:26:02 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-void    Server::prs_signinUSER(Client* client, std::vector<std::string> command)
+void    Server::parseSignUSER(Client* client, std::vector<std::string> command)
 {
     if (command.size() < 5 || command[0] != "USER")
     {
@@ -32,7 +32,7 @@ void    Server::prs_signinUSER(Client* client, std::vector<std::string> command)
     client->setStatus(COMPLETE);
 }
 
-void    Server::prs_signinNICK(Client* client, std::vector<std::string> command)
+void    Server::parseSignNICK(Client* client, std::vector<std::string> command)
 {
     if (command.size() != 2 || command[0] != "NICK")
     {
@@ -48,7 +48,7 @@ void    Server::prs_signinNICK(Client* client, std::vector<std::string> command)
     client->setStatus(USER);
 }
 
-void    Server::prs_signinPASS(Client* client, std::vector<std::string> command)
+void    Server::parseSignPASS(Client* client, std::vector<std::string> command)
 {
     if (command.size() != 2 || command[0] != "PASS")
     {
@@ -63,16 +63,16 @@ void    Server::prs_signinPASS(Client* client, std::vector<std::string> command)
     client->setStatus(NICK); 
 }
 
-void    Server::prs_signin(Client* client, std::string cmd)
+void    Server::parseSign(Client* client, std::string cmd)
 {
-    std::vector<std::string>    command  = split(cmd);
+    std::vector<std::string>    command  = parseSplit(cmd);
     
     if (client->getStatus() == PASS)
-        this->prs_signinPASS(client, command);
+        this->parseSignPASS(client, command);
     else if (client->getStatus() == NICK)
-        this->prs_signinNICK(client, command);
+        this->parseSignNICK(client, command);
     else if (client->getStatus() == USER)
-        this->prs_signinUSER(client, command);
+        this->parseSignUSER(client, command);
     else
         return ;
 }

@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/03 13:15:56 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/04 03:03:19 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,21 @@ class Server
         bool    passwordRequired(Channel* channel, const std::string& pass = "");
 
         //Parse
-        void    prs_signin(Client* client, std::string cmd);
-        void    prs_signinPASS(Client* client, std::vector<std::string> command);
-        void    prs_signinNICK(Client* client, std::vector<std::string> command);
-        void    prs_signinUSER(Client* client, std::vector<std::string> command);
-        void    prs_cmd(Client* client, std::string& command);
+        void    parseSign(Client* client, std::string cmd);
+        void    parseSignPASS(Client* client, std::vector<std::string> command);
+        void    parseSignNICK(Client* client, std::vector<std::string> command);
+        void    parseSignUSER(Client* client, std::vector<std::string> command);
+        void    parseCommand(Client* client, std::string& command);
 
-        //Exec
-        void    exec_cmd(Client* client, std::vector<std::string> cmds);
+        //ParseCmd
+        void    parseJoin(Client* client, std::string fullCommand);
         
+        //Exec
+        void    execCommand(Client* client, std::string cmd, std::string fullCommand);
         
     private :
-        unsigned int        _port;
-        std::string        _password;
+        unsigned int                     _port;
+        std::string                      _password;
         std::map<std::string, Client*>   _clientList;
         std::map<std::string, Channel*>  _channelList;
         std::map<int, Client*>           _socketList;
@@ -78,6 +80,6 @@ class Server
             &Server::handlerKick,
             &Server::handlerInvite,
             &Server::wrapperTopic
-        }; 
+        };
 };
 
