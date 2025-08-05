@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:30:42 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/05 19:11:39 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 01:02:24 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,4 @@ class Server;
 #define on true
 #define off false
 #define MULTI_TARGET_FUNCTIONS 3
-#define SINGLE_TARGET_FUNCTIONS 2
+#define MODE_QTT    5

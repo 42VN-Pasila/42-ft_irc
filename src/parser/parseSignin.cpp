@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:39:35 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/04 02:26:02 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 00:09:57 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void    Server::parseSignPASS(Client* client, std::vector<std::string> command)
     client->setStatus(NICK); 
 }
 
-void    Server::parseSign(Client* client, std::string cmd)
+void    Server::parseSign(Client* client, std::string& cmd)
 {
     std::vector<std::string>    command  = parseSplit(cmd);
     

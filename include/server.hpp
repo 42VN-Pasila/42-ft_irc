@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/05 23:47:09 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 01:02:52 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,25 @@ class Server
         bool    passwordRequired(Channel* channel, const std::string& pass = "");
 
         //Parse
-        void    parseSign(Client* client, std::string cmd);
+        void    parseSign(Client* client, std::string& cmd);
         void    parseSignPASS(Client* client, std::vector<std::string> command);
         void    parseSignNICK(Client* client, std::vector<std::string> command);
         void    parseSignUSER(Client* client, std::vector<std::string> command);
         void    parseCommand(Client* client, std::string& command);
 
         //ParseCmd
-        void    parseJoin(Client* client, std::string fullCommand);
-        void    parseTopic(Client* client, std::string fullCommand);
-        void    parseInvite(Client* client, std::string fullCommand);
-        void    parseMultiTargets(Client* client, std::string fullCommand);
+        void    parseJoin(Client* client, std::string& fullCommand);
+        void    parseTopic(Client* client, std::string& fullCommand);
+        void    parseInvite(Client* client, std::string& fullCommand);
+        void    parseMultiTargets(Client* client, std::string& fullCommand);
+        
+        //ParseMode
+        void    parseMode(Client* client, std::string& fullCommand);
+        void    parseModeI(Client* client, std::string& fullCommand);
+        void    parseModeK(Client* client, std::string& fullCommand);
+        void    parseModeT(Client* client, std::string& fullCommand);
+        void    parseModeL(Client* client, std::string& fullCommand);
+        void    parseModeO(Client* client, std::string& fullCommand);
         
         //Exec
         void    execCommand(Client* client, std::string cmd, std::string fullCommand);

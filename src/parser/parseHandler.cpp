@@ -6,13 +6,13 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:49:51 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 00:07:37 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 00:27:42 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-void    Server::parseJoin(Client* client, std::string fullCommand)
+void    Server::parseJoin(Client* client, std::string& fullCommand)
 {
     std::vector<std::string>    cmdPack;
     std::vector<std::string>    channelPack;
@@ -37,7 +37,7 @@ void    Server::parseJoin(Client* client, std::string fullCommand)
     }
 }
 
-void    Server::parseTopic(Client* client, std::string fullCommand)
+void    Server::parseTopic(Client* client, std::string& fullCommand)
 {
     std::vector<std::string>    cmdPack;
     std::string                 topic;
@@ -54,7 +54,7 @@ void    Server::parseTopic(Client* client, std::string fullCommand)
     this->handlerTopic(client, cmdPack[1], topic);
 }
 
-void    Server::parseInvite(Client* client, std::string fullCommand)
+void    Server::parseInvite(Client* client, std::string& fullCommand)
 {
     std::vector<std::string>    cmdPack;
     int                         size;
@@ -68,9 +68,9 @@ void    Server::parseInvite(Client* client, std::string fullCommand)
     this->handlerInvite(client, cmdPack[1], cmdPack[2]);
 }
 
-std::string MultiTargetsPack[MULTI_TARGET_FUNCTIONS] = {"PART", "PRIVMSG", "KICK"};
+static std::string MultiTargetsPack[MULTI_TARGET_FUNCTIONS] = {"PART", "PRIVMSG", "KICK"};
 
-void    Server::parseMultiTargets(Client* client, std::string fullCommand)
+void    Server::parseMultiTargets(Client* client, std::string& fullCommand)
 {
     std::vector<std::string>    cmdPack;
     std::vector<std::string>    targetPack;

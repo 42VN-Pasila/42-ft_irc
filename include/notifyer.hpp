@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/05 17:37:04 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 01:13:00 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,12 @@
 #define ERR_SYNTAXKICK          " :Invalid KICK syntax"                 //493
 #define ERR_SYNTAXINVITE        " :Invalid INVITE syntax"               //494
 #define ERR_SYNTAXTOPIC         " :Invalid TOPIC syntax"                //495
-
+#define ERR_SYNTAXMODE          " :Invalid MODE syntax"                 //496
+#define ERR_SYNTAXMODEI         " :Invalid MODE Invite syntax"          //497
+#define ERR_SYNTAXMODEK         " :Invalid MODE Password syntax"        //498
+#define ERR_SYNTAXMODEL         " :Invalid MODE Limit syntax"           //499
+#define ERR_SYNTAXMODEO         " :Invalid MODE Operator syntax"        //500
+#define ERR_SYNTAXMODET         " :Invalid MODE Topic syntax"           //501
 
 class   Notifyer
 {
