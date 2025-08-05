@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 01:02:52 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 02:30:51 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ class Server
         
         //Exec
         void    execCommand(Client* client, std::string cmd, std::string fullCommand);
+
+        //Clean
+        void    channelClean(Channel* channel);
+        void    clientClean(Client* client);
         
     private :
         unsigned int                     _port;
