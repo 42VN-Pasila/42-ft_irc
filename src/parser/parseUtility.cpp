@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 17:58:04 by caonguye          #+#    #+#             */
-/*   Updated: 2025/08/06 01:19:42 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 01:53:11 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,18 @@ std::vector<std::string>    parseSplitComma(std::string& cmd)
     while (std::getline(stream, token, ','))
         result.push_back(token);
     return result;
+}
+
+bool    parseValidNumber(std::string& nbr)
+{
+    int value;
+
+    auto    value_ptr = std::from_chars(nbr.data(), nbr.data() + nbr.length(), value);
+    if (value_ptr.ec == std::errc::invalid_argument)
+        return false;
+    if (value_ptr.ec == std::errc::result_out_of_range)
+        return false;
+    if (value_ptr.ptr != nbr.data() + nbr.length())
+        return false;
+    return true;
 }
