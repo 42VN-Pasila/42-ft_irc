@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 00:58:36 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/04 02:25:13 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 02:03:48 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,7 @@ static bool    parseValidPort(char *av)
 bool    parseProgram(int ac, char **av)
 {
     if (ac != 3)
-    {
         throw std::runtime_error("Invalid arguments : Start program by ./irc <port_number> <password>");
-        std::cout << std::endl;
-        return false;
-    }
     if (!parseValidPort(av[1]))
         return false;
     if (!parseValidPass(av[2]))

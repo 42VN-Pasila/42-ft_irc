@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:48:03 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 01:55:15 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 01:58:13 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,15 @@ void    Server::parseModeL(Client* client, std::string& fullCommand)
         return ;
     }
     mode = (cmdPack[2][0] == '+' ? on : off);
-    if (mode == on && !parseValidNumber(cmdPack[3]))
+    if (mode == on)
     {
-        Notifyer::notifyError(client, 499);
-        return ;
+        if (!parseValidNumber(cmdPack[3]))
+        {
+            Notifyer::notifyError(client, 499);
+            return ;         
+        }
+        limit = std::stoi(cmdPack[3]);
     }
-    limit = std::stoi(cmdPack[3]);
     this->handlerModeL(client, cmdPack[1], limit, mode);
 }
 

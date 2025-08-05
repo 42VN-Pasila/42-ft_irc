@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 17:58:04 by caonguye          #+#    #+#             */
-/*   Updated: 2025/08/06 01:53:11 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 01:59:51 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ std::vector<std::string>    parseSplitComma(std::string& cmd)
 
 bool    parseValidNumber(std::string& nbr)
 {
-    int value;
+    unsigned int value;
 
     auto    value_ptr = std::from_chars(nbr.data(), nbr.data() + nbr.length(), value);
     if (value_ptr.ec == std::errc::invalid_argument)

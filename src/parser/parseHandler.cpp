@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:49:51 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 00:27:42 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 02:02:36 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void    Server::parseInvite(Client* client, std::string& fullCommand)
     int                         size;
     
     cmdPack = parseSplit(fullCommand);
+    size = cmdPack.size();
     if (size != 3)
     {
         Notifyer::notifyError(client, 494);
@@ -97,7 +98,7 @@ void    Server::parseMultiTargets(Client* client, std::string& fullCommand)
     {
         if (cmdPack[0] == MultiTargetsPack[i])
         {
-            for (int j = 0; j < size; j++)
+            for (int j = 0; j < targetPack.size(); j++)
                 (this->*_MultiTargetsFunctions[i])(client, targetPack[j], noti);
             return ;
         } 
