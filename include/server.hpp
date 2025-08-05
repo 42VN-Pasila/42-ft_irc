@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/04 22:22:16 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/06 02:15:12 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@
 class Server
 {
     public  :
-        Server(unsigned int port, const std::string& password) : server_fd(-2),
+        Server(unsigned int port, const std::string& password) : _server_fd(-2),
                                                                 _port(port),
                                                                 _password(password){};
-        ~Server() = default;
+        ~Server() {
+            closeAllFds();
+            std::cout << "Shutting down server!" << std::endl;
+        };
         
         //Validation
         bool    isServerClient(Client* client);
@@ -52,6 +55,8 @@ class Server
         //Launch
         void    initSocket();
         void    bindAndListen();
+        void    pollAndAccept();
+        void    closeAllFds();
 
         //Main
         void    prs_cmd(Client* client, std::string& command);
@@ -59,7 +64,9 @@ class Server
         
         
     private :
-        int             server_fd;
+        int            _server_fd;
+        std::vector<struct pollfd>          _poll_fds;
+        std::map<int, Client*> _cl_nonverify; // Before input: NICK & USER
         unsigned int        _port;
         std::string        _password;
         std::map<std::string, Client*>   _clientList;
@@ -75,6 +82,6 @@ class Server
             &Server::handlerKick,
             &Server::handlerInvite,
             &Server::wrapperTopic
-        }; 
+        };
 };
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: siuol <siuol@student.42.fr>                +#+  +:+       +#+         #
+#    By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/23 12:06:23 by siuol             #+#    #+#              #
-#    Updated: 2025/07/23 12:32:06 by siuol            ###   ########.fr        #
+#    Updated: 2025/08/06 01:55:36 by htran-th         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ CORE		= src/core
 PRS			= src/parser
 SRV			= src/server
 IRC			= src/irc
+INFRAS		= src/infras
 
 #CORE
 CORE_SRC	=	$(CORE)/CORE.cpp
@@ -35,8 +36,10 @@ SRV_SRC	=
 #IRC
 IRC_SRC	=
 
+#INFRAS
+INFRAS_SRC =
 
-SRCS		= $(CORE_SRC) $(PRS_SRC) $(SRV_SRC) $(IRC_SRC)
+SRCS		= $(CORE_SRC) $(PRS_SRC) $(SRV_SRC) $(IRC_SRC) $(INFRAS_SRC)
 OBJS		= ${SRCS:.cpp=.o}
 
 all : $(NAME)
