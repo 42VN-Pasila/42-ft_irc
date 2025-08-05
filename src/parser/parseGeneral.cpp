@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/05 01:05:30 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/05 17:49:10 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ void    Server::execCommand(Client* client, std::string cmd, std::string fullCom
     else if (cmd == "INVITE" || cmd == "TOPIC")
         this->parseSingleTargets(client, fullCommand);
     else if (cmd == "MODE")
-        
+        this->parseMode(client, fullCommand);
     else
         Notifyer::notifyError(client, 421);
-    
 }
 
 void    Server::parseCommand(Client* client, std::string& command)

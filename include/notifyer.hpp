@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/03 12:25:41 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/05 17:37:04 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@
 #define ERR_PASSWORDEMPTY       " :Password cannot be empty"           //484
 #define ERR_EMPTYCMD            " :Command cannot be empty"            //485
 #define ERR_WRONGCMD            " :Command not found"                  //486 
+
+#define ERR_SYNTAXJOIN          " :Invalid JOIN syntax"                 //490
+#define ERR_SYNTAXPART          " :Invalid PART syntax"                 //491
+#define ERR_SYNTAXPRIVMSG       " :Invalid PRIVMSG syntax"              //492
+#define ERR_SYNTAXKICK          " :Invalid KICK syntax"                 //493
+#define ERR_SYNTAXINVITE        " :Invalid INVITE syntax"               //494
+#define ERR_SYNTAXTOPIC         " :Invalid TOPIC syntax"                //495
+
 
 class   Notifyer
 {

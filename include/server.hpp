@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/05 01:00:36 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/05 19:06:11 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,24 @@ class Server
         
         using Handler = void(Server::*)(Client* client, std::string& channelName, std::string& target);
 
-        Handler _cmdExec[6] = 
+        Handler _MultiTargetsFunctions[3] = 
         {
-            &Server::handlerJoin,
             &Server::handlerPrivmsg,
             &Server::handlerPart,
             &Server::handlerKick,
-            &Server::handlerInvite,
-            &Server::wrapperTopic
+        };
+        
+        std::function<void(Client* client, int code)> _MultiTargetsErrors[] = 
+        {
+            [](Client* client, int code){Notifyer::notifyError(client, 491);},
+            [](Client* client, int code){Notifyer::notifyError(client, 492);},
+            [](Client* client, int code){Notifyer::notifyError(client, 493);}
+        };
+
+        Handler _SingleTargetsFunctions[2] = 
+        {
+            &Server::wrapperTopic,
+            &Server::handlerInvite
         };
 };
 
