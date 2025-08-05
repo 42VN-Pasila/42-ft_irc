@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/02 19:27:44 by tripham          ###   ########.fr       */
+/*   Updated: 2025/08/05 18:02:58 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,17 @@ class Server
         void    prs_cmd(Client* client, std::string& command);
         void    exec_cmd(Client* client, std::vector<std::string> cmds);
         
+		//Server
         unsigned int getPort( void ) const;
 		void 		 setPort( unsigned int port );
+		void 		 setupSocket();
 		
     private :
         unsigned int        _port;
         std::string        _password;
+		int					_serverSocket;
+		std::vector<pollfd>	_pollFDs;
+		
         std::map<std::string, Client*>   _clientList;
         std::map<std::string, Channel*>  _channelList;
         

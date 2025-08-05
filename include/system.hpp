@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:30:42 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/02 19:31:16 by tripham          ###   ########.fr       */
+/*   Updated: 2025/08/05 18:03:53 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,15 @@
 #include <netinet/in.h>
 #include <charconv>
 #include <sstream>
+#include <stdexcept>
+#include <poll.h>
 #include <functional>
 #include "client.hpp"
 #include "channel.hpp"
 #include "server.hpp"
 #include "notifyer.hpp"
 #include "parser.hpp"
+
 
 class Notifyer;
 class Client;
