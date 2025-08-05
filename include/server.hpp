@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 02:30:51 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 02:49:34 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ class Server
     public  :
         Server(unsigned int port, const std::string& password) : _port(port),
                                                         _password(password){};
-        ~Server() = default;
+        ~Server();
         
         //Validation
         bool    isServerClient(Client* client);
