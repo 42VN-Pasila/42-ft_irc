@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:49:51 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/05 18:50:48 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 00:07:37 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,18 @@ void    Server::parseJoin(Client* client, std::string fullCommand)
     std::vector<std::string>    cmdPack;
     std::vector<std::string>    channelPack;
     std::vector<std::string>    passwordPack;
+    int                         size;
     
     cmdPack = parseSplit(fullCommand);
-    if (cmdPack.size() > 3 || cmdPack.size() < 2)
+    size = cmdPack.size();
+    if (size > 3 || size < 2)
     {
         Notifyer::notifyError(client, 490);
         return;
     }
     channelPack = parseSplitComma(cmdPack[1]);
     
-    if (cmdPack.size() > 2)
+    if (size > 2)
         passwordPack = parseSplitComma(cmdPack[2]);
     for (int i = 0; i  < channelPack.size(); i++)
     {
@@ -35,9 +37,35 @@ void    Server::parseJoin(Client* client, std::string fullCommand)
     }
 }
 
-void    Server::parseMultiTargets(Client* client, std::string fullCommand)
+void    Server::parseTopic(Client* client, std::string fullCommand)
 {
+    std::vector<std::string>    cmdPack;
+    std::string                 topic;
+    int                         size;
     
+    cmdPack = parseSplit(fullCommand);
+    size = cmdPack.size();
+    if (size > 3 || size < 2)
+    {
+        Notifyer::notifyError(client, 495);
+        return;
+    }
+    topic = (size < 3 ? "" : cmdPack[2].substr(1));
+    this->handlerTopic(client, cmdPack[1], topic);
+}
+
+void    Server::parseInvite(Client* client, std::string fullCommand)
+{
+    std::vector<std::string>    cmdPack;
+    int                         size;
+    
+    cmdPack = parseSplit(fullCommand);
+    if (size != 3)
+    {
+        Notifyer::notifyError(client, 494);
+        return;
+    }
+    this->handlerInvite(client, cmdPack[1], cmdPack[2]);
 }
 
 std::string MultiTargetsPack[MULTI_TARGET_FUNCTIONS] = {"PART", "PRIVMSG", "KICK"};
@@ -53,13 +81,14 @@ void    Server::parseMultiTargets(Client* client, std::string fullCommand)
     size = cmdPack.size();
     if (size > 3 || size < 2)
     {
-        if (cmdPack[0] == "PART")
-            Notifyer::notifyError(client, 491);
-        else if (cmdPack[0] == "PRIVMSG")
-            Notifyer::notifyError(client, 492);
-        else if (cmdPack[0] == "KICK")
-            Notifyer::notifyError(client, 493);
-        return;
+        for (int i = 0; i < MULTI_TARGET_FUNCTIONS; i++)
+        {
+            if (cmdPack[0] == MultiTargetsPack[i])
+            {
+                (this->_MultiTargetsErrors[i])(client);
+                return ;
+            } 
+        }
     }
     targetPack = parseSplitComma(cmdPack[1]);
 

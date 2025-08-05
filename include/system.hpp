@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:30:42 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/05 18:08:02 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/05 19:11:39 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <charconv>
 #include <sstream>
 #include <functional>
+
 #include "client.hpp"
 #include "channel.hpp"
 #include "server.hpp"

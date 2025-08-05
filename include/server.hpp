@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/05 19:06:11 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/05 23:47:09 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ class Server
         bool    hasServerClient(std::string& clientName);
         bool    validateChannel(Client* client, std::string& channelName);
         bool    validateOperator(Client* client, std::string& channelName);
-        bool    validateTarget(Client* client, std::string& channelName, std::string& target);
+        bool    validateTarget(Client* client, std::string& target, std::string& channelName);
         
         //cmdHandler
         void    handlerJoin(Client* client, std::string& channel, std::string& pass);
@@ -36,8 +36,7 @@ class Server
         void    handlerPart(Client* client, std::string& channel, std::string& msg);
         void    handlerInvite(Client* client, std::string& channel, std::string& targetUser);
         void    handlerKick(Client* client, std::string& channel, std::string& targetUser);
-        void    handlerTopic(Client* client, std::string& channel, const std::string& topic = "");
-        void    wrapperTopic(Client* client, std::string& channel, std::string& topic);
+        void    handlerTopic(Client* client, std::string& channel, std::string& topic);
         void    handlerModeI(Client* client, std::string& channelName, bool = false);
         void    handlerModeT(Client* client, std::string& channelName, bool = false);
         void    handlerModeK(Client* client, std::string& channelName, const std::string& pass = "", bool mode = false);
@@ -59,7 +58,8 @@ class Server
 
         //ParseCmd
         void    parseJoin(Client* client, std::string fullCommand);
-        void    parseSingleTargets(Client* client, std::string fullCommand);
+        void    parseTopic(Client* client, std::string fullCommand);
+        void    parseInvite(Client* client, std::string fullCommand);
         void    parseMultiTargets(Client* client, std::string fullCommand);
         
         //Exec
@@ -81,17 +81,11 @@ class Server
             &Server::handlerKick,
         };
         
-        std::function<void(Client* client, int code)> _MultiTargetsErrors[] = 
+        std::function<void(Client* client)> _MultiTargetsErrors[3] = 
         {
-            [](Client* client, int code){Notifyer::notifyError(client, 491);},
-            [](Client* client, int code){Notifyer::notifyError(client, 492);},
-            [](Client* client, int code){Notifyer::notifyError(client, 493);}
-        };
-
-        Handler _SingleTargetsFunctions[2] = 
-        {
-            &Server::wrapperTopic,
-            &Server::handlerInvite
+            [](Client* client){Notifyer::notifyError(client, 491);},
+            [](Client* client){Notifyer::notifyError(client, 492);},
+            [](Client* client){Notifyer::notifyError(client, 493);}
         };
 };
 

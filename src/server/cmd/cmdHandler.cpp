@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_handler.cpp                                    :+:      :+:    :+:   */
+/*   cmdHandler.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/02 05:44:10 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/05 23:38:46 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,11 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
         Notifyer::notifyError(client, code);
 }
 
-void    Server::handlerTopic(Client* client, std::string& channel, const std::string& topic)
+void    Server::handlerTopic(Client* client, std::string& channel, std::string& topic)
 {
     int code;
     std::string channelName = channel.substr(1);
+    topic = topic.substr(1);
     
     if (!validateChannel(client, channelName))
         return ;
@@ -147,12 +148,7 @@ void    Server::handlerTopic(Client* client, std::string& channel, const std::st
     Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
 }
 
-void    Server::wrapperTopic(Client* client, std::string& channel, std::string& topic)
-{
-    handlerTopic(client, channel, topic);
-}
-
-void    Server::handlerInvite(Client* client, std::string& channel, std::string& targetUser)
+void    Server::handlerInvite(Client* client, std::string& targetUser, std::string& channel)
 {
     int code;
     std::string channelName = channel.substr(1);
