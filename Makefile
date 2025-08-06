@@ -6,7 +6,7 @@
 #    By: siuol <siuol@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/23 12:06:23 by siuol             #+#    #+#              #
-#    Updated: 2025/08/03 13:10:18 by siuol            ###   ########.fr        #
+#    Updated: 2025/08/06 13:18:55 by siuol            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,16 +24,31 @@ SRV			= src/server
 IRC			= src/irc
 
 #CORE
-CORE_SRC	=	$(CORE)/main.cpp
+CORE_SRC	=	$(CORE)/main.cpp			/
+				$(CORE)/notifyer.cpp
 
 #PARSING
-PRS_SRC		= $(PRS)/prs_system.cpp
+PRS_SRC		=	$(PRS)/parseSystem.cpp		/
+				$(PRS)/parseGeneral.cpp   	/
+				$(PRS)/parseHandler.cpp		/
+				$(PRS)/parseMode.cpp		/
+				$(PRS)/parseSignin.cpp		/
+				$(PRS)/parseUtility.cpp	
 
 #SERVER
-SRV_SRC	=
+SRV_SRC		=	$(SRV)/cmd/cmdHandler.cpp					/
+				$(SRV)/cmd/cmdModeHandler.cpp				/
+				$(SRV)/implementation/serverClean.cpp		/
+				$(SRV)/implementation/serverUtility.cpp		/
+				$(SRV)/implementation/serverValidation.cpp
 
 #IRC
-IRC_SRC	=
+IRC_SRC		=	$(IRC)/channel/channelFunctional.cpp		/
+				$(IRC)/channel/channelGetter.cpp			/
+				$(IRC)/channel/channelSetter.cpp			/
+				$(IRC)/channel/channelUnsetter.cpp			/
+				$(IRC)/channel/channelValidation.cpp		/
+				$(IRC)/client/implementation.cpp
 
 
 SRCS		= $(CORE_SRC) $(PRS_SRC) $(SRV_SRC) $(IRC_SRC)
