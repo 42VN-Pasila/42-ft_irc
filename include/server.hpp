@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 02:49:34 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 11:50:06 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,34 @@ class Server
                                                         _password(password){};
         ~Server();
         
-        //Validation
+        //Exec
+        void    execCommand(Client* client, std::string cmd, std::string fullCommand);
+
+    private :
+        unsigned int                     _port;
+        std::string                      _password;
+        std::map<std::string, Client*>   _clientList;
+        std::map<std::string, Channel*>  _channelList;
+        std::map<int, Client*>           _socketList;
+        
+        using Handler = void(Server::*)(Client* client, std::string& channelName, std::string& target);
+
+        Handler _MultiTargetsFunctions[3] = 
+        {
+            &Server::handlerPrivmsg,
+            &Server::handlerPart,
+            &Server::handlerKick,
+        };
+        
+        std::function<void(Client* client)> _MultiTargetsErrors[3] = 
+        {
+            [](Client* client){Notifyer::notifyError(client, 491);},
+            [](Client* client){Notifyer::notifyError(client, 492);},
+            [](Client* client){Notifyer::notifyError(client, 493);}
+        };
+
+
+                //Validation
         bool    isServerClient(Client* client);
         bool    isServerChannel(Channel* channel);
         bool    hasServerChannel(std::string& channelName);
@@ -69,35 +96,5 @@ class Server
         void    parseModeT(Client* client, std::string& fullCommand);
         void    parseModeL(Client* client, std::string& fullCommand);
         void    parseModeO(Client* client, std::string& fullCommand);
-        
-        //Exec
-        void    execCommand(Client* client, std::string cmd, std::string fullCommand);
-
-        //Clean
-        void    channelClean(Channel* channel);
-        void    clientClean(Client* client);
-        
-    private :
-        unsigned int                     _port;
-        std::string                      _password;
-        std::map<std::string, Client*>   _clientList;
-        std::map<std::string, Channel*>  _channelList;
-        std::map<int, Client*>           _socketList;
-        
-        using Handler = void(Server::*)(Client* client, std::string& channelName, std::string& target);
-
-        Handler _MultiTargetsFunctions[3] = 
-        {
-            &Server::handlerPrivmsg,
-            &Server::handlerPart,
-            &Server::handlerKick,
-        };
-        
-        std::function<void(Client* client)> _MultiTargetsErrors[3] = 
-        {
-            [](Client* client){Notifyer::notifyError(client, 491);},
-            [](Client* client){Notifyer::notifyError(client, 492);},
-            [](Client* client){Notifyer::notifyError(client, 493);}
-        };
 };
 
