@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+         #
+#    By: htran-th <htran-th@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/23 12:06:23 by siuol             #+#    #+#              #
-#    Updated: 2025/08/06 01:55:36 by htran-th         ###   ########.fr        #
+#    Updated: 2025/08/06 20:34:11 by htran-th         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 		= ircserv
 CC			= c++
 FLAG		= -Wall -Wextra -Werror -std=c++20
 RM			= rm -rf
-INCLUDE 	= -Iinclude include/system.hpp
+INCLUDE 	= -Iinclude
 
 #--DIRECTORIES--
 SRC			= src
@@ -25,16 +25,31 @@ IRC			= src/irc
 INFRAS		= src/infras
 
 #CORE
-CORE_SRC	=	$(CORE)/CORE.cpp
+CORE_SRC	=	$(CORE)/main.cpp			\
+				$(CORE)/notifyer.cpp
 
 #PARSING
-PRS_SRC		= 
+PRS_SRC		=	$(PRS)/parseSystem.cpp		\
+				$(PRS)/parseGeneral.cpp   	\
+				$(PRS)/parseHandler.cpp		\
+				$(PRS)/parseMode.cpp		\
+				$(PRS)/parseSignin.cpp		\
+				$(PRS)/parseUtility.cpp	
 
 #SERVER
-SRV_SRC	=
+SRV_SRC		=	$(SRV)/cmd/cmdHandler.cpp					\
+				$(SRV)/cmd/cmdModeHandler.cpp				\
+				$(SRV)/implementation/serverClean.cpp		\
+				$(SRV)/implementation/serverUtility.cpp		\
+				$(SRV)/implementation/serverValidation.cpp
 
 #IRC
-IRC_SRC	=
+IRC_SRC		=	$(IRC)/channel/channelFunctional.cpp		\
+				$(IRC)/channel/channelGetter.cpp			\
+				$(IRC)/channel/channelSetter.cpp			\
+				$(IRC)/channel/channelUnsetter.cpp			\
+				$(IRC)/channel/channelValidation.cpp		\
+				$(IRC)/client/implementation.cpp
 
 #INFRAS
 INFRAS_SRC =
@@ -45,7 +60,7 @@ OBJS		= ${SRCS:.cpp=.o}
 all : $(NAME)
 
 %.o : %.cpp
-		@$(CC) $(FLAG) -c $< -o $@
+		@$(CC) $(FLAG) $(INCLUDE) -c $< -o $@
 
 $(NAME): $(OBJS)
 		@$(CC) $(FLAG) $(INCLUDE) $(OBJS) -o $@

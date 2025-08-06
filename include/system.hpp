@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:30:42 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 00:38:40 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/06 20:21:12 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 #include <charconv>
 #include <sstream>
 #include <functional>
+#include <unistd.h>
+
 #include "client.hpp"
 #include "channel.hpp"
 #include "server.hpp"
@@ -33,10 +35,10 @@
 #include "parser.hpp"
 #include "infras.hpp"
 
+class Server;
 class Notifyer;
 class Client;
 class Channel;
-class Server;
 
 // Color codes
 #define RESET   "\033[0m"
@@ -56,3 +58,5 @@ class Server;
 #define LIMIT_MEMBER 1000
 #define on true
 #define off false
+#define MULTI_TARGET_FUNCTIONS 3
+#define MODE_QTT    5
