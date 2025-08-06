@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   sv_bind_and_listen.cpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: htran-th <htran-th@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 19:14:41 by htran-th          #+#    #+#             */
-/*   Updated: 2025/08/05 23:11:45 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/06 20:54:56 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
 void Server::bindAndListen() {
-    struct sockaddr_in server_addr = {0};
+    struct sockaddr_in server_addr;
 
     server_addr.sin_family = AF_INET; // Set the address family to IPv4
     server_addr.sin_addr.s_addr = INADDR_ANY; // Accept connections from any IP address on this machine

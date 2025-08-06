@@ -6,7 +6,7 @@
 #    By: htran-th <htran-th@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/23 12:06:23 by siuol             #+#    #+#              #
-#    Updated: 2025/08/06 20:34:11 by htran-th         ###   ########.fr        #
+#    Updated: 2025/08/06 21:01:45 by htran-th         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ CORE		= src/core
 PRS			= src/parser
 SRV			= src/server
 IRC			= src/irc
-INFRAS		= src/infras
+INFRAS		= src/server/infras
 
 #CORE
 CORE_SRC	=	$(CORE)/main.cpp			\
@@ -52,7 +52,10 @@ IRC_SRC		=	$(IRC)/channel/channelFunctional.cpp		\
 				$(IRC)/client/implementation.cpp
 
 #INFRAS
-INFRAS_SRC =
+INFRAS_SRC =	$(INFRAS)/sv_bind_and_listen.cpp \
+				$(INFRAS)/sv_init.cpp			\
+				$(INFRAS)/sv_poll_and_accept.cpp \
+				$(INFRAS)/sv_socket_init.cpp
 
 SRCS		= $(CORE_SRC) $(PRS_SRC) $(SRV_SRC) $(IRC_SRC) $(INFRAS_SRC)
 OBJS		= ${SRCS:.cpp=.o}
