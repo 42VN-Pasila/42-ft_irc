@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: htran-th <htran-th@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 20:26:44 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/06 20:59:29 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,20 @@ class Server
         Server(unsigned int port, const std::string& password) : _server_fd(-2),
                                                                 _port(port),
                                                                 _password(password){};
-        ~Server() {
-            closeAllFds();
-            std::cout << "Shutting down server!" << std::endl;
-        };
+        ~Server();
         
+        //Launch
+        void    initSocket();
+        void    bindAndListen();
+        void    pollAndAccept();
+        void    closeAllFds();
         //Exec
         void    execCommand(Client* client, std::string cmd, std::string fullCommand);
 
     private :
         int                              _server_fd;
         unsigned int                     _port;
+        std::vector<struct pollfd>	     _poll_fds;
         std::string                      _password;
         std::map<std::string, Client*>   _clientList;
         std::map<std::string, Channel*>  _channelList;
@@ -73,11 +76,6 @@ class Server
         //Utility
         bool    passwordRequired(Channel* channel, const std::string& pass = "");
 
-        //Launch
-        void    initSocket();
-        void    bindAndListen();
-        void    pollAndAccept();
-        void    closeAllFds();
         
         //Parse
         void    parseSign(Client* client, std::string& cmd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   serverClean.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: htran-th <htran-th@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 02:18:31 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 20:15:07 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/06 20:49:32 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@ Server::~Server()
         
         delete client;
     }
+
+    closeAllFds();
     
     this->_channelList.clear();
     this->_clientList.clear();
     this->_socketList.clear();
+
+    std::cout << "Shutting down server!" << std::endl;
 }
