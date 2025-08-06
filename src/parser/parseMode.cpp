@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parseMode.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:48:03 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 01:58:13 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 19:39:58 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void    Server::parseModeL(Client* client, std::string& fullCommand)
     std::vector<std::string>    cmdPack;
     bool                        mode;
     int                         size;
-    unsigned int                limit;                     
+    unsigned int                limit = 0;                     
 
     cmdPack = parseSplit(fullCommand);
     size = cmdPack.size();
@@ -111,15 +111,6 @@ void    Server::parseModeO(Client* client, std::string& fullCommand)
 
 static std::string modePack[] = {"i", "k", "t", "l", "o"};
 
-static void (Server::*parseModePack[MODE_QTT])(Client*, std::string&) =
-{
-    &Server::parseModeI,
-    &Server::parseModeK,
-    &Server::parseModeT,
-    &Server::parseModeL,
-    &Server::parseModeO
-};
-
 void    Server::parseMode(Client* client, std::string& fullCommand)
 {
     std::vector<std::string>    cmdPack;
@@ -138,7 +129,7 @@ void    Server::parseMode(Client* client, std::string& fullCommand)
     {
         if (typeMode == modePack[i])
         {
-            (this->*parseModePack[i])(client, fullCommand);
+            (this->*_parseModePack[i])(client, fullCommand);
             return ;
         }
     }
