@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/02 05:31:42 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 01:13:00 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@
 #define ERR_USERONCHANNEL       " :User is already on channel"         //443
 #define ERR_TARGNOTONSERVER     " :Receiver is not on that server"     //444
 #define ERR_TARGNOTONCHANNEL    " :Receiver is not on that channel"    //445
+
+#define ERR_SIGNINPASS          " :You must input password : PASS <password>"             //415
+#define ERR_SIGNININVPASS       " :Invalid password"                     //416
+#define ERR_SIGNINNICK          " :You must input nickname : NICK <nickname>"             //417
+#define ERR_SIGNINUSER          " :You must input username and realname : USER <username> 0 * :<realname> " //418
 
 #define ERR_CHANNELINCRPASSWORD " :Cannot join channel : Incorrect password"         //470
 #define ERR_CHANNELISFULL       " :Cannot join channel : Channel is full"            //471
@@ -53,6 +58,19 @@
 #define ERR_PASSWORDEMPTY       " :Password cannot be empty"           //484
 #define ERR_EMPTYCMD            " :Command cannot be empty"            //485
 #define ERR_WRONGCMD            " :Command not found"                  //486 
+
+#define ERR_SYNTAXJOIN          " :Invalid JOIN syntax"                 //490
+#define ERR_SYNTAXPART          " :Invalid PART syntax"                 //491
+#define ERR_SYNTAXPRIVMSG       " :Invalid PRIVMSG syntax"              //492
+#define ERR_SYNTAXKICK          " :Invalid KICK syntax"                 //493
+#define ERR_SYNTAXINVITE        " :Invalid INVITE syntax"               //494
+#define ERR_SYNTAXTOPIC         " :Invalid TOPIC syntax"                //495
+#define ERR_SYNTAXMODE          " :Invalid MODE syntax"                 //496
+#define ERR_SYNTAXMODEI         " :Invalid MODE Invite syntax"          //497
+#define ERR_SYNTAXMODEK         " :Invalid MODE Password syntax"        //498
+#define ERR_SYNTAXMODEL         " :Invalid MODE Limit syntax"           //499
+#define ERR_SYNTAXMODEO         " :Invalid MODE Operator syntax"        //500
+#define ERR_SYNTAXMODET         " :Invalid MODE Topic syntax"           //501
 
 class   Notifyer
 {
