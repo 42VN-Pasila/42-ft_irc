@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 19:38:52 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/06 20:26:44 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,19 @@
 class Server
 {
     public  :
-        Server(unsigned int port, const std::string& password) : _port(port),
-                                                        _password(password){};
-        ~Server();
+        Server(unsigned int port, const std::string& password) : _server_fd(-2),
+                                                                _port(port),
+                                                                _password(password){};
+        ~Server() {
+            closeAllFds();
+            std::cout << "Shutting down server!" << std::endl;
+        };
         
         //Exec
         void    execCommand(Client* client, std::string cmd, std::string fullCommand);
 
     private :
+        int                              _server_fd;
         unsigned int                     _port;
         std::string                      _password;
         std::map<std::string, Client*>   _clientList;
@@ -68,6 +73,12 @@ class Server
         //Utility
         bool    passwordRequired(Channel* channel, const std::string& pass = "");
 
+        //Launch
+        void    initSocket();
+        void    bindAndListen();
+        void    pollAndAccept();
+        void    closeAllFds();
+        
         //Parse
         void    parseSign(Client* client, std::string& cmd);
         void    parseSignPASS(Client* client, std::vector<std::string> command);

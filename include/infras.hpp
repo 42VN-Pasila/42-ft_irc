@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.hpp                                         :+:      :+:    :+:   */
+/*   infras.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/31 02:23:59 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 20:22:51 by htran-th         ###   ########.fr       */
+/*   Created: 2025/08/04 21:54:25 by htran-th          #+#    #+#             */
+/*   Updated: 2025/08/06 00:26:38 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,5 @@
 
 #include "system.hpp"
 
-//System
-bool                        parseProgram(int ac, char **av, int* iport);
-bool                        parseValidPass(char *av);
-bool                        parseValidNumber(std::string& nbr);
-std::vector<std::string>    parseSplit(std::string& cmd);
-std::vector<std::string>    parseSplitComma(std::string& cmd);
+bool launchServer(char* password, int *iport);
+void setNonBlocking(int fd);

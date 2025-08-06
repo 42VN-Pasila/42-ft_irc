@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   system.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:30:42 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 19:23:20 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/06 20:21:12 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 #include <vector>
 #include <set>
 #include <sys/socket.h>
+#include <netinet/in.h>
+#include <unistd.h>
+#include <poll.h>
+#include <fcntl.h>
 #include <charconv>
 #include <sstream>
 #include <functional>
@@ -29,6 +33,7 @@
 #include "server.hpp"
 #include "notifyer.hpp"
 #include "parser.hpp"
+#include "infras.hpp"
 
 class Server;
 class Notifyer;

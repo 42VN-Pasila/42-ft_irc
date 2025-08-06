@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   serverClean.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 02:18:31 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 02:47:56 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 20:15:07 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ Server::~Server()
     {
         Client* client = pair.second;
         
-        close(client->getSocket());
         delete client;
     }
     

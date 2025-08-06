@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+         #
+#    By: htran-th <htran-th@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/23 12:06:23 by siuol             #+#    #+#              #
-#    Updated: 2025/08/06 19:22:46 by caonguye         ###   ########.fr        #
+#    Updated: 2025/08/06 20:34:11 by htran-th         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ CORE		= src/core
 PRS			= src/parser
 SRV			= src/server
 IRC			= src/irc
+INFRAS		= src/infras
 
 #CORE
 CORE_SRC	=	$(CORE)/main.cpp			\
@@ -50,8 +51,10 @@ IRC_SRC		=	$(IRC)/channel/channelFunctional.cpp		\
 				$(IRC)/channel/channelValidation.cpp		\
 				$(IRC)/client/implementation.cpp
 
+#INFRAS
+INFRAS_SRC =
 
-SRCS		= $(CORE_SRC) $(PRS_SRC) $(SRV_SRC) $(IRC_SRC)
+SRCS		= $(CORE_SRC) $(PRS_SRC) $(SRV_SRC) $(IRC_SRC) $(INFRAS_SRC)
 OBJS		= ${SRCS:.cpp=.o}
 
 all : $(NAME)
