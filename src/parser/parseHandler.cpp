@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parseHandler.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:49:51 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 02:02:36 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 19:31:50 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void    Server::parseJoin(Client* client, std::string& fullCommand)
     
     if (size > 2)
         passwordPack = parseSplitComma(cmdPack[2]);
-    for (int i = 0; i  < channelPack.size(); i++)
+    for (size_t i = 0; i  < channelPack.size(); i++)
     {
         std::string password = (i < passwordPack.size() ? passwordPack[i] : "");
         this->handlerJoin(client, channelPack[i], password);
@@ -71,6 +71,13 @@ void    Server::parseInvite(Client* client, std::string& fullCommand)
 
 static std::string MultiTargetsPack[MULTI_TARGET_FUNCTIONS] = {"PART", "PRIVMSG", "KICK"};
 
+static std::function<void(Client* client)> MultiTargetsErrors[3] = 
+{
+    [](Client* client){Notifyer::notifyError(client, 491);},
+    [](Client* client){Notifyer::notifyError(client, 492);},
+    [](Client* client){Notifyer::notifyError(client, 493);}
+};
+
 void    Server::parseMultiTargets(Client* client, std::string& fullCommand)
 {
     std::vector<std::string>    cmdPack;
@@ -86,7 +93,7 @@ void    Server::parseMultiTargets(Client* client, std::string& fullCommand)
         {
             if (cmdPack[0] == MultiTargetsPack[i])
             {
-                (this->_MultiTargetsErrors[i])(client);
+                (MultiTargetsErrors[i])(client);
                 return ;
             } 
         }
@@ -98,7 +105,7 @@ void    Server::parseMultiTargets(Client* client, std::string& fullCommand)
     {
         if (cmdPack[0] == MultiTargetsPack[i])
         {
-            for (int j = 0; j < targetPack.size(); j++)
+            for (size_t j = 0; j < targetPack.size(); j++)
                 (this->*_MultiTargetsFunctions[i])(client, targetPack[j], noti);
             return ;
         } 

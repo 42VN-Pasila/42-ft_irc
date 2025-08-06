@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 11:50:06 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 19:38:52 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,8 @@ class Server
             &Server::handlerPart,
             &Server::handlerKick,
         };
-        
-        std::function<void(Client* client)> _MultiTargetsErrors[3] = 
-        {
-            [](Client* client){Notifyer::notifyError(client, 491);},
-            [](Client* client){Notifyer::notifyError(client, 492);},
-            [](Client* client){Notifyer::notifyError(client, 493);}
-        };
 
-
-                //Validation
+        //Validation
         bool    isServerClient(Client* client);
         bool    isServerChannel(Channel* channel);
         bool    hasServerChannel(std::string& channelName);
@@ -96,5 +88,16 @@ class Server
         void    parseModeT(Client* client, std::string& fullCommand);
         void    parseModeL(Client* client, std::string& fullCommand);
         void    parseModeO(Client* client, std::string& fullCommand);
+
+        using Mode  = void(Server::*)(Client* client, std::string& fullCommand);
+
+        Mode    _parseModePack[5] = 
+        {
+            &Server::parseModeI,
+            &Server::parseModeK,
+            &Server::parseModeT,
+            &Server::parseModeL,
+            &Server::parseModeO
+        };
 };
 

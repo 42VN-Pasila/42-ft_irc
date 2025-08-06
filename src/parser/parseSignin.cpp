@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parseSignin.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:39:35 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 00:09:57 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 19:40:18 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void    Server::parseSignUSER(Client* client, std::vector<std::string> command)
     }
     client->setUserName(command[1]);
     std::string realName = "";
-    for (int i = 4; i < command.size(); i++)
+    for (size_t i = 4; i < command.size(); i++)
     {
         if (i == 4)
             realName += command[i].substr(1);

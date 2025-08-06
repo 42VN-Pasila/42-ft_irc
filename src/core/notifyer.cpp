@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   notifyer.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 02:12:20 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/06 19:30:48 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void    Notifyer::sendMsg(Client* client, const std::string& msg)
         LOG_WARNING(error);
         std::cout << std::endl;
     }
-    if (sent != msg.length())
+    if (sent != static_cast<ssize_t>(msg.length()))
     {
         std::string error = "[SERVER] : Failed to send full of message from " + client->getNickName();
         LOG_WARNING(error);
