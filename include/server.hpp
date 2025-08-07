@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 20:59:29 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/07 11:13:33 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ class Server
         void    bindAndListen();
         void    pollAndAccept();
         void    closeAllFds();
+        
         //Exec
-        void    execCommand(Client* client, std::string cmd, std::string fullCommand);
+        void    parseCommand(Client* client, std::string& command);
 
     private :
         int                              _server_fd;
@@ -79,10 +80,11 @@ class Server
         
         //Parse
         void    parseSign(Client* client, std::string& cmd);
+        void    parseQuit(Client* client, std::string& cmd);
         void    parseSignPASS(Client* client, std::vector<std::string> command);
         void    parseSignNICK(Client* client, std::vector<std::string> command);
         void    parseSignUSER(Client* client, std::vector<std::string> command);
-        void    parseCommand(Client* client, std::string& command);
+        void    execCommand(Client* client, std::string cmd, std::string fullCommand);
 
         //ParseCmd
         void    parseJoin(Client* client, std::string& fullCommand);
