@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_mode_handler.cpp                               :+:      :+:    :+:   */
+/*   cmdModeHandler.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/07/31 00:21:17 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/08 00:15:49 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-void    Server::handlerModeI(Client* client, std::string& channelName, bool mode)
+void    Server::handlerModeI(Client* client, std::string& channel, bool mode)
 {
     int         code;
     std::string msg;
+    
+    if (channel[0] != '#')
+    {
+        Notifyer::notifyError(client, 502); 
+        return ;
+    }    
+    std::string channelName = channel.substr(1);
     
     if (!validateOperator(client, channelName))
         return ;
@@ -30,11 +37,17 @@ void    Server::handlerModeI(Client* client, std::string& channelName, bool mode
         Notifyer::notifyError(client, code);
 }
 
-void    Server::handlerModeT(Client* client, std::string& channelName, bool mode)
+void    Server::handlerModeT(Client* client, std::string& channel, bool mode)
 {
     int         code;
     std::string msg;
     
+    if (channel[0] != '#')
+    {
+        Notifyer::notifyError(client, 502); 
+        return ;
+    }    
+    std::string channelName = channel.substr(1);
     if (!validateOperator(client, channelName))
         return ;
     if (mode == on)
@@ -51,11 +64,17 @@ void    Server::handlerModeT(Client* client, std::string& channelName, bool mode
         Notifyer::notifyError(client, code);
 }
 
-void    Server::handlerModeK(Client* client, std::string& channelName, const std::string& pass, bool mode)
+void    Server::handlerModeK(Client* client, std::string& channel, const std::string& pass, bool mode)
 {
     int         code;
     std::string msg;
     
+    if (channel[0] != '#')
+    {
+        Notifyer::notifyError(client, 502); 
+        return ;
+    }    
+    std::string channelName = channel.substr(1);
     if (!validateOperator(client, channelName))
         return ;
     if (mode == on)
@@ -72,11 +91,17 @@ void    Server::handlerModeK(Client* client, std::string& channelName, const std
         Notifyer::notifyError(client, code);
 }
 
-void    Server::handlerModeL(Client* client, std::string& channelName, const unsigned int limit, bool mode)
+void    Server::handlerModeL(Client* client, std::string& channel, const unsigned int limit, bool mode)
 {
     int         code;
     std::string msg;
     
+    if (channel[0] != '#')
+    {
+        Notifyer::notifyError(client, 502); 
+        return ;
+    }    
+    std::string channelName = channel.substr(1);
     if (!validateOperator(client, channelName))
         return ;
     if (mode == on)
@@ -94,11 +119,17 @@ void    Server::handlerModeL(Client* client, std::string& channelName, const uns
     
 }
 
-void    Server::handlerModeO(Client* client, std::string& channelName, std::string& targetUser, bool mode)
+void    Server::handlerModeO(Client* client, std::string& channel, std::string& targetUser, bool mode)
 {
     int code = -1;
     std::string msg;
     
+    if (channel[0] != '#')
+    {
+        Notifyer::notifyError(client, 502); 
+        return ;
+    }    
+    std::string channelName = channel.substr(1);
     if (!validateChannel(client, channelName))
         return ;
     if (!validateTarget(client, channelName, targetUser))

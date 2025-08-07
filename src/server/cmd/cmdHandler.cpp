@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/05 23:38:46 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/08 00:10:45 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
 {
     int code;
     int subCode;
+    
+    if (channel[0] != '#')
+    {
+        Notifyer::notifyError(client, 502); 
+        return ;
+    }
     std::string channelName = channel.substr(1);
     
     if (!this->hasServerChannel(channelName))
@@ -78,6 +84,12 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
 void    Server::handlerPart(Client* client, std::string& channel, std::string& msg)
 {
     int code;
+
+    if (channel[0] != '#')
+    {
+        Notifyer::notifyError(client, 502); 
+        return ;
+    }
     std::string channelName = channel.substr(1);
     
     if (!validateChannel(client, channelName))
@@ -105,6 +117,12 @@ void    Server::handlerPart(Client* client, std::string& channel, std::string& m
 void    Server::handlerKick(Client* client, std::string& channel, std::string& targetUser)
 {
     int code;
+
+    if (channel[0] != '#')
+    {
+        Notifyer::notifyError(client, 502); 
+        return ;
+    }
     std::string channelName = channel.substr(1);
     
     if (!validateOperator(client, channelName))
@@ -124,6 +142,12 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
 void    Server::handlerTopic(Client* client, std::string& channel, std::string& topic)
 {
     int code;
+
+    if (channel[0] != '#')
+    {
+        Notifyer::notifyError(client, 502); 
+        return ;
+    }    
     std::string channelName = channel.substr(1);
     topic = topic.substr(1);
     
@@ -151,6 +175,12 @@ void    Server::handlerTopic(Client* client, std::string& channel, std::string& 
 void    Server::handlerInvite(Client* client, std::string& targetUser, std::string& channel)
 {
     int code;
+
+    if (channel[0] != '#')
+    {
+        Notifyer::notifyError(client, 502); 
+        return ;
+    }
     std::string channelName = channel.substr(1);
     
     if (!validateOperator(client, channelName))
