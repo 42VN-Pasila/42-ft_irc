@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/05 23:55:02 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/07 10:56:01 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ void    Server::parseCommand(Client* client, std::string& command)
         Notifyer::notifyError(client, 485); 
         return ;
     }
-    std::vector<std::string> cmdPack = parseSplit(command); 
-    execCommand(client, cmdPack[0], command);
+    std::vector<std::string> cmdPack = parseSplit(command);
+    if (client->getStatus() != COMPLETE)
+        this->parseSign(client, command);
+    else
+        execCommand(client, cmdPack[0], command);
 }

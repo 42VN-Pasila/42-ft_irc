@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parseSignin.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:39:35 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 19:40:18 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/07 11:00:31 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void    Server::parseSignUSER(Client* client, std::vector<std::string> command)
     }
     client->setRealName(realName);
     client->setStatus(COMPLETE);
+    this->_clientList.insert({client->getNickName(), client});
 }
 
 void    Server::parseSignNICK(Client* client, std::vector<std::string> command)
