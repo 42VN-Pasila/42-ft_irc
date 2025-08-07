@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sv_poll_and_accept.cpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/08/07 21:36:26 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/07 22:24:25 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,13 @@ void Server::pollAndAccept() {
                     continue ; // checks the rest of the clients
                 }
                 buffer[bytesRead] = '\0';
-                // std::string message(buffer);
-                // Client *client = _socketList[client_fd];
-                // parseCommand(client, message);
-                std::cout << "Message from client(fd " << client_fd << "): " << buffer << std::endl; // Temporarily here - delete later
+                std::string message(buffer);
+                if (!message.empty())
+                { 
+                    Client *client = _socketList[client_fd];
+                    parseCommand(client, message);
+                    std::cout << "Message from client(fd " << client_fd << "): " << buffer << std::endl; // Temporarily here - delete later
+                }
             }
         }
     }

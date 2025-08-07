@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 01:13:00 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/07 22:28:28 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,39 +85,56 @@ class   Notifyer
         
     private :
         inline static std::map<int, std::string> _notifyCode = 
-        {
-            {401, ERR_NOSUCHNICK},
-            {431, ERR_NONICKNAMEGIVEN},
-            {432, ERR_ERRONEUSNICKNAME},
-            {433, ERR_NICKNAMEINUSE},
-            {403, ERR_NOSUCHCHANNEL},
-            {404, ERR_CANNOTSENDTOCHAN},
-            {446, ERR_USERCANNOTBENULL},
-            {442, ERR_USERNOTONCHANNEL},
-            {443, ERR_USERONCHANNEL},
-            {447, ERR_USERNOTINVITED},
-            {448, ERR_USERALRINVITED},
-            {444, ERR_TARGNOTONSERVER},
-            {445, ERR_TARGNOTONCHANNEL},
-            {470, ERR_CHANNELINCRPASSWORD},
-            {471, ERR_CHANNELISFULL},
-            {473, ERR_CHANNELINVITEONLY},
-            {475, ERR_CHANNELBADKEY},
-            {451, ERR_CHANNELALROPR},
-            {452, ERR_CHANNELNOOPR},
-            {453, ERR_CHANNELNOTONLYINV},
-            {454, ERR_CHANNELALRINV},
-            {455, ERR_CHANNELALRUNSETINV},
-            {456, ERR_CHANNELREACHLIM},
-            {457, ERR_CHANNELEMPTYTOPIC},
-            {458, ERR_CHANNELEMPTYPASS},
-            {459, ERR_CHANNELZEROLIMIT},
-            {482, ERR_CHANOPRIVSNEEDED},
-            {481, ERR_NOPRIVILEGES},
-            {461, ERR_NEEDMOREPARAMS},
-            {421, ERR_UNKNOWNCOMMAND},
-            {483, ERR_TOPICEMPTY},
-            {484, ERR_PASSWORDEMPTY},
-            {485, ERR_EMPTYCMD}
-        };
+    {
+        {415, ERR_SIGNINPASS},
+        {416, ERR_SIGNININVPASS},
+        {417, ERR_SIGNINNICK},
+        {418, ERR_SIGNINUSER},
+        {401, ERR_NOSUCHNICK},
+        {403, ERR_NOSUCHCHANNEL},
+        {404, ERR_CANNOTSENDTOCHAN},
+        {421, ERR_UNKNOWNCOMMAND},
+        {431, ERR_NONICKNAMEGIVEN},
+        {432, ERR_ERRONEUSNICKNAME},
+        {433, ERR_NICKNAMEINUSE},
+        {442, ERR_USERNOTONCHANNEL},
+        {443, ERR_USERONCHANNEL},
+        {444, ERR_TARGNOTONSERVER},
+        {445, ERR_TARGNOTONCHANNEL},
+        {446, ERR_USERCANNOTBENULL},
+        {447, ERR_USERNOTINVITED},
+        {448, ERR_USERALRINVITED},
+        {451, ERR_CHANNELALROPR},
+        {452, ERR_CHANNELNOOPR},
+        {453, ERR_CHANNELNOTONLYINV},
+        {454, ERR_CHANNELALRINV},
+        {455, ERR_CHANNELALRUNSETINV},
+        {456, ERR_CHANNELREACHLIM},
+        {457, ERR_CHANNELEMPTYTOPIC},
+        {458, ERR_CHANNELEMPTYPASS},
+        {459, ERR_CHANNELZEROLIMIT},
+        {461, ERR_NEEDMOREPARAMS},
+        {470, ERR_CHANNELINCRPASSWORD},
+        {471, ERR_CHANNELISFULL},
+        {473, ERR_CHANNELINVITEONLY},
+        {475, ERR_CHANNELBADKEY},
+        {481, ERR_NOPRIVILEGES},
+        {482, ERR_CHANOPRIVSNEEDED},
+        {483, ERR_TOPICEMPTY},
+        {484, ERR_PASSWORDEMPTY},
+        {485, ERR_EMPTYCMD},
+        {486, ERR_WRONGCMD},
+        {490, ERR_SYNTAXJOIN},
+        {491, ERR_SYNTAXPART},
+        {492, ERR_SYNTAXPRIVMSG},
+        {493, ERR_SYNTAXKICK},
+        {494, ERR_SYNTAXINVITE},
+        {495, ERR_SYNTAXTOPIC},
+        {496, ERR_SYNTAXMODE},
+        {497, ERR_SYNTAXMODEI},
+        {498, ERR_SYNTAXMODEK},
+        {499, ERR_SYNTAXMODEL},
+        {500, ERR_SYNTAXMODEO},
+        {501, ERR_SYNTAXMODET}
+    };
 };
