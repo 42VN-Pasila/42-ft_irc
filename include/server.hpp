@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/07 11:13:33 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/07 21:52:33 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ class Server
         void    initSocket();
         void    bindAndListen();
         void    pollAndAccept();
+        void    removeClient(int client_fd, int index);
         void    closeAllFds();
         
         //Exec

@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:30:42 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 20:21:12 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/07 20:59:21 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <poll.h>
 #include <fcntl.h>
+#include <csignal>
 #include <charconv>
 #include <sstream>
 #include <functional>
