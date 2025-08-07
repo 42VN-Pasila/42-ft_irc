@@ -6,11 +6,18 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/08/07 19:47:47 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/07 21:36:26 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
+
+volatile sig_atomic_t g_running = 1;
+
+void signal_handler(int signal) {
+    g_running = 0;
+    std::cout << "\n" << (signal == SIGINT ? "SIGINT" : "SIGQUIT") << " caught!" << std::endl;
+}
 
 void Server::removeClient(int client_fd, int index) {
     close(client_fd);
@@ -20,12 +27,16 @@ void Server::removeClient(int client_fd, int index) {
 }
 
 void Server::pollAndAccept() {
+    std::signal(SIGINT, signal_handler);
+    std::signal(SIGQUIT, signal_handler);
     pollfd s_pfd = {.fd = _server_fd, .events = POLLIN, .revents = 0};
     _poll_fds.push_back(s_pfd);
 
-    while (true) {
+    while (g_running) {
         int ret = poll(_poll_fds.data(), _poll_fds.size(), -1);
         if (ret < 0) {
+            if (errno == EINTR)
+                continue; // g_running now changed -> break
             throw std::runtime_error("Server: poll failed!");
         }
         if (_poll_fds[0].revents & POLLIN) {
@@ -34,6 +45,8 @@ void Server::pollAndAccept() {
         
             int client_fd = accept(_server_fd, (struct sockaddr *)&client_addr, &addr_len);
             if (client_fd < 0) {
+                if (errno == EINTR)
+                    continue;
                 throw std::runtime_error("Server: failed to accept a client connection!");
             }
             setNonBlocking(client_fd);
@@ -52,14 +65,19 @@ void Server::pollAndAccept() {
                 char buffer[1000];
                 int client_fd = _poll_fds[i].fd;
                 ssize_t bytesRead = recv(client_fd, buffer, sizeof(buffer) - 1, 0);
-                if (bytesRead <= 0) { //TODO: check errno
-                   std::cerr << RED << "Client disconnected: fd = " << client_fd << RESET << std::endl;
-                   removeClient(client_fd, i);
-                   --i; // because the rest of the array shifted one place to the left
-                   continue ; // checks the rest of the clients
+                if (bytesRead <= 0) {
+                    if (errno == EINTR)
+                        continue;
+                    std::cerr << RED << "Client disconnected: fd = " << client_fd << RESET << std::endl;
+                    removeClient(client_fd, i);
+                    --i; // because the rest of the array shifted one place to the left
+                    continue ; // checks the rest of the clients
                 }
                 buffer[bytesRead] = '\0';
-                std::cout << "Message from client(fd " << client_fd << "): " << buffer << std::endl;
+                // std::string message(buffer);
+                // Client *client = _socketList[client_fd];
+                // parseCommand(client, message);
+                std::cout << "Message from client(fd " << client_fd << "): " << buffer << std::endl; // Temporarily here - delete later
             }
         }
     }
