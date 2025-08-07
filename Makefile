@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: htran-th <htran-th@student.42.fr>          +#+  +:+       +#+         #
+#    By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/23 12:06:23 by siuol             #+#    #+#              #
-#    Updated: 2025/08/06 21:01:45 by htran-th         ###   ########.fr        #
+#    Updated: 2025/08/07 19:43:44 by htran-th         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		= ircserv
 CC			= c++
-FLAG		= -Wall -Wextra -Werror -std=c++20
+FLAG		= -std=c++20 #-Wall -Wextra -Werror
 RM			= rm -rf
 INCLUDE 	= -Iinclude
 

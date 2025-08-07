@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.42.fr>          +#+  +:+       +#+        */
+/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 20:59:29 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/07 19:38:08 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ class Server
         void    initSocket();
         void    bindAndListen();
         void    pollAndAccept();
+        void    removeClient(int client_fd, int index);
         void    closeAllFds();
         //Exec
         void    execCommand(Client* client, std::string cmd, std::string fullCommand);
