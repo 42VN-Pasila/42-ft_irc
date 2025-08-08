@@ -4,7 +4,7 @@ A fully-featured IRC (Internet Relay Chat) server built from scratch in C++. Pro
 
 ## ✍️ Authors & Responsibilities
 
-### **Project Lead & Core Systems** - Cao Tan ([GitHub](https://github.com/Siuol7))
+### **Core Systems** - Cao Tan ([GitHub](https://github.com/Siuol7))
 * Architecture Design & Command Processing
 * Authentication & Channel Management Systems
 * Mode Implementation & Error Handling
