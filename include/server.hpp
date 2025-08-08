@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/07 21:52:33 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/08 00:28:13 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ class Server
 
         Handler _MultiTargetsFunctions[3] = 
         {
-            &Server::handlerPrivmsg,
             &Server::handlerPart,
+            &Server::handlerPrivmsg,
             &Server::handlerKick,
         };
 

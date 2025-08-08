@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/07 22:34:06 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/08 11:01:28 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void    Server::parseCommand(Client* client, std::string& command)
         return ;
     }
     std::vector<std::string> cmdPack = parseSplit(command);
+    if (cmdPack.size() == 0)
+        return ;
     // if (cmdPack[0] == "QUIT")
     //     this->parseQuit(client, command);
     if (client->getStatus() != COMPLETE)
