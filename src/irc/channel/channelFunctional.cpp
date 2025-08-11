@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cn_functional.cpp                                  :+:      :+:    :+:   */
+/*   channelFunctional.cpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/30 22:52:21 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/10 23:38:54 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int    Channel::removeUser(Client* user)
         return 446;
     if (!this->isMember(user))
         return 442;
+    if (this->getOperator() == user)
+        this->removeOperator(user);
     this->_members.erase(user->getNickName());
     return -1;
-    
 }

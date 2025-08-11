@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/08/08 10:45:08 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/10 23:27:03 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,29 @@ void signal_handler(int signal) {
     std::cout << "\n" << (signal == SIGINT ? "SIGINT" : "SIGQUIT") << " caught!" << std::endl;
 }
 
-void Server::removeClient(int client_fd, int index) {
+void Server::removeClient(int client_fd, int index) 
+{
+    if (_socketList.find(client_fd) == _socketList.end()) {
+        return; 
+    }
+    
+    Client* client = this->_socketList[client_fd];
+    
+    this->_clientList.erase(client->getNickName());
+
+    for (auto& pair : _channelList)
+    {
+        if (pair.second->isMember(client)) {
+            pair.second->removeUser(client);
+        }
+    }
+    
     close(client_fd);
-    _poll_fds.erase(_poll_fds.begin() + index);
-    delete _socketList[client_fd];
+    if (index >= 0 && index < static_cast<int>(_poll_fds.size())) {
+        _poll_fds.erase(_poll_fds.begin() + index);
+    }
+    
+    delete client;
     _socketList.erase(client_fd);
 }
 

@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/08 00:10:45 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/10 23:29:57 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,6 @@ void    Server::handlerPart(Client* client, std::string& channel, std::string& m
     else
     {
         code = this->_channelList[channelName]->removeUser(client);
-        if (this->_channelList[channelName]->getOperator() == client)
-            code = this->_channelList[channelName]->removeOperator(client);
         if (code == -1)
         {
             std::string msg = "[SERVER] : " + client->getNickName() + " has left the channel";
