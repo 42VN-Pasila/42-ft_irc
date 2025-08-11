@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parseGeneral.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/10 23:38:43 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/11 19:12:22 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,18 @@
 void    Server::parseQuit(Client* client, std::string& cmd)
 {
     std::string msg;
+    int fd  = client->getSocket();
+    int index = this->getIndex(fd);
 
+    if (index == -1)
+    {
+        LOG_ERROR("[SERVER] : System cannot find user");
+        return;
+    }
     std::vector<std::string>cmdPack = parseSplit(cmd);
     if (client->getStatus() != COMPLETE)
     {
-        this->removeClient(client->getSocket(), );
+        this->removeClient(fd, index);
         return ;
     }
     msg += (cmdPack.size() < 2 ? "" : cmdPack[1]);
@@ -33,7 +40,7 @@ void    Server::parseQuit(Client* client, std::string& cmd)
         if (channel->isMember(client))
             Notifyer::notifyBroadcast(channel, quitmsg);
     }
-    this->removeClient(client->getSocket(), );
+    this->removeClient(fd, index);
 }
 
 void    Server::execCommand(Client* client, std::string cmd, std::string fullCommand)
