@@ -6,33 +6,35 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/08 11:01:28 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/10 23:38:43 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-// void    Server::parseQuit(Client* client, std::string& cmd)
-// {
-//     std::string msg;
+void    Server::parseQuit(Client* client, std::string& cmd)
+{
+    std::string msg;
 
-//     std::vector<std::string>cmdPack = parseSplit(cmd);
-//     if (client->getStatus() != COMPLETE)
-//     {
-//         this->removeClient(client->getSocket(), );
-//         return ;
-//     }
-//     msg += (cmdPack.size() < 2 ? "" : cmdPack[1]);
+    std::vector<std::string>cmdPack = parseSplit(cmd);
+    if (client->getStatus() != COMPLETE)
+    {
+        this->removeClient(client->getSocket(), );
+        return ;
+    }
+    msg += (cmdPack.size() < 2 ? "" : cmdPack[1]);
     
-//     for (auto& pair : this->_channelList)
-//     {
-//         Channel* channel = pair.second;
-//         std::string channelName = "#" + channel->getChannelName();
+    for (auto& pair : this->_channelList)
+    {
+        Channel* channel = pair.second;
+        std::string channelName = "#" + channel->getChannelName();
+        std::string quitmsg = "[CHANNEL] :" + client->getNickName() +" quit server " + msg;
 
-//         if (channel->isMember(client))
-//             this->handlerPart(client, channelName, msg);
-//     }
-// }
+        if (channel->isMember(client))
+            Notifyer::notifyBroadcast(channel, quitmsg);
+    }
+    this->removeClient(client->getSocket(), );
+}
 
 void    Server::execCommand(Client* client, std::string cmd, std::string fullCommand)
 {
@@ -60,8 +62,8 @@ void    Server::parseCommand(Client* client, std::string& command)
     std::vector<std::string> cmdPack = parseSplit(command);
     if (cmdPack.size() == 0)
         return ;
-    // if (cmdPack[0] == "QUIT")
-    //     this->parseQuit(client, command);
+    if (cmdPack[0] == "QUIT")
+        this->parseQuit(client, command);
     if (client->getStatus() != COMPLETE)
     {
         this->parseSign(client, command);
