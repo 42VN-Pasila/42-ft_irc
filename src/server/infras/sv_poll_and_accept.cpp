@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sv_poll_and_accept.cpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/08/10 23:27:03 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/11 19:08:18 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@ volatile sig_atomic_t g_running = 1;
 void signal_handler(int signal) {
     g_running = 0;
     std::cout << "\n" << (signal == SIGINT ? "SIGINT" : "SIGQUIT") << " caught!" << std::endl;
+}
+
+int Server::getIndex(int fd) const {
+    for (int i = 0; i < this->_poll_fds.size(); i++) {
+        if (fd == this->_poll_fds[i].fd) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 void Server::removeClient(int client_fd, int index) 
@@ -40,7 +49,7 @@ void Server::removeClient(int client_fd, int index)
     if (index >= 0 && index < static_cast<int>(_poll_fds.size())) {
         _poll_fds.erase(_poll_fds.begin() + index);
     }
-    
+ 
     delete client;
     _socketList.erase(client_fd);
 }

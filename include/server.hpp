@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/08 00:28:13 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/11 19:26:22 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ class Server
         void    pollAndAccept();
         void    removeClient(int client_fd, int index);
         void    closeAllFds();
+        int     getIndex(int fd) const;
         
         //Exec
         void    parseCommand(Client* client, std::string& command);
