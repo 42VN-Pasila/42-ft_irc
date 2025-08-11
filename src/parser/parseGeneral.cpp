@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/11 19:12:22 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/11 20:36:38 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void    Server::execCommand(Client* client, std::string cmd, std::string fullCom
         Notifyer::notifyError(client, 421);
 }
 
-void    Server::parseCommand(Client* client, std::string& command)
+void    Server::parseCommand(Client* client, std::string& command, int& quitFlag)
 {
     if (command.empty())
     {
@@ -70,7 +70,11 @@ void    Server::parseCommand(Client* client, std::string& command)
     if (cmdPack.size() == 0)
         return ;
     if (cmdPack[0] == "QUIT")
+    {
         this->parseQuit(client, command);
+        quitFlag = 0;
+        return ;
+    }
     if (client->getStatus() != COMPLETE)
     {
         this->parseSign(client, command);

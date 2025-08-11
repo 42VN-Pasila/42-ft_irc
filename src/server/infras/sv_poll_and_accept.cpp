@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/08/11 19:08:18 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/11 20:36:20 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void Server::removeClient(int client_fd, int index)
 }
 
 void Server::pollAndAccept() {
+    int quitFlag  = 0;
     std::signal(SIGINT, signal_handler);
     std::signal(SIGQUIT, signal_handler);
     pollfd s_pfd = {.fd = _server_fd, .events = POLLIN, .revents = 0};
@@ -96,7 +97,7 @@ void Server::pollAndAccept() {
                 if (bytesRead <= 0) {
                     if (errno == EINTR)
                         continue;
-                    std::cerr << RED << "Client disconnected: fd = " << client_fd << RESET << std::endl;
+                    std::cout << RED << "Client disconnected: fd = " << client_fd << RESET << std::endl;
                     removeClient(client_fd, i);
                     --i; // because the rest of the array shifted one place to the left
                     continue ; // checks the rest of the clients
@@ -106,8 +107,15 @@ void Server::pollAndAccept() {
                 if (!message.empty())
                 { 
                     Client *client = _socketList[client_fd];
-                    parseCommand(client, message);
+                    parseCommand(client, message, quitFlag);
                     std::cout << "Message from client(fd " << client_fd << "): " << buffer << std::endl; // Temporarily here - delete later
+                    if (quitFlag)
+                    {
+                        --i;
+                        quitFlag = 0;
+                        std::cout << RED << "Client disconnected: fd = " << client_fd << RESET << std::endl;
+                        continue;
+                    }
                 }
             }
         }

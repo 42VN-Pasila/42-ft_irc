@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/11 19:26:22 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/11 20:36:52 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ class Server
         int     getIndex(int fd) const;
         
         //Exec
-        void    parseCommand(Client* client, std::string& command);
+        void    parseCommand(Client* client, std::string& command, int& quitFlag);
 
     private :
         int                              _server_fd;
