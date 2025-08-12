@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/07 22:52:16 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/12 20:59:50 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void    Notifyer::sendMsg(Client* client, const std::string& msg)
         std::string error = "[SERVER] : " + client->getNickName() + 
                             " is not connected to the server socket\r\n";
         LOG_WARNING(error);
-        std::cout << std::endl;
         return ;
     }
     
@@ -31,14 +30,12 @@ void    Notifyer::sendMsg(Client* client, const std::string& msg)
     {
         std::string error = "[SERVER] : Failed to send message from " + client->getNickName() + "\r\n";
         LOG_WARNING(error);
-        std::cout << std::endl;
         return ;
     }
     if (sent != static_cast<ssize_t>(msg.length()))
     {
         std::string error = "[SERVER] : Failed to send full of message from " + client->getNickName() + "\r\n";
         LOG_WARNING(error);
-        std::cout << std::endl;
         return ;
     }
 }
