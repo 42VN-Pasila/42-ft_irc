@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parseHandler.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:49:51 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 19:31:50 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/12 21:50:02 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void    Server::parseTopic(Client* client, std::string& fullCommand)
         Notifyer::notifyError(client, 495);
         return;
     }
-    topic = (size < 3 ? "" : cmdPack[2].substr(1));
+    topic = (size < 3 ? "" : cmdPack[2]);
     this->handlerTopic(client, cmdPack[1], topic);
 }
 
@@ -100,7 +100,7 @@ void    Server::parseMultiTargets(Client* client, std::string& fullCommand)
     }
     targetPack = parseSplitComma(cmdPack[1]);
 
-    noti = (size > 2 ? cmdPack[2].substr(1) : "");
+    noti = (size > 2 ? cmdPack[2] : "");
     for (int i = 0; i < MULTI_TARGET_FUNCTIONS; i++)
     {
         if (cmdPack[0] == MultiTargetsPack[i])

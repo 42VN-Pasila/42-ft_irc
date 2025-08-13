@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/08 00:10:17 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/12 21:37:11 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@
 #define ERR_SYNTAXMODEO         " :Invalid MODE Operator syntax"        //500
 #define ERR_SYNTAXMODET         " :Invalid MODE Topic syntax"           //501
 #define ERR_SYNTAXCHANNEL       " :Invalid CHANNEL - CHANNEL param requires '#' <#channel>" //502
+#define ERR_SYNTAXMISS          " :Missing ':' before text"             //503
 
 class   Notifyer
 {
