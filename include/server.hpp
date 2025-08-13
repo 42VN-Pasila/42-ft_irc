@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/11 20:36:52 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/13 23:17:12 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,10 @@ class Server
         
         using Handler = void(Server::*)(Client* client, std::string& channelName, std::string& target);
 
-        Handler _MultiTargetsFunctions[3] = 
+        Handler _MultiTargetsFunctions[2] = 
         {
             &Server::handlerPart,
-            &Server::handlerPrivmsg,
-            &Server::handlerKick,
+            &Server::handlerPrivmsg
         };
 
         //Validation
@@ -65,7 +64,7 @@ class Server
         void    handlerPrivmsg(Client* client, std::string& target, std::string& msg);
         void    handlerPart(Client* client, std::string& channel, std::string& msg);
         void    handlerInvite(Client* client, std::string& channel, std::string& targetUser);
-        void    handlerKick(Client* client, std::string& channel, std::string& targetUser);
+        void    handlerKick(Client* client, std::string& channel, std::string& targetUser, std::string& msg);
         void    handlerTopic(Client* client, std::string& channel, std::string& topic);
         void    handlerModeI(Client* client, std::string& channelName, bool = false);
         void    handlerModeT(Client* client, std::string& channelName, bool = false);
@@ -92,6 +91,7 @@ class Server
         void    parseJoin(Client* client, std::string& fullCommand);
         void    parseTopic(Client* client, std::string& fullCommand);
         void    parseInvite(Client* client, std::string& fullCommand);
+        void    parseKick(Client* client, std::string& fullCommand);
         void    parseMultiTargets(Client* client, std::string& fullCommand);
         
         //ParseMode

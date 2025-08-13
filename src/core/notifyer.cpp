@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/12 20:59:50 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/14 01:41:25 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void    Notifyer::sendMsg(Client* client, const std::string& msg)
     
     ssize_t sent = send(socket, msg.c_str(), msg.length(), 0);
     
-    if (sent != -1)
+    if (sent == -1)
     {
         std::string error = "[SERVER] : Failed to send message from " + client->getNickName() + "\r\n";
         LOG_WARNING(error);
