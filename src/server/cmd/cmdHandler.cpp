@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/14 01:53:12 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/14 01:59:39 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,6 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
         }
         Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
         privmsg  = RED + privmsg + RESET + "\r\n";
-        LOG_DEBUG(privmsg);
         Notifyer::sendMsg(this->_clientList[targetUser], privmsg);
     }
     else
