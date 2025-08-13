@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/12 21:49:29 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/14 01:53:12 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
         return ;
     }
     msg = msg.substr(1);
-    
+    msg += "\r\n";
     if (target[0] == '#')
     {
         std::string channelName = target.substr(1);
@@ -126,10 +126,15 @@ void    Server::handlerPart(Client* client, std::string& channel, std::string& m
     }
 }
 
-void    Server::handlerKick(Client* client, std::string& channel, std::string& targetUser)
+void    Server::handlerKick(Client* client, std::string& channel, std::string& targetUser, std::string& reason)
 {
     int code;
 
+    if (!reason.empty() && reason[0] != ':')
+    {
+        Notifyer::notifyError(client, 503); 
+        return ;
+    }
     if (channel[0] != '#')
     {
         Notifyer::notifyError(client, 502); 
@@ -145,7 +150,16 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
     if (code == -1)
     {
         std::string msg = "[SERVER] : " + targetUser + " has been kicked out of the channel by " + client->getNickName();
+        std::string privmsg = "[" + channelName + "] : You have been kicked out of the server";
+        if (!reason.empty())
+        {
+            msg = msg + " because " + reason;
+            privmsg  = privmsg + " because " + reason;
+        }
         Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
+        privmsg  = RED + privmsg + RESET + "\r\n";
+        LOG_DEBUG(privmsg);
+        Notifyer::sendMsg(this->_clientList[targetUser], privmsg);
     }
     else
         Notifyer::notifyError(client, code);

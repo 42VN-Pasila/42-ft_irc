@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:49:51 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/12 21:50:02 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/13 23:19:19 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,34 @@ void    Server::parseInvite(Client* client, std::string& fullCommand)
     this->handlerInvite(client, cmdPack[1], cmdPack[2]);
 }
 
-static std::string MultiTargetsPack[MULTI_TARGET_FUNCTIONS] = {"PART", "PRIVMSG", "KICK"};
+void    Server::parseKick(Client* client, std::string& fullCommand)
+{
+    std::vector<std::string>    cmdPack;
+    std::vector<std::string>    targetPack;
+    std::string                 msg;
+    int                         cmdSize;
+    int                         targetSize;
 
-static std::function<void(Client* client)> MultiTargetsErrors[3] = 
+    cmdPack = parseSplit(fullCommand);
+    cmdSize = cmdPack.size();
+    if (cmdSize < 3 || cmdSize > 4)
+    {
+        Notifyer::notifyError(client, 493);
+        return;
+    }
+    targetPack = parseSplitComma(cmdPack[2]);
+    targetSize = targetPack.size();
+    msg = (cmdSize == 4 ? cmdPack[3] : "");
+    for (int i = 0; i < targetSize; i++)
+        this->handlerKick(client, cmdPack[1], targetPack[i], msg);
+}
+
+static std::string MultiTargetsPack[MULTI_TARGET_FUNCTIONS] = {"PART", "PRIVMSG"};
+
+static std::function<void(Client* client)> MultiTargetsErrors[2] = 
 {
     [](Client* client){Notifyer::notifyError(client, 491);},
-    [](Client* client){Notifyer::notifyError(client, 492);},
-    [](Client* client){Notifyer::notifyError(client, 493);}
+    [](Client* client){Notifyer::notifyError(client, 492);}
 };
 
 void    Server::parseMultiTargets(Client* client, std::string& fullCommand)

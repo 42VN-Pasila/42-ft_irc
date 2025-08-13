@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parseGeneral.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/11 20:36:38 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/13 23:39:39 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ void    Server::execCommand(Client* client, std::string cmd, std::string fullCom
 {
     if (cmd == "JOIN")
         this->parseJoin(client, fullCommand);
-    else if (cmd == "PART" || cmd == "PRIVMSG" || cmd == "KICK")
+    else if (cmd == "PART" || cmd == "PRIVMSG")
         this->parseMultiTargets(client, fullCommand);
+    else if (cmd == "KICK")
+        this->parseKick(client, fullCommand);
     else if (cmd == "INVITE")
         this->parseInvite(client, fullCommand);
     else if (cmd == "TOPIC")
@@ -72,7 +74,7 @@ void    Server::parseCommand(Client* client, std::string& command, int& quitFlag
     if (cmdPack[0] == "QUIT")
     {
         this->parseQuit(client, command);
-        quitFlag = 0;
+        quitFlag = 1;
         return ;
     }
     if (client->getStatus() != COMPLETE)

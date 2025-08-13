@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   system.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:30:42 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/07 20:59:21 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/13 22:25:51 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,5 @@ class Channel;
 #define LIMIT_MEMBER 1000
 #define on true
 #define off false
-#define MULTI_TARGET_FUNCTIONS 3
+#define MULTI_TARGET_FUNCTIONS 2
 #define MODE_QTT    5
