@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:39:35 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/13 23:58:34 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/14 10:35:24 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void    Server::parseSignUSER(Client* client, std::vector<std::string> command)
 {
-    if (command.size() != 5 || command[0] != "USER")
+    if (command.size() < 5 || command[0] != "USER")
     {
         Notifyer::notifyError(client, 418);
         return ;
@@ -25,7 +25,7 @@ void    Server::parseSignUSER(Client* client, std::vector<std::string> command)
     {
         if (i == 4)
         {
-            if (command[i][0] != ':')
+            if (command[i][0] != ':' || command[i].length() == 1)
             {
                 Notifyer::notifyError(client, 503); 
                 return ;
