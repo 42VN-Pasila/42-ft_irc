@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:49:51 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/13 23:19:19 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/15 04:23:34 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,23 @@ void    Server::parseTopic(Client* client, std::string& fullCommand)
     
     cmdPack = parseSplit(fullCommand);
     size = cmdPack.size();
-    if (size > 3 || size < 2)
+    if (size < 2)
     {
         Notifyer::notifyError(client, 495);
         return;
     }
-    topic = (size < 3 ? "" : cmdPack[2]);
+    if (size < 3)
+        topic = "";
+    else
+    {
+        if (cmdPack[2][0] != ':' || cmdPack[2].length() == 1)
+        {
+            Notifyer::notifyError(client, 495);
+            return;
+        }
+        for (size_t i = 2; i < size; i++)
+            topic = (i == 2 ? cmdPack[i] : topic + " " + cmdPack[i]);
+    }
     this->handlerTopic(client, cmdPack[1], topic);
 }
 
@@ -86,8 +97,19 @@ void    Server::parseKick(Client* client, std::string& fullCommand)
     }
     targetPack = parseSplitComma(cmdPack[2]);
     targetSize = targetPack.size();
-    msg = (cmdSize == 4 ? cmdPack[3] : "");
-    for (int i = 0; i < targetSize; i++)
+    if (cmdSize < 4)
+        msg = "";
+    else
+    {
+        if (cmdPack[3][0] != ':' || cmdPack[3].length() == 1)
+        {
+            Notifyer::notifyError(client, 495);
+            return;
+        }
+        for (size_t i = 3; i < cmdSize; i++)
+            msg = (i == 3 ? cmdPack[i] : msg + " " + cmdPack[i]);
+    }
+    for (size_t i = 0; i < targetSize; i++)
         this->handlerKick(client, cmdPack[1], targetPack[i], msg);
 }
 
