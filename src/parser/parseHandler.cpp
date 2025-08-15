@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:49:51 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/15 04:23:34 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/15 04:33:02 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void    Server::parseMultiTargets(Client* client, std::string& fullCommand)
 
     cmdPack = parseSplit(fullCommand);
     size = cmdPack.size();
-    if (size > 3 || size < 2)
+    if (size < 2)
     {
         for (int i = 0; i < MULTI_TARGET_FUNCTIONS; i++)
         {
@@ -141,9 +141,21 @@ void    Server::parseMultiTargets(Client* client, std::string& fullCommand)
             } 
         }
     }
+    if (size < 3)
+        noti = "";
+    else
+    {
+        if (cmdPack[2][0] != ':' || cmdPack[2].length() == 1)
+        {
+            Notifyer::notifyError(client, 495);
+            return;
+        }
+        for (size_t i = 2; i < size; i++)
+            noti = (i == 2 ? cmdPack[i] : noti + " " + cmdPack[i]);
+    }
+
     targetPack = parseSplitComma(cmdPack[1]);
 
-    noti = (size > 2 ? cmdPack[2] : "");
     for (int i = 0; i < MULTI_TARGET_FUNCTIONS; i++)
     {
         if (cmdPack[0] == MultiTargetsPack[i])
