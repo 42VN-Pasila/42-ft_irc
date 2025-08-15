@@ -71,6 +71,11 @@
         "mutex": "cpp",
         "ratio": "cpp",
         "variant": "cpp",
-        "format": "cpp"
+        "format": "cpp",
+        "csignal": "cpp",
+        "iomanip": "cpp",
+        "span": "cpp",
+        "text_encoding": "cpp",
+        "cinttypes": "cpp"
     }
 }
