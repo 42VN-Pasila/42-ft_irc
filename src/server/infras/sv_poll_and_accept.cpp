@@ -6,7 +6,7 @@
 /*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/08/11 20:36:20 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/15 20:41:12 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ void Server::pollAndAccept() {
     while (g_running) {
         int ret = poll(_poll_fds.data(), _poll_fds.size(), -1);
         if (ret < 0) {
-            if (errno == EINTR)
+            if (errno == EINTR) {
                 continue; // g_running now changed -> break
+            }
             throw std::runtime_error("Server: poll failed!");
         }
         if (_poll_fds[0].revents & POLLIN) {
