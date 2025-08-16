@@ -5,10 +5,11 @@ A fully-featured IRC (Internet Relay Chat) server built from scratch in C++. Pro
 ## ✍️ Authors & Responsibilities
 
 ### **Core Systems** - Cao Tan ([GitHub](https://github.com/Siuol7))
-* Architecture Design & Command Processing
+* Architecture Design
+* Command Processing
 * Authentication & Channel Management Systems
 * Mode Implementation & Error Handling
-* Memory Management & Testing Framework
+* Memory Management
 
 ### **Network Infrastructure** - Huong Tran ([GitHub](https://github.com/htran312)) && Triet Pham ([GitHub](https://github.com/hihi-louis))  
 * Socket Management & Poll-based I/O
@@ -75,13 +76,6 @@ Notifyer → centralized messaging and error reporting
 removeClient() → part all channels → notify users → cleanup resources
 RAII pattern → exception-safe resource management
 ```
-### 🧪 **Testing & Quality**
-* Poll-based I/O for scalable concurrent connections
-* Non-blocking socket operations
-* Signal handling (SIGINT/SIGQUIT) for graceful shutdown
-* Advanced buffer management with proper IRC \r\n parsing
-* Comprehensive error handling (38+ IRC error codes)
-
 ### 🧪 **IRC Client Compatibility**
 ```bash
 nc localhost 6667          # Basic testing
