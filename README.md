@@ -1,4 +1,4 @@
-# 🌐 42ft_irc
+# 🌐 42 ft_irc
 
 A fully-featured IRC (Internet Relay Chat) server built from scratch in C++. Production-ready server handling multiple clients, channels, and complete IRC protocol implementation with enterprise-level architecture.
 
