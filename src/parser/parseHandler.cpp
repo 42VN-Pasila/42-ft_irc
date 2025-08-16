@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:49:51 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/15 04:38:30 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/16 04:11:06 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void    Server::parseKick(Client* client, std::string& fullCommand)
 
     cmdPack = parseSplit(fullCommand);
     cmdSize = cmdPack.size();
-    if (cmdSize < 3 || cmdSize > 4)
+    if (cmdSize < 3)
     {
         Notifyer::notifyError(client, 493);
         return;
