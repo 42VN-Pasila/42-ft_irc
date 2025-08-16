@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:49:51 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/16 04:11:06 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/16 04:29:38 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void    Server::parseKick(Client* client, std::string& fullCommand)
     {
         if (cmdPack[3][0] != ':' || cmdPack[3].length() == 1)
         {
-            Notifyer::notifyError(client, 495);
+            Notifyer::notifyError(client, 493);
             return;
         }
         for (size_t i = 3; i < cmdSize; i++)
