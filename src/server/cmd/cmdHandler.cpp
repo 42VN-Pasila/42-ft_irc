@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/14 01:59:39 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/15 03:40:34 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,6 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
 
 void    Server::handlerPrivmsg(Client* client, std::string& target, std::string& msg)
 {
-    if (!msg.empty() && msg[0] != ':')
-    {
-        Notifyer::notifyError(client, 503); 
-        return ;
-    }
-    msg = msg.substr(1);
     msg += "\r\n";
     if (target[0] == '#')
     {
@@ -91,13 +85,6 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
 void    Server::handlerPart(Client* client, std::string& channel, std::string& msg)
 {
     int code;
-
-    if (!msg.empty() && msg[0] != ':')
-    {
-        Notifyer::notifyError(client, 503); 
-        return ;
-    }
-    msg = msg.substr(1);
     
     if (channel[0] != '#')
     {
@@ -130,11 +117,6 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
 {
     int code;
 
-    if (!reason.empty() && reason[0] != ':')
-    {
-        Notifyer::notifyError(client, 503); 
-        return ;
-    }
     if (channel[0] != '#')
     {
         Notifyer::notifyError(client, 502); 
@@ -167,13 +149,6 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
 void    Server::handlerTopic(Client* client, std::string& channel, std::string& topic)
 {
     int code;
-
-    if (!topic.empty() && topic[0] != ':')
-    {
-        Notifyer::notifyError(client, 503); 
-        return ;
-    }
-    topic = topic.substr(1);
     
     if (channel[0] != '#')
     {
