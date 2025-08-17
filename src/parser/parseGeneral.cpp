@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/16 05:25:50 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/17 09:01:54 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void    Server::parseQuit(Client* client, std::string& cmd)
             return ;
         }
         for (size_t i = 1; i < cmdPack.size(); i++)
-            msg = (i == 1 ? cmdPack[i] : msg + " " + cmdPack[i]);
+            msg = (i == 1 ? cmdPack[i].substr(1) : msg + " " + cmdPack[i]);
     }
     
     for (auto& pair : this->_channelList)
