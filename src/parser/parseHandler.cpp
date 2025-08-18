@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parseHandler.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:49:51 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/16 04:29:38 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/18 19:31:30 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ void    Server::parseJoin(Client* client, std::string& fullCommand)
         return;
     }
     channelPack = parseSplitComma(cmdPack[1]);
+    if (channelPack.empty())
+    {
+        Notifyer::notifyError(client, 504);
+        return;
+    }
     
     if (size > 2)
         passwordPack = parseSplitComma(cmdPack[2]);
