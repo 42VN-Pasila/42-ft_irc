@@ -1,3 +1,29 @@
 1. Test channel required password
+Case 1:
+Issue: space after comma when input multiple channels to JOIN doesn't trigger error.
+`
+JOIN #cat, #dog
+[SERVER] : [CHANNEL cat] :[CHANNEL cat]: Welcome 5 to the channel
+`
+
+Case 2:
+Issue: JOIN #channel password when the channel doesn't require password -> works normally. Should it trigger an error?
+
+Case 3:
+Issue: PRIVMSG to:
+    - another client doesn't show sender, only the message.
+    - a channel: shows from which channel the message is from, but not the sender.
+
+Case 4:
+Issue: password contains comma ','. When a client try to join multiple channels that requires password -> correct password (that contains comma(s) is considered invalid).
+
+Case 5:
+Issue(?!) when user join a channel, the lastest topic shows as a prompt.
+
+Case 6:
+Issue: multiple clients can have identical nicknames. When send PRIVMSG nickname :Private message, currently the newest client got the message.
+And the sender got: [SERVER] :442: [4]  :User is not on that channel
+
+
 2. Test remove operator then required
 3. Test invite only mode
