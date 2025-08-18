@@ -6,7 +6,7 @@
 /*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/18 19:31:26 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/18 19:47:23 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ class   Notifyer
         {499, ERR_SYNTAXMODEL},
         {500, ERR_SYNTAXMODEO},
         {501, ERR_SYNTAXMODET},
-        {502, ERR_SYNTAXCHANNEL}
+        {502, ERR_SYNTAXCHANNEL},
+        {503, ERR_SYNTAXQUIT},
+        {504,ERR_SYNTAXEMPTYCOMMA}
     };
 };
