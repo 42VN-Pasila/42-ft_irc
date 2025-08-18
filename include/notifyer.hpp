@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   notifyer.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/16 05:19:01 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/18 19:47:23 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@
 #define ERR_SYNTAXMODET         " :Invalid MODE Topic syntax"           //501
 #define ERR_SYNTAXCHANNEL       " :Invalid CHANNEL - CHANNEL param requires '#' <#channel>" //502
 #define ERR_SYNTAXQUIT          " :Invalid QUIT syntax"                 //503
+#define ERR_SYNTAXEMPTYCOMMA    " :Empty after a comma"                 //504
 
 class   Notifyer
 {
@@ -138,6 +139,8 @@ class   Notifyer
         {499, ERR_SYNTAXMODEL},
         {500, ERR_SYNTAXMODEO},
         {501, ERR_SYNTAXMODET},
-        {502, ERR_SYNTAXCHANNEL}
+        {502, ERR_SYNTAXCHANNEL},
+        {503, ERR_SYNTAXQUIT},
+        {504,ERR_SYNTAXEMPTYCOMMA}
     };
 };

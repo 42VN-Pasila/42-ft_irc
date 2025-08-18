@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 18:24:18 by caonguye          #+#    #+#             */
-/*   Updated: 2025/08/06 20:27:25 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/18 18:33:02 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ int main(int ac, char** av)
     {
         int iport;
         parseProgram(ac, av, &iport);
-        // ket noi socket vao server
         launchServer(av[2], &iport);
-        
     }
     catch(const std::exception& e)
     {

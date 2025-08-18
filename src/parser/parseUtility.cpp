@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parseUtility.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 17:58:04 by caonguye          #+#    #+#             */
-/*   Updated: 2025/08/15 03:34:04 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/18 19:27:00 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,15 @@ std::vector<std::string>    parseSplitComma(std::string& cmd)
     std::istringstream          stream(cmd);
     std::string                 token;
     
+    if (cmd[cmd.length() - 1] == ',')
+        return {};
     while (std::getline(stream, token, ','))
-        result.push_back(token);
+    {
+        if (token.empty())
+            return {};
+        else
+            result.push_back(token);
+    }
     return result;
 }
 
