@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdHandler.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/18 01:00:41 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/18 18:42:24 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
     int code;
     int subCode;
     
-    if (channel[0] != '#')
+    if (channel[0] != '#' || channel.length() == 1)
     {
         Notifyer::notifyError(client, 502); 
         return ;
@@ -62,7 +62,7 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
 void    Server::handlerPrivmsg(Client* client, std::string& target, std::string& msg)
 {
     msg += "\r\n";
-    if (target[0] == '#')
+    if (target[0] == '#' || target.length() == 1)
     {
         std::string channelName = target.substr(1);
         if (!validateChannel(client, channelName))
@@ -86,7 +86,7 @@ void    Server::handlerPart(Client* client, std::string& channel, std::string& n
 {
     int code;
     
-    if (channel[0] != '#')
+    if (channel[0] != '#' || channel.length() == 1)
     {
         Notifyer::notifyError(client, 502); 
         return ;
@@ -100,7 +100,7 @@ void    Server::handlerPart(Client* client, std::string& channel, std::string& n
         code = this->_channelList[channelName]->removeUser(client);
         if (code == -1)
         {
-            std::string msg = client->getNickName() + " has been kicked out of the channel by ";
+            std::string msg = client->getNickName() + " has left the channel by ";
             std::string privmsg = "[CHANNEL " + channelName + "] : You have left the channel";
             if (!noti.empty())
             {
@@ -123,7 +123,7 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
 {
     int code;
 
-    if (channel[0] != '#')
+    if (channel[0] != '#' || channel.length() == 1)
     {
         Notifyer::notifyError(client, 502); 
         return ;
@@ -159,7 +159,7 @@ void    Server::handlerTopic(Client* client, std::string& channel, std::string& 
 {
     int code;
     
-    if (channel[0] != '#')
+    if (channel[0] != '#' || channel.length() == 1)
     {
         Notifyer::notifyError(client, 502); 
         return ;
@@ -192,7 +192,7 @@ void    Server::handlerInvite(Client* client, std::string& targetUser, std::stri
 {
     int code;
 
-    if (channel[0] != '#')
+    if (channel[0] != '#' || targetUser.length() == 1)
     {
         Notifyer::notifyError(client, 502); 
         return ;
