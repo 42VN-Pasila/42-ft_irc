@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sv_poll_and_accept.cpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/08/15 20:41:12 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/08/18 18:20:52 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,3 +122,4 @@ void Server::pollAndAccept() {
         }
     }
 }
+
