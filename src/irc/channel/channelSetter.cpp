@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cn_setter.cpp                                      :+:      :+:    :+:   */
+/*   channelSetter.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 00:32:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/30 22:49:24 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/20 10:57:39 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int    Channel::setPassword(const std::string& password)
 {
     if (password.empty())
         return 484;
+    if (!Channel::isValidPassword(password))
+        return 487;
     this->_password = password;
     return -1;
 }

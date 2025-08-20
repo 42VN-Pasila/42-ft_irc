@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdHandler.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/18 18:42:24 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/20 10:29:37 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
 
 void    Server::handlerPrivmsg(Client* client, std::string& target, std::string& msg)
 {
+    msg = "[" + client->getNickName() + "]: " + msg;
     msg += "\r\n";
     if (target[0] == '#' || target.length() == 1)
     {
