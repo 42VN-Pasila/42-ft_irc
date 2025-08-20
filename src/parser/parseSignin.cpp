@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:39:35 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/20 21:03:40 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/20 21:42:17 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void    Server::parseSignUSER(Client* client, std::vector<std::string> command)
     std::string nickname = client->getNickName();
     if (this->hasServerClient(nickname))
     {
-        Notifyer::notifyError(client, 433);
+        client->setNickName("");
         client->setStatus(NICK);
+        Notifyer::notifyError(client, 433);
         return ;
     }
     client->setUserName(command[1]);
