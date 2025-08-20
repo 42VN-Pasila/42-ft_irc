@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   notifyer.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/18 19:47:23 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/20 10:56:33 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@
 #define ERR_TOPICEMPTY          " :Topic cannot be empty"              //483
 #define ERR_PASSWORDEMPTY       " :Password cannot be empty"           //484
 #define ERR_EMPTYCMD            " :Command cannot be empty"            //485
-#define ERR_WRONGCMD            " :Command not found"                  //486 
+#define ERR_WRONGCMD            " :Command not found"                  //486
+#define ERR_INVALIDPASSWORD     " :Password contains special character \"\\n\\t\\r' ',:#+-\"" //487
 
 #define ERR_SYNTAXJOIN          " :Invalid JOIN syntax"                 //490
 #define ERR_SYNTAXPART          " :Invalid PART syntax"                 //491

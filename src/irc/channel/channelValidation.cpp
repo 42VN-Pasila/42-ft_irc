@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cn_validation.cpp                                  :+:      :+:    :+:   */
+/*   channelValidation.cpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:21:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/30 23:34:43 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/20 10:57:54 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,15 @@ bool   Channel::isAvailable()
 bool   Channel::isTopicRight()
 {
     return this->_topicRight;
+}
+
+bool   Channel::isValidPassword(std::string pass)
+{
+    for (char c : pass)
+    {
+        if (c == '\n' || c == '\t' || c == '\r' || c == ' ' || c == ',' ||
+            c == ':' || c == '#' || c == '+' || c == '-')
+        return 0;
+    }
+    return 1;
 }
