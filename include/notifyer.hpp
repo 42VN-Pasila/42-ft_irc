@@ -6,7 +6,7 @@
 /*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/18 19:47:23 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/24 20:05:57 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #define ERR_USERONCHANNEL       " :User is already on channel"         //443
 #define ERR_TARGNOTONSERVER     " :Receiver is not on that server"     //444
 #define ERR_TARGNOTONCHANNEL    " :Receiver is not on that channel"    //445
+#define ERR_TARGETONCHANNEL     " :Receiver is already in the channel" //441
 
 #define ERR_SIGNINPASS          " :You must input password : PASS <password>"             //415
 #define ERR_SIGNININVPASS       " :Invalid password"                     //416
@@ -53,11 +54,13 @@
 #define ERR_CHANNELEMPTYTOPIC   " :Channel has no topic"               //457
 #define ERR_CHANNELEMPTYPASS    " :Channel has no password"            //458
 #define ERR_CHANNELZEROLIMIT    " :Channel has no limit"               //459
+#define ERR_CANNOTKICKUS        " :You cannot kick yourself"           //460
 
 #define ERR_TOPICEMPTY          " :Topic cannot be empty"              //483
 #define ERR_PASSWORDEMPTY       " :Password cannot be empty"           //484
 #define ERR_EMPTYCMD            " :Command cannot be empty"            //485
-#define ERR_WRONGCMD            " :Command not found"                  //486 
+#define ERR_WRONGCMD            " :Command not found"                  //486
+#define ERR_INVALIDPASSWORD     " :Password contains special character \"\\n\\t\\r' ',:#+-\"" //487
 
 #define ERR_SYNTAXJOIN          " :Invalid JOIN syntax"                 //490
 #define ERR_SYNTAXPART          " :Invalid PART syntax"                 //491
@@ -100,6 +103,7 @@ class   Notifyer
         {431, ERR_NONICKNAMEGIVEN},
         {432, ERR_ERRONEUSNICKNAME},
         {433, ERR_NICKNAMEINUSE},
+        {441, ERR_TARGETONCHANNEL},
         {442, ERR_USERNOTONCHANNEL},
         {443, ERR_USERONCHANNEL},
         {444, ERR_TARGNOTONSERVER},
@@ -116,6 +120,7 @@ class   Notifyer
         {457, ERR_CHANNELEMPTYTOPIC},
         {458, ERR_CHANNELEMPTYPASS},
         {459, ERR_CHANNELZEROLIMIT},
+        {460, ERR_CANNOTKICKUS},
         {461, ERR_NEEDMOREPARAMS},
         {470, ERR_CHANNELINCRPASSWORD},
         {471, ERR_CHANNELISFULL},

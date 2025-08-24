@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parseSignin.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:39:35 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/18 19:53:38 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/20 21:42:17 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@ void    Server::parseSignUSER(Client* client, std::vector<std::string> command)
     if (command.size() < 5 || command[0] != "USER" || command[2] != "0" || command[3] != "*")
     {
         Notifyer::notifyError(client, 418);
+        return ;
+    }
+    std::string nickname = client->getNickName();
+    if (this->hasServerClient(nickname))
+    {
+        client->setNickName("");
+        client->setStatus(NICK);
+        Notifyer::notifyError(client, 433);
         return ;
     }
     client->setUserName(command[1]);

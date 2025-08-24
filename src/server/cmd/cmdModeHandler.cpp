@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdModeHandler.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/08/08 00:15:49 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/24 19:45:10 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,16 +132,14 @@ void    Server::handlerModeO(Client* client, std::string& channel, std::string& 
     std::string channelName = channel.substr(1);
     if (!validateChannel(client, channelName))
         return ;
+    if (!validateOperator(client, channelName))
+        return ;
     if (!validateTarget(client, channelName, targetUser))
         return ;
     if (mode == on)
         code = this->_channelList[channelName]->setOperator(this->_clientList[targetUser]);
     else
-    {
-        if (!validateOperator(client, channelName))
-            return ;
         code = this->_channelList[channelName]->removeOperator(this->_clientList[targetUser]);
-    }
     if (code == -1)
     {
         msg = (mode == on ? "[SERVER] : [CHANNEL] : Channel is now operated by " + targetUser
