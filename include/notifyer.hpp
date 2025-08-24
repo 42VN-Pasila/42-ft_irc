@@ -6,7 +6,7 @@
 /*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/24 19:42:52 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/24 20:05:57 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #define ERR_USERONCHANNEL       " :User is already on channel"         //443
 #define ERR_TARGNOTONSERVER     " :Receiver is not on that server"     //444
 #define ERR_TARGNOTONCHANNEL    " :Receiver is not on that channel"    //445
+#define ERR_TARGETONCHANNEL     " :Receiver is already in the channel" //441
 
 #define ERR_SIGNINPASS          " :You must input password : PASS <password>"             //415
 #define ERR_SIGNININVPASS       " :Invalid password"                     //416
@@ -102,6 +103,7 @@ class   Notifyer
         {431, ERR_NONICKNAMEGIVEN},
         {432, ERR_ERRONEUSNICKNAME},
         {433, ERR_NICKNAMEINUSE},
+        {441, ERR_TARGETONCHANNEL},
         {442, ERR_USERNOTONCHANNEL},
         {443, ERR_USERONCHANNEL},
         {444, ERR_TARGNOTONSERVER},
@@ -118,6 +120,7 @@ class   Notifyer
         {457, ERR_CHANNELEMPTYTOPIC},
         {458, ERR_CHANNELEMPTYPASS},
         {459, ERR_CHANNELZEROLIMIT},
+        {460, ERR_CANNOTKICKUS},
         {461, ERR_NEEDMOREPARAMS},
         {470, ERR_CHANNELINCRPASSWORD},
         {471, ERR_CHANNELISFULL},
