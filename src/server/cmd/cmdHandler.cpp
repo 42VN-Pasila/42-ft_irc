@@ -6,7 +6,7 @@
 /*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/24 19:43:32 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/24 20:06:59 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ void    Server::handlerInvite(Client* client, std::string& targetUser, std::stri
 {
     int code;
 
-    if (channel[0] != '#' || targetUser.length() == 1)
+    if (channel[0] != '#' || channel.length() == 1)
     {
         Notifyer::notifyError(client, 502); 
         return ;
