@@ -38,7 +38,8 @@ KICK #channel nickname
 KICK #channel nickname :Reason for kick
 KICK #channel nick1,nick2 :Kick multiple users
 
-5. INVITE - Invite user to channel:
+5. INVITE - Invite user to channel:std::string topic = "[CHANNEL]: [TOPIC]: " +this->_channelList[channelName]->getTopic(); 
+            Notifyer::sendMsg(client, CYAN + topic + RESET);
 INVITE nickname #channel
 
 6. TOPIC - Set/view channel topic:

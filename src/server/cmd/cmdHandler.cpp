@@ -6,7 +6,7 @@
 /*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/24 19:15:10 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/24 19:20:20 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
         Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
         if (!this->_channelList[channelName]->getTopic().empty())
         {
-            std::string topic = "[CHANNEL]: [TOPIC]: " +this->_channelList[channelName]->getTopic(); 
+            std::string topic = "[CHANNEL]: [TOPIC]: " + this->_channelList[channelName]->getTopic() + "\r\n"; 
             Notifyer::sendMsg(client, CYAN + topic + RESET);
         }
     }
