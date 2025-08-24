@@ -6,7 +6,7 @@
 /*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/24 19:20:20 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/24 19:43:32 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,11 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
         Notifyer::notifyError(client, 502); 
         return ;
     }
+    if (client->getNickName() == targetUser)
+    {
+        Notifyer::notifyError(client , 460);
+        return ;
+    }
     std::string channelName = channel.substr(1);
     
     if (!validateOperator(client, channelName))
@@ -169,17 +174,20 @@ void    Server::handlerTopic(Client* client, std::string& channel, std::string& 
         return ;
     }    
     std::string channelName = channel.substr(1);
-    topic = topic.substr(1);
+    if (!topic.empty())
+        topic = topic.substr(1);
     
     if (!validateChannel(client, channelName))
         return ;
     if (topic.empty())
     {
+        std::string finalTopic;
         std::string currentTopic = this->_channelList[channelName]->getTopic();
         if (currentTopic.empty())
-            Notifyer::sendMsg(client, "[SERVER] : [CHANNEL] : Topic : [empty]");
+            finalTopic = "[SERVER] : [CHANNEL] : Topic : [empty]";
         else
-            Notifyer::sendMsg(client, "[SERVER] : [CHANNEL] : Topic : " + currentTopic);
+            finalTopic = "[SERVER] : [CHANNEL] : Topic : " + currentTopic;
+        Notifyer::sendMsg(client, CYAN + finalTopic + RESET);
         return ;
     }
     if (this->_channelList[channelName]->isTopicRight())
@@ -212,7 +220,7 @@ void    Server::handlerInvite(Client* client, std::string& targetUser, std::stri
     {
         std::string msg = "[SERVER] : [CHANNEL] " + channelName + " send you an invitation from "
                                                                 + client->getNickName();
-        Notifyer::sendMsg(this->_clientList[targetUser], msg);                             
+        Notifyer::sendMsg(this->_clientList[targetUser], CYAN + msg + RESET);                             
     }
     else
         Notifyer::notifyError(client, code);
