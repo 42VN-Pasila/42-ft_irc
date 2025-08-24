@@ -24,6 +24,20 @@ Case 6:
 Issue: multiple clients can have identical nicknames. When send PRIVMSG nickname :Private message, currently the newest client got the message.
 And the sender got: [SERVER] :442: [4]  :User is not on that channel
 
+Case 7:
+Issue:
+- user1 is the channel operator. user1 KICK himself -> he can but should he?
+- If he can: nobody can set operator -> the channel won't have an operator.
+
+Case 8:
+Issue:
+- INVITE nickname #channel doesn't work.
+
+Case9:
+Issue:
+- PRIVMSG doesn't show the sender.
+
+
 
 2. Test remove operator then required
 3. Test invite only mode
