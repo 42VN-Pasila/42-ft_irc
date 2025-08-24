@@ -6,7 +6,7 @@
 /*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/24 20:06:59 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/24 20:25:31 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ void    Server::handlerInvite(Client* client, std::string& targetUser, std::stri
     if (code == -1)
     {
         std::string msg = "[SERVER] : [CHANNEL] " + channelName + " send you an invitation from "
-                                                                + client->getNickName();
+                                                                + client->getNickName() + "\r\n";
         Notifyer::sendMsg(this->_clientList[targetUser], CYAN + msg + RESET);                             
     }
     else
