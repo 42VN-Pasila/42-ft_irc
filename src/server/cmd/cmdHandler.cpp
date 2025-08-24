@@ -6,7 +6,7 @@
 /*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/24 19:34:27 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/24 19:43:32 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,11 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
     if (channel[0] != '#' || channel.length() == 1)
     {
         Notifyer::notifyError(client, 502); 
+        return ;
+    }
+    if (client->getNickName() == targetUser)
+    {
+        Notifyer::notifyError(client , 460);
         return ;
     }
     std::string channelName = channel.substr(1);

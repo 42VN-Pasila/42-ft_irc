@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   notifyer.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/20 10:56:33 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/24 19:42:52 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@
 #define ERR_CHANNELEMPTYTOPIC   " :Channel has no topic"               //457
 #define ERR_CHANNELEMPTYPASS    " :Channel has no password"            //458
 #define ERR_CHANNELZEROLIMIT    " :Channel has no limit"               //459
+#define ERR_CANNOTKICKUS        " :You cannot kick yourself"           //460
 
 #define ERR_TOPICEMPTY          " :Topic cannot be empty"              //483
 #define ERR_PASSWORDEMPTY       " :Password cannot be empty"           //484
