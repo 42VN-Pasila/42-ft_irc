@@ -6,7 +6,7 @@
 /*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/24 20:25:31 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/24 20:31:27 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
 void    Server::handlerPrivmsg(Client* client, std::string& target, std::string& msg)
 {
     msg = "[" + client->getNickName() + "]: " + msg;
-    msg += "\r\n";
     if (target[0] == '#' || target.length() == 1)
     {
         std::string channelName = target.substr(1);
@@ -82,7 +81,10 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
             return ;
         } 
         else
+        {
+            msg += "\r\n";
             Notifyer::sendMsg(this->_clientList[target], msg); 
+        }
     }
 }
 
