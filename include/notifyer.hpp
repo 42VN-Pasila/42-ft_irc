@@ -6,7 +6,7 @@
 /*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/24 19:42:52 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/24 19:55:19 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ class   Notifyer
         {457, ERR_CHANNELEMPTYTOPIC},
         {458, ERR_CHANNELEMPTYPASS},
         {459, ERR_CHANNELZEROLIMIT},
+        {460, ERR_CANNOTKICKUS},
         {461, ERR_NEEDMOREPARAMS},
         {470, ERR_CHANNELINCRPASSWORD},
         {471, ERR_CHANNELISFULL},
