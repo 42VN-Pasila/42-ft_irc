@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdHandler.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/20 10:29:37 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/24 19:12:02 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
     {
         std::string msg = "[CHANNEL " + channelName + "]: Welcome " + client->getNickName() + " to the channel";
         Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
-        Notifyer::sendMsg(client, this->_channelList[channelName]->getTopic());
-        
+        std::string topic = "[CHANNEL]: [TOPIC]: " +this->_channelList[channelName]->getTopic(); 
+        Notifyer::sendMsg(client, CYAN + topic + RESET);
     }
     else
         Notifyer::notifyError(client, code);  
