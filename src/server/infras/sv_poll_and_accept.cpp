@@ -6,7 +6,7 @@
 /*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/08/26 15:46:05 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/26 16:12:39 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 
 volatile sig_atomic_t g_running = 1;
 
+static signal_cont_handler(int signal, Client* client)
+{
+    
+}
+
 void signal_handler(int signal) {
     g_running = 0;
     if (signal == SIGCONT)
-    
+        signal_cont_handler();
     std::cout << "\n" << (signal == SIGINT ? "SIGINT" : "SIGQUIT") << " caught!" << std::endl;
 }
 
