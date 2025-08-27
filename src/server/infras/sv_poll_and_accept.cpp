@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sv_poll_and_accept.cpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/08/26 16:12:39 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/27 11:22:51 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,8 @@
 
 volatile sig_atomic_t g_running = 1;
 
-static signal_cont_handler(int signal, Client* client)
-{
-    
-}
-
 void signal_handler(int signal) {
     g_running = 0;
-    if (signal == SIGCONT)
-        signal_cont_handler();
     std::cout << "\n" << (signal == SIGINT ? "SIGINT" : "SIGQUIT") << " caught!" << std::endl;
 }
 
@@ -65,7 +58,6 @@ void Server::pollAndAccept() {
     int quitFlag  = 0;
     std::signal(SIGINT, signal_handler);
     std::signal(SIGQUIT, signal_handler);
-    std::signal(SIGCONT, signal_handler);
     pollfd s_pfd = {.fd = _server_fd, .events = POLLIN, .revents = 0};
     _poll_fds.push_back(s_pfd);
 
@@ -104,7 +96,7 @@ void Server::pollAndAccept() {
                 int client_fd = _poll_fds[i].fd;
                 ssize_t bytesRead = recv(client_fd, buffer, sizeof(buffer) - 1, 0);
                 if (bytesRead <= 0) {
-                    if (errno == EINTR)
+                    if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK)
                         continue;
                     std::cout << RED << "Client disconnected: fd = " << client_fd << RESET << std::endl;
                     removeClient(client_fd, i);
