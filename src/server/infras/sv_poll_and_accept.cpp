@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sv_poll_and_accept.cpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/08/18 18:20:52 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/08/28 10:02:59 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,16 @@
 volatile sig_atomic_t g_running = 1;
 
 void signal_handler(int signal) {
-    g_running = 0;
-    std::cout << "\n" << (signal == SIGINT ? "SIGINT" : "SIGQUIT") << " caught!" << std::endl;
+    if (signal == SIGCONT)
+    {
+        g_running = 1;
+        std::cout << "Resume server" << std::endl;
+    }
+    else
+    {
+        g_running = 0;
+        std::cout << "\n" << (signal == SIGINT ? "SIGINT" : "SIGQUIT") << " caught!" << std::endl;
+    }
 }
 
 int Server::getIndex(int fd) const {
@@ -58,6 +66,8 @@ void Server::pollAndAccept() {
     int quitFlag  = 0;
     std::signal(SIGINT, signal_handler);
     std::signal(SIGQUIT, signal_handler);
+    std::signal(SIGSTOP, SIG_DFL);
+    std::signal(SIGCONT, signal_handler);
     pollfd s_pfd = {.fd = _server_fd, .events = POLLIN, .revents = 0};
     _poll_fds.push_back(s_pfd);
 
@@ -96,7 +106,7 @@ void Server::pollAndAccept() {
                 int client_fd = _poll_fds[i].fd;
                 ssize_t bytesRead = recv(client_fd, buffer, sizeof(buffer) - 1, 0);
                 if (bytesRead <= 0) {
-                    if (errno == EINTR)
+                    if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK)
                         continue;
                     std::cout << RED << "Client disconnected: fd = " << client_fd << RESET << std::endl;
                     removeClient(client_fd, i);
