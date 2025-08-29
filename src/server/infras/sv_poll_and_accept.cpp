@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/08/28 10:02:59 by siuol            ###   ########.fr       */
+/*   Updated: 2025/08/28 10:22:09 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void Server::pollAndAccept() {
     int quitFlag  = 0;
     std::signal(SIGINT, signal_handler);
     std::signal(SIGQUIT, signal_handler);
-    std::signal(SIGSTOP, SIG_DFL);
+    std::signal(SIGTSTP, SIG_DFL);
     std::signal(SIGCONT, signal_handler);
     pollfd s_pfd = {.fd = _server_fd, .events = POLLIN, .revents = 0};
     _poll_fds.push_back(s_pfd);
