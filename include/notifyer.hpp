@@ -6,7 +6,7 @@
 /*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/24 20:05:57 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/09/02 18:04:58 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ class   Notifyer
         {484, ERR_PASSWORDEMPTY},
         {485, ERR_EMPTYCMD},
         {486, ERR_WRONGCMD},
+        {487, ERR_INVALIDPASSWORD},
         {490, ERR_SYNTAXJOIN},
         {491, ERR_SYNTAXPART},
         {492, ERR_SYNTAXPRIVMSG},

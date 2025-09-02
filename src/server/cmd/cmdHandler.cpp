@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdHandler.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/27 11:29:23 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/02 18:17:42 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
     
     if (!validateOperator(client, channelName))
         return ;
-    if (!validateTarget(client, channelName, targetUser))
+    if (!validateTargetOut(client, channelName, targetUser))
         return ;
     code = this->_channelList[channelName]->kickUser(this->_clientList[targetUser]);
     if (code == -1)
@@ -220,7 +220,7 @@ void    Server::handlerInvite(Client* client, std::string& targetUser, std::stri
     
     if (!validateOperator(client, channelName))
         return ;
-    if (!validateTarget(client, channelName, targetUser))
+    if (!validateTargetIn(client, channelName, targetUser))
         return ;
     code = this->_channelList[channelName]->inviteUser(this->_clientList[targetUser]);
     if (code == -1)

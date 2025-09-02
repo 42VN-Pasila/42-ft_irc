@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/15 18:29:45 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/09/02 18:18:33 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ class Server
         bool    hasServerClient(std::string& clientName);
         bool    validateChannel(Client* client, std::string& channelName);
         bool    validateOperator(Client* client, std::string& channelName);
-        bool    validateTarget(Client* client, std::string& target, std::string& channelName);
+        bool    validateTargetIn(Client* client, std::string& target, std::string& channelName);
+        bool    validateTargetOut(Client* client, std::string& target, std::string& channelName);
         
         //cmdHandler
         void    handlerJoin(Client* client, std::string& channel, std::string& pass);
