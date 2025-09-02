@@ -6,7 +6,7 @@
 /*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/08/24 19:45:10 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/09/02 18:18:18 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void    Server::handlerModeO(Client* client, std::string& channel, std::string& 
         return ;
     if (!validateOperator(client, channelName))
         return ;
-    if (!validateTarget(client, channelName, targetUser))
+    if (!validateTargetOut(client, channelName, targetUser))
         return ;
     if (mode == on)
         code = this->_channelList[channelName]->setOperator(this->_clientList[targetUser]);

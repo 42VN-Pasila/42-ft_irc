@@ -6,7 +6,7 @@
 /*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:48:25 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/02 18:12:53 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/09/02 18:17:26 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ bool    Server::validateOperator(Client* client, std::string& channelName)
     return true;
 }
 
-bool    Server::validateTarget(Client* client, std::string& channelName, std::string& target)
+bool    Server::validateTargetOut(Client* client, std::string& channelName, std::string& target)
 {
     if (!this->hasServerClient(target))
     {
@@ -67,6 +67,21 @@ bool    Server::validateTarget(Client* client, std::string& channelName, std::st
         return false;
     }
     if (!this->_channelList[channelName]->isMember(this->_clientList[target]))
+    {
+        Notifyer::notifyError(client, 445);
+        return false;
+    }
+    return true;
+}
+
+bool    Server::validateTargetIn(Client* client, std::string& channelName, std::string& target)
+{
+    if (!this->hasServerClient(target))
+    {
+        Notifyer::notifyError(client, 444);
+        return false;
+    }
+    if (this->_channelList[channelName]->isMember(this->_clientList[target]))
     {
         Notifyer::notifyError(client, 441);
         return false;
