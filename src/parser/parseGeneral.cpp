@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/17 09:01:54 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 08:59:34 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void    Server::parseQuit(Client* client, std::string& cmd)
         return;
     }
     std::vector<std::string>cmdPack = parseSplit(cmd);
-    if (client->getStatus() != COMPLETE)
+    if (!client->getPasswordStatus() || !client->getNickStatus() || !client->getUserStatus())
     {
         this->removeClient(fd, index);
         return ;
@@ -89,7 +89,7 @@ void    Server::parseCommand(Client* client, std::string& command, int& quitFlag
         quitFlag = 1;
         return ;
     }
-    if (client->getStatus() != COMPLETE)
+    if (!client->getPasswordStatus() || !client->getNickStatus() || !client->getUserStatus())
     {
         this->parseSign(client, command);
         return ;
