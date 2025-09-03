@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:39:35 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 09:26:43 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 09:31:29 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ void    Server::parseSign(Client* client, std::string& cmd)
     {
         if (!client->getPasswordStatus())
             Notifyer::notifyError(client, 393);
-        if (!client->getPasswordStatus())
+        if (!client->getNickStatus())
             Notifyer::notifyError(client, 394);
-        if (!client->getPasswordStatus())
+        if (!client->getUserStatus())
             Notifyer::notifyError(client, 395);
     }
     return;
