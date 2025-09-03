@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:39:35 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 11:03:57 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 11:22:27 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void    Server::parseSignUSER(Client* client, std::vector<std::string> command)
         Notifyer::notifyError(client, 392);
         return ;
     }
-    if (command.size() < 5 || command[2] != "0" || command[3] != "*")
+    if (command.size() < 5)
     {
         Notifyer::notifyError(client, 418);
         return ;
@@ -95,7 +95,7 @@ void    Server::parseSignPASS(Client* client, std::vector<std::string> command)
 void    Server::parseSign(Client* client, std::string& cmd)
 {
     std::vector<std::string>    command  = parseSplit(cmd);
-    
+    std::cout <<"NOW PARSE" <<"--"<<cmd<<"--"<<std::endl;
     if (command[0] == "CAP")
     {
         if (command.size() >= 2 && command[1] == "LS")
