@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 22:35:45 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/04 02:03:48 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ class   Notifyer
         static void sendMsg(Client* client, const std::string& msg = "");
         
         static void sendWelcome(Client* client);
-
+        
         static std::string     getHost();
         static std::string     getDate();
         

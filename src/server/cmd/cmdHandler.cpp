@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdHandler.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/02 18:17:42 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/09/04 02:22:41 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,18 @@ void    Server::handlerPart(Client* client, std::string& channel, std::string& n
         if (code == -1)
         {
             std::string msg = client->getNickName() + " has left the channel by ";
+            std::string confirmation = ":" + client->getNickName() + " PART #" + channelName; 
             std::string privmsg = "[CHANNEL " + channelName + "] : You have left the channel";
             if (!noti.empty())
             {
                 msg = msg + " because " + noti;
+                confirmation += " :" + noti;
                 privmsg  = privmsg + " because " + noti;
             }
             Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
+            confirmation += "\r\n";
             privmsg  = RED + privmsg + RESET + "\r\n";
+            Notifyer::sendMsg(this->_clientList[client->getNickName()], confirmation);
             Notifyer::sendMsg(this->_clientList[client->getNickName()], privmsg);
         }
         else
