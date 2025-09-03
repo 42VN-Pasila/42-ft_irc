@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 10:23:29 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 10:33:28 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 #include "system.hpp"
 
-#define RPL_WELCOME             "001"
-#define RPL_YOURHOST            "002"    
-#define RPL_CREATED             "003"
-#define RPL_MYINFO              "004"
+#define RPL_WELCOME             " 001 "
+#define RPL_YOURHOST            " 002 "    
+#define RPL_CREATED             " 003 "
+#define RPL_MYINFO              " 004 "
 
 #define ERR_ALREADYPASS         " :Password is already inputted"       //390
 #define ERR_ALREADYNICK         " :Nickname is already inputtted"      //391

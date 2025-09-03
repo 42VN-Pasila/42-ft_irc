@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:39:35 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 09:56:46 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 11:03:57 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void    Server::parseSignNICK(Client* client, std::vector<std::string> command)
 {
     if (client->getNickStatus())
     {
+        std::cout << "DEBUG: Nick already set" << std::endl;
         Notifyer::notifyError(client, 391);
         return ;
     }
@@ -95,8 +96,15 @@ void    Server::parseSign(Client* client, std::string& cmd)
 {
     std::vector<std::string>    command  = parseSplit(cmd);
     
-    if (command[0] == "CAP" || command[0] == "PING" || 
-        command[0] == "PONG" || command[0] == "VERSION" || command[0] == "JOIN")
+    if (command[0] == "CAP")
+    {
+        if (command.size() >= 2 && command[1] == "LS")
+        {
+            Notifyer::sendMsg(client, ":localhost CAP * LS :\r\n");
+        }
+        return;
+    }
+    if (command[0] == "PING" || command[0] == "PONG" || command[0] == "VERSION" || command[0] == "JOIN")
         return;
     if (command[0] == "PASS")
         this->parseSignPASS(client, command);

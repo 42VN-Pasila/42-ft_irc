@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:48:25 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 09:28:06 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 10:26:19 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void    Server::validateRegistration(Client* client, std::string &nickname)
         return ;
     }
     if (client->getPasswordStatus() && client->getNickStatus() && client->getUserStatus())
+    {
         this->_clientList.insert({client->getNickName(), client});
+        Notifyer::sendWelcome(client);
+    }
 }
 
 bool    Server::validateChannel(Client* client, std::string& channelName)

@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 08:59:34 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 11:02:53 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void    Server::execCommand(Client* client, std::string cmd, std::string fullCom
 
 void    Server::parseCommand(Client* client, std::string& command, int& quitFlag)
 {
+    
     if (command.empty())
     {
         Notifyer::notifyError(client, 485); 
