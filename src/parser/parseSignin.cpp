@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:39:35 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 22:37:25 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/04 00:24:33 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void    Server::parseSign(Client* client, std::string& cmd)
         }
         return;
     }
-    if (command[0] == "PING" || command[0] == "PONG" || command[0] == "VERSION" || command[0] == "JOIN")
+    if (command[0] == "PING" || command[0] == "PONG" || command[0] == "VERSION" || cmd == "JOIN :")
         return;
     if (command[0] == "PASS")
         this->parseSignPASS(client, command);
