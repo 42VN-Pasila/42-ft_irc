@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 22:34:10 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 22:40:14 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,22 @@ void Notifyer::sendWelcome(Client* client)
    
    msg = ":" + host + RPL_MYINFO + nickname + " " + host + " 1.0 io itkol\r\n";
    sendMsg(client, msg);
+}
+
+std::string Notifyer::getHost()
+{
+    char hostname[256];
+    gethostname(hostname, sizeof(hostname));
+    std::string host = hostname;
+    return host;
+}
+
+std::string Notifyer::getDate()
+{
+    time_t now = time(0);
+    struct tm* timeinfo = localtime(&now);
+    char buffer[80];
+    strftime(buffer, sizeof(buffer), "%d %m %Y %H:%M:%S", timeinfo);
+    std::string date = buffer;
+    return date;
 }
