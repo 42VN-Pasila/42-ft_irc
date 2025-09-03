@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 09:06:30 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 09:25:58 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 #define ERR_ALREADYPASS         " :Password is already inputted"       //390
 #define ERR_ALREADYNICK         " :Nickname is already inputtted"      //391
 #define ERR_ALREADYUSER         " :User is already inputted"           //392
+#define ERR_NOPASS              " :Password has not been inputted"       //393
+#define ERR_NONICK              " :Nickname has not been inputted"      //394
+#define ERR_NOUSER              " :User has not been inputted"           //395
 
 #define ERR_NOSUCHNICK          " :No such nickname in the server"     //401
 #define ERR_NONICKNAMEGIVEN     " :No nickname given"                  //431
@@ -99,6 +102,9 @@ class   Notifyer
         {390, ERR_ALREADYPASS},
         {391, ERR_ALREADYNICK},
         {392, ERR_ALREADYUSER},
+        {393, ERR_NOPASS},
+        {394, ERR_NONICK},
+        {395, ERR_NOUSER},
         {415, ERR_SIGNINPASS},
         {416, ERR_SIGNININVPASS},
         {417, ERR_SIGNINNICK},
