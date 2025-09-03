@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cl_imple.cpp                                       :+:      :+:    :+:   */
+/*   implementation.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 00:43:21 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/03 13:12:37 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/02 23:50:38 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ Client::Client(int socket) : _userName(""),
                                                     _nickName(""),
                                                     _realName(""),
                                                     _socket(socket),
-                                                    _clientStatus(PASS){};
+                                                    _passwordStatus(false),
+                                                    _nickStatus(false),
+                                                    _userStatus(false){};
 
 std::string   Client::getUserName() const
 {
@@ -38,9 +40,19 @@ int   Client::getSocket() const
     return this->_socket;
 }
 
-status    Client::getStatus() const
+bool    Client::getPasswordStatus() const
 {
-    return this->_clientStatus;
+    return this->_passwordStatus;
+}
+
+bool    Client::getNickStatus() const
+{
+    return this->_nickStatus;
+}
+
+bool    Client::getUserStatus() const
+{
+    return this->_userStatus;
 }
 
 void    Client::setUserName(const std::string& userName)
@@ -58,7 +70,17 @@ void    Client::setRealName(const std::string& realName)
     this->_realName = realName;
 }
 
-void    Client::setStatus(status newStatus)
+void    Client::setPasswordStatus(bool status)
 {
-    this->_clientStatus = newStatus;
+    this->_passwordStatus = status;
+}
+
+void    Client::setNickStatus(bool status)
+{
+    this->_nickStatus = status;
+}
+
+void    Client::setUserStatus(bool status)
+{
+    this->_userStatus = status;
 }
