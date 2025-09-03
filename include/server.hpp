@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 09:28:39 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 11:07:21 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ class Server
         int     getIndex(int fd) const;
         
         //Exec
+        void    parsePreCommand(Client* client, std::string& fullcommand, int& quitFlag);
         void    parseCommand(Client* client, std::string& command, int& quitFlag);
 
     private :

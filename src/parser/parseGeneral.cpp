@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 11:02:53 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 11:10:47 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,18 @@ void    Server::parseCommand(Client* client, std::string& command, int& quitFlag
     {
         execCommand(client, cmdPack[0], command);
         return ;
+    }
+}
+
+void    Server::parsePreCommand(Client* client, std::string &fullcommand, int& quitFlag)
+{
+    std::stringstream ss(fullcommand);
+    std::string command;
+
+    while (std::getline(ss, command))
+    {
+        if (!command.empty() && command.back() == '\r')
+            command.pop_back();
+        parseCommand(client, command, quitFlag);
     }
 }
