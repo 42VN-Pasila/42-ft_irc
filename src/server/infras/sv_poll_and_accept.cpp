@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/09/04 02:31:55 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/04 02:33:42 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void signal_handler(int signal) {
     if (signal == SIGCONT)
     {
         g_running = 1;
-        std::cout << "[" + Notifyer::getDate() + "]" + "Resume server" << std::endl;
+        std::cout << "[" + Notifyer::getDate() + "] " + "Resume server" << std::endl;
     }
     else
     {
         g_running = 0;
-        std::cout << "\n" << "[" + Notifyer::getDate() + "]" + (signal == SIGINT ? "SIGINT" : "SIGQUIT") << " caught!" << std::endl;
+        std::cout << "\n" << "[" + Notifyer::getDate() + "] " + (signal == SIGINT ? "SIGINT" : "SIGQUIT") << " caught!" << std::endl;
     }
 }
 
@@ -94,7 +94,7 @@ void Server::pollAndAccept() {
             pollfd c_pfd = {.fd = client_fd, .events = POLLIN, .revents = 0};
             _poll_fds.push_back(c_pfd);
             
-            std::cout << "[" + Notifyer::getDate() + "]" + "New client connected: fd = " << client_fd << std::endl;
+            std::cout << "[" + Notifyer::getDate() + "] " + "New client connected: fd = " << client_fd << std::endl;
 
             
             Client *new_client = new Client(client_fd); //TODO: error check
@@ -108,7 +108,7 @@ void Server::pollAndAccept() {
                 if (bytesRead <= 0) {
                     if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK)
                         continue;
-                    std::cout << RED << "[" + Notifyer::getDate() + "]" + "Client disconnected: fd = " << client_fd << RESET << std::endl;
+                    std::cout << RED << "[" + Notifyer::getDate() + "] " + "Client disconnected: fd = " << client_fd << RESET << std::endl;
                     removeClient(client_fd, i);
                     --i; // because the rest of the array shifted one place to the left
                     continue ; // checks the rest of the clients
@@ -119,12 +119,12 @@ void Server::pollAndAccept() {
                 { 
                     Client *client = _socketList[client_fd];
                     parsePreCommand(client, message, quitFlag);
-                    std::cout << "[" + Notifyer::getDate() + "]" + "Message from client(fd " << client_fd << "): " << buffer << std::endl; // Temporarily here - delete later
+                    std::cout << "[" + Notifyer::getDate() + "] " + "Message from client(fd " << client_fd << "): " << buffer << std::endl; // Temporarily here - delete later
                     if (quitFlag)
                     {
                         --i;
                         quitFlag = 0;
-                        std::cout << RED << "[" + Notifyer::getDate() + "]" + "Client disconnected: fd = " << client_fd << RESET << std::endl;
+                        std::cout << RED << "[" + Notifyer::getDate() + "] " + "Client disconnected: fd = " << client_fd << RESET << std::endl;
                         continue;
                     }
                 }
