@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:39:35 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 09:31:29 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 09:56:46 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ void    Server::parseSign(Client* client, std::string& cmd)
 {
     std::vector<std::string>    command  = parseSplit(cmd);
     
+    if (command[0] == "CAP" || command[0] == "PING" || 
+        command[0] == "PONG" || command[0] == "VERSION" || command[0] == "JOIN")
+        return;
     if (command[0] == "PASS")
         this->parseSignPASS(client, command);
     else if (command[0] == "NICK")
