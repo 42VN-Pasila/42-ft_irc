@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 11:07:21 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 22:37:41 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ class Server
         ~Server();
         
         //Launch
-        void    initSocket();
-        void    bindAndListen();
-        void    pollAndAccept();
-        void    gracefullyShutDown();
-        void    removeClient(int client_fd, int index);
-        void    closeAllFds();
-        int     getIndex(int fd) const;
+        void            initSocket();
+        void            bindAndListen();
+        void            pollAndAccept();
+        void            gracefullyShutDown();
+        void            removeClient(int client_fd, int index);
+        void            closeAllFds();
+        int             getIndex(int fd) const;
         
         //Exec
         void    parsePreCommand(Client* client, std::string& fullcommand, int& quitFlag);
@@ -85,6 +85,7 @@ class Server
         
         //Parse
         void    parseSign(Client* client, std::string& cmd);
+        void    parsePing(Client* client, std::string& fullCommand);
         void    parseQuit(Client* client, std::string& cmd);
         void    parseSignPASS(Client* client, std::vector<std::string> command);
         void    parseSignNICK(Client* client, std::vector<std::string> command);

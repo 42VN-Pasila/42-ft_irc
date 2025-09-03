@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:39:35 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 21:32:51 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 22:37:25 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,4 +122,16 @@ void    Server::parseSign(Client* client, std::string& cmd)
             Notifyer::notifyError(client, 395);
     }
     return;
+}
+
+void    Server::parsePing(Client* client, std::string& fullCommand)
+{
+    std::vector<std::string> cmdPack = parseSplit(fullCommand);
+    std::string msg = ":localhost PONG localhost";
+        
+    if (cmdPack.size() > 1)
+        msg += " :" + cmdPack[1];
+    msg += "\r\n";
+        
+    Notifyer::sendMsg(client, msg);
 }

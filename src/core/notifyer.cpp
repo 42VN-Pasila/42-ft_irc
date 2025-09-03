@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 21:40:05 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 22:34:10 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,9 @@ void Notifyer::sendWelcome(Client* client)
    std::string nickname = client->getNickName();
    std::string username = client->getUserName();
    
-
-   char hostname[256];
-   gethostname(hostname, sizeof(hostname));
-   std::string host = hostname;
+   std::string host = getHost();
    
-
-   time_t now = time(0);
-   char* dt = ctime(&now);
-   std::string date = dt;
-   date.pop_back(); 
+   std::string date = getDate();
    
    std::string msg = ":" + host + RPL_WELCOME + nickname + " :Welcome to the Internet Relay Network " + nickname + "!" + username + "@" + host + "\r\n";
    sendMsg(client, msg);
