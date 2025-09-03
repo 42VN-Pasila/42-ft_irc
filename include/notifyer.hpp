@@ -3,16 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   notifyer.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/02 18:04:58 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/09/03 09:06:30 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "system.hpp"
+
+#define ERR_ALREADYPASS         " :Password is already inputted"       //390
+#define ERR_ALREADYNICK         " :Nickname is already inputtted"      //391
+#define ERR_ALREADYUSER         " :User is already inputted"           //392
 
 #define ERR_NOSUCHNICK          " :No such nickname in the server"     //401
 #define ERR_NONICKNAMEGIVEN     " :No nickname given"                  //431
@@ -92,6 +96,9 @@ class   Notifyer
     private :
         inline static std::map<int, std::string> _notifyCode = 
     {
+        {390, ERR_ALREADYPASS},
+        {391, ERR_ALREADYNICK},
+        {392, ERR_ALREADYUSER},
         {415, ERR_SIGNINPASS},
         {416, ERR_SIGNININVPASS},
         {417, ERR_SIGNINNICK},

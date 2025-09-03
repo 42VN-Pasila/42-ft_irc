@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   serverValidation.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:48:25 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/02 18:17:26 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/09/03 09:17:01 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,19 @@ bool    Server::isServerClient(Client* client)
 bool    Server::hasServerClient(std::string& clientName)
 {
     return (this->_clientList.count(clientName));
+}
+
+bool    Server::validateRegistration(Client* client, std::string &nickname)
+{
+    if (!nickname.empty() && this->hasServerClient(nickname))
+    {
+        client->setNickName("");
+        client->setNickStatus(false);
+        Notifyer::notifyError(client, 433);
+        return ;
+    }
+    if (client->getPasswordStatus() && client->getNickStatus() && client->getUserStatus())
+        this->_clientList.insert({client->getNickName(), client});
 }
 
 bool    Server::validateChannel(Client* client, std::string& channelName)
