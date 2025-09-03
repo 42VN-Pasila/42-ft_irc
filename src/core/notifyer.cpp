@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/18 00:58:40 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 10:23:42 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,29 @@ void    Notifyer::notifyBroadcast(Channel* channel, const std::string& msg)
     
     for (auto& pair : channel->getMemberList())
         sendMsg(pair.second, CYAN + message + RESET);
+}
+
+void Notifyer::sendWelcome(Client* client)
+{
+   std::string nickname = client->getNickName();
+   std::string username = client->getUserName();
+   
+
+   char hostname[256];
+   gethostname(hostname, sizeof(hostname));
+   std::string host = hostname;
+   
+
+   time_t now = time(0);
+   char* dt = ctime(&now);
+   std::string date = dt;
+   date.pop_back(); 
+   
+   sendMsg(client, ":" + host + RPL_WELCOME + nickname + " :Welcome to the Internet Relay Network " + nickname + "!" + username + "@" + host + "\r\n");
+   
+   sendMsg(client, ":" + host + RPL_YOURHOST + nickname + " :Your host is " + host + ", running version 1.0\r\n");
+   
+   sendMsg(client, ":" + host + RPL_CREATED + nickname + " :This server was created " + date + "\r\n");
+   
+   sendMsg(client, ":" + host + RPL_MYINFO + nickname + " " + host + " 1.0 io itkol\r\n");
 }
