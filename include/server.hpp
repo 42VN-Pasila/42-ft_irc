@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 09:13:35 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 09:28:11 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ class Server
         bool    isServerChannel(Channel* channel);
         bool    hasServerChannel(std::string& channelName);
         bool    hasServerClient(std::string& clientName);
-        bool    validateRegistration(Client* client, std::string& nickname);
+        void    validateRegistration(Client* client, std::string& nickname);
         bool    validateChannel(Client* client, std::string& channelName);
         bool    validateOperator(Client* client, std::string& channelName);
         bool    validateTargetIn(Client* client, std::string& target, std::string& channelName);

@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:48:25 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 09:17:01 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 09:28:06 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool    Server::hasServerClient(std::string& clientName)
     return (this->_clientList.count(clientName));
 }
 
-bool    Server::validateRegistration(Client* client, std::string &nickname)
+void    Server::validateRegistration(Client* client, std::string &nickname)
 {
     if (!nickname.empty() && this->hasServerClient(nickname))
     {
