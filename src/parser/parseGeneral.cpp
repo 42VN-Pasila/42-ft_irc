@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/17 09:01:54 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/03 22:37:54 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void    Server::parseQuit(Client* client, std::string& cmd)
         return;
     }
     std::vector<std::string>cmdPack = parseSplit(cmd);
-    if (client->getStatus() != COMPLETE)
+    if (!client->getPasswordStatus() || !client->getNickStatus() || !client->getUserStatus())
     {
         this->removeClient(fd, index);
         return ;
@@ -69,6 +69,8 @@ void    Server::execCommand(Client* client, std::string cmd, std::string fullCom
         this->parseTopic(client, fullCommand);
     else if (cmd == "MODE")
         this->parseMode(client, fullCommand);
+    else if (cmd == "PING")
+        this->parsePing(client, fullCommand);
     else
         Notifyer::notifyError(client, 421);
 }
@@ -89,7 +91,7 @@ void    Server::parseCommand(Client* client, std::string& command, int& quitFlag
         quitFlag = 1;
         return ;
     }
-    if (client->getStatus() != COMPLETE)
+    if (!client->getPasswordStatus() || !client->getNickStatus() || !client->getUserStatus())
     {
         this->parseSign(client, command);
         return ;
@@ -98,5 +100,19 @@ void    Server::parseCommand(Client* client, std::string& command, int& quitFlag
     {
         execCommand(client, cmdPack[0], command);
         return ;
+    }
+}
+
+void    Server::parsePreCommand(Client* client, std::string &fullcommand, int& quitFlag)
+{
+    std::stringstream ss(fullcommand);
+    std::string command;
+
+    while (std::getline(ss, command))
+    {
+        if (!command.empty() && command.back() == '\r')
+            command.pop_back();
+        std::cout <<"NOW PARSE" <<"--"<<command<<"--"<<std::endl;
+        parseCommand(client, command, quitFlag);
     }
 }

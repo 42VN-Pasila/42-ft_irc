@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/18 00:58:40 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/04 02:12:09 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void    Notifyer::sendMsg(Client* client, const std::string& msg)
 {
     int socket = client->getSocket();
+    
+    std::cout << "HERE: " <<msg<<std::endl;
     
     if (socket < 0)
     {
@@ -61,4 +63,44 @@ void    Notifyer::notifyBroadcast(Channel* channel, const std::string& msg)
     
     for (auto& pair : channel->getMemberList())
         sendMsg(pair.second, CYAN + message + RESET);
+}
+
+void Notifyer::sendWelcome(Client* client)
+{
+   std::string nickname = client->getNickName();
+   std::string username = client->getUserName();
+   
+   std::string host = getHost();
+   
+   std::string date = getDate();
+   
+   std::string msg = ":" + host + RPL_WELCOME + nickname + " :Welcome to the Internet Relay Network " + nickname + "!" + username + "@" + host + "\r\n";
+   sendMsg(client, msg);
+
+   msg = ":" + host + RPL_YOURHOST + nickname + " :Your host is " + host + ", running version 1.0\r\n";
+   sendMsg(client, msg);
+   
+   msg = ":" + host + RPL_CREATED + nickname + " :This server was created " + date + "\r\n";
+   sendMsg(client, msg);
+   
+   msg = ":" + host + RPL_MYINFO + nickname + " " + host + " 1.0 io itkol\r\n";
+   sendMsg(client, msg);
+}
+
+std::string Notifyer::getHost()
+{
+    char hostname[256];
+    gethostname(hostname, sizeof(hostname));
+    std::string host = hostname;
+    return host;
+}
+
+std::string Notifyer::getDate()
+{
+    time_t now = time(0);
+    struct tm* timeinfo = localtime(&now);
+    char buffer[80];
+    strftime(buffer, sizeof(buffer), "%d %m %Y %H:%M:%S", timeinfo);
+    std::string date = buffer;
+    return date;
 }
