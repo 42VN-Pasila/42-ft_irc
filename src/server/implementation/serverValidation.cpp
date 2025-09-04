@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:48:25 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 21:28:08 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/04 11:05:27 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void    Server::validateRegistration(Client* client, std::string &nickname)
 {
     if (!nickname.empty() && this->hasServerClient(nickname))
     {
+        Notifyer::notifyError(client, 433);
         client->setNickName("");
         client->setNickStatus(false);
-        Notifyer::notifyError(client, 433);
         return ;
     }
     if (client->getPasswordStatus() && client->getNickStatus() && client->getUserStatus())
