@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/05 15:10:44 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/06 01:10:45 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,13 @@ void    Notifyer::notifyError(Client* client, int code)
     sendMsg(client, message);              
 }
 
-void    Notifyer::notifyBroadcast(Channel* channel, const std::string& msg)
+void    Notifyer::notifyBroadcast(Client* client, Channel* channel, const std::string& msg)
 {   
     for (auto& pair : channel->getMemberList())
+    {
+        if (client->getNickName() != pair.first)
         sendMsg(pair.second, msg);
+    }
 }
 
 void Notifyer::sendWelcome(Client* client)
