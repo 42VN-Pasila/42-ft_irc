@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:39:35 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/04 00:24:33 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/04 11:05:59 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void    Server::parseSignNICK(Client* client, std::vector<std::string> command)
 {
     if (client->getNickStatus())
     {
-        std::cout << "DEBUG: Nick already set" << std::endl;
         Notifyer::notifyError(client, 391);
         return ;
     }
@@ -59,9 +58,12 @@ void    Server::parseSignNICK(Client* client, std::vector<std::string> command)
         Notifyer::notifyError(client, 417);
         return ;
     }
-    if (this->hasServerClient(command[1]))
+    if (!command[1].empty() && this->hasServerClient(command[1]))
     {
+        client->setNickName(command[1]);
         Notifyer::notifyError(client, 433);
+        client->setNickName("");
+        client->setNickStatus(false);
         return ;
     }
     client->setNickName(command[1]);
