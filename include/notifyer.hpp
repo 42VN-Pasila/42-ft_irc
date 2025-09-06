@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/06 00:49:20 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/06 11:30:29 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ class   Notifyer
         
         static void notifyError(Client*  client, int code);
     
-        static void notifyBroadcast(Client* client, Channel* channel, const std::string& msg = "");
+        static void notifyBroadcast(Channel* channel, const std::string& msg = "", const std::string& sender);
 
         static void sendMsg(Client* client, const std::string& msg = "");
         
