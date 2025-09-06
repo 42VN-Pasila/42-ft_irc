@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/06 11:30:23 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/06 14:00:09 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void    Notifyer::notifyError(Client* client, int code)
     sendMsg(client, message);              
 }
 
-void    Notifyer::notifyBroadcast(Channel* channel, const std::string& msg, const std::string& sender)
+void    Notifyer::notifyBroadcast(Channel* channel, std::string& sender, const std::string& msg)
 {   
     for (auto& pair : channel->getMemberList())
     {

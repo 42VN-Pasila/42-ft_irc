@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/06 11:29:59 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/06 12:48:18 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void    Server::parseQuit(Client* client, std::string& cmd)
     std::string msg;
     int fd  = client->getSocket();
     int index = this->getIndex(fd);
+    std::string nickname = client->getNickName();
 
     if (index == -1)
     {
@@ -50,7 +51,7 @@ void    Server::parseQuit(Client* client, std::string& cmd)
         std::string quitmsg = "[CHANNEL] :" + client->getNickName() +" quit server " + msg;
 
         if (channel->isMember(client))
-            Notifyer::notifyBroadcast(channel, quitmsg, client->getNickName());
+            Notifyer::notifyBroadcast(channel, quitmsg, nickname);
     }
     this->removeClient(fd, index);
 }
