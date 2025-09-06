@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/06 13:58:29 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/06 16:26:27 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
 
 void    Server::handlerPrivmsg(Client* client, std::string& target, std::string& msg)
 {
-    std::cout << "NOTI--" << msg << std::endl;
     std::string confirmation = ":" + client->getNickName() + " PRIVMSG " + target + " " + msg + "\r\n";
     std::string nickname = client->getNickName();
 
@@ -80,7 +79,7 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
         if (!validateChannel(client, channelName))
             return ;
         else
-            Notifyer::notifyBroadcast(this->_channelList[channelName], confirmation, nickname);
+            Notifyer::notifyBroadcast(this->_channelList[channelName], nickname, confirmation);
     }
     else
     {
