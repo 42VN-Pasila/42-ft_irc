@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/06 16:26:27 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/06 22:48:56 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
     int code;
     int subCode;
     std::string nickname = client->getNickName();
+    std::string system = "";
     
     if (channel[0] != '#' || channel.length() == 1)
     {
@@ -51,8 +52,8 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
         code = this->_channelList[channelName]->addUser(client); 
     if (code == -1)
     {
-        std::string msg = "[CHANNEL " + channelName + "]: Welcome " + client->getNickName() + " to the channel";
-        Notifyer::notifyBroadcast(this->_channelList[channelName], nickname, msg);
+        std::string msg = ":<SYSTEM> PRIVMSG " + channel + " :"+ CYAN + "Welcome " + client->getNickName() + " to the channel" + RESET + "\r\n";
+        Notifyer::notifyBroadcast(this->_channelList[channelName], system, msg);
         if (!this->_channelList[channelName]->getTopic().empty())
         {
             std::string topic = "[CHANNEL]: [TOPIC]: " + this->_channelList[channelName]->getTopic() + "\r\n"; 

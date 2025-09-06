@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:48:25 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/04 11:05:27 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/06 16:32:36 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,13 @@ bool    Server::validateChannel(Client* client, std::string& channelName)
 {
     if (!this->hasServerChannel(channelName))
     {
+        std::cout << "YES" << std::endl;
         Notifyer::notifyError(client, 403);
         return false;
     }
     if (!this->_channelList[channelName]->isMember(client))
     {
+        std::cout << "YES" <<std::endl;
         Notifyer::notifyError(client, 442);
         return false;
     }
