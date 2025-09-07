@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/06 22:48:56 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/06 23:25:29 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,11 @@ void    Server::handlerPart(Client* client, std::string& channel, std::string& n
         code = this->_channelList[channelName]->removeUser(client);
         if (code == -1)
         {
-            std::string msg = client->getNickName() + " has left the channel by ";
+            std::string msg = ":<SYSTEM> PRIVMSG " + channel + " :" + CYAN + client->getNickName() + " has left the channel" + RESET;
             std::string privmsg = "[CHANNEL " + channelName + "] : You have left the channel";
             if (!noti.empty())
             {
-                msg = msg + " because " + noti;
+                msg = msg + " because " + noti + RESET + "\r\n";
                 privmsg  = privmsg + " because " + noti;
             }
             Notifyer::notifyBroadcast(this->_channelList[channelName], nickname, msg);
