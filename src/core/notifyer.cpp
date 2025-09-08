@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/08 10:48:13 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/08 11:12:24 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,25 @@ void    Notifyer::notifySuccess(Client* client, const std::string& msg)
 
 void    Notifyer::notifyError(Client* client, int code)
 {
+    std::string errorMsg = CYAN + Notifyer::_notifyCode[code] + RESET;
     std::string message = ":" + getHost() + " " + std::to_string(code) + " * "
-                        + client->getNickName() + Notifyer::_notifyCode[code] + "\r\n";
+                        + client->getNickName() + errorMsg + "\r\n";
     sendMsg(client, message);              
 }
 
 void    Notifyer::notifyWindowError(Client* client, int code)
 {
-    
+    std::string errorMsg = CYAN + Notifyer::_notifyCode[code] + RESET;
+    std::string message = ":<SYSTEM> PRIVMSG :" + errorMsg + "\r\n";
+    sendMsg(client, message);
 }
 
 void Notifyer::notifyChannelError(Client* client, int code, std::string& channel)
 {
+    std::string errorMsg = CYAN + Notifyer::_notifyCode[code] + RESET;
     std::string message = ":" + getHost() + " " + std::to_string(code) + " " 
                         + client->getNickName() + " " + channel + " "
-                        + Notifyer::_notifyCode[code] + "\r\n";
+                        + errorMsg + "\r\n";
     sendMsg(client, message);              
 }
 

@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/08 10:46:11 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/08 11:14:08 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 int    Channel::addUser(Client* user, std::string &channel)
 {
-    if (user == nullptr)
-        return 446;
     if (this->isMember(user))
+    {
+        Notifyer::notifyWindowError(user, 443);
         return 443;
+    }
     if  (!this->isAvailable())
     {
         Notifyer::notifyChannelError(user, 471, channel);
