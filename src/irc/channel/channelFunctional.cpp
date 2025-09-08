@@ -6,22 +6,28 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/10 23:38:54 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/08 10:46:11 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-int    Channel::addUser(Client* user)
+int    Channel::addUser(Client* user, std::string &channel)
 {
     if (user == nullptr)
         return 446;
     if (this->isMember(user))
         return 443;
     if  (!this->isAvailable())
+    {
+        Notifyer::notifyChannelError(user, 471, channel);
         return 471;
+    }
     if  (this->isInviteOnly() &&  !this->isInvited(user))
-        return 447;
+    {
+        Notifyer::notifyChannelError(user, 473, channel);
+        return 473;
+    }
     if  (this->isInviteOnly() &&  this->isInvited(user))
         this->_invitation.erase(user->getNickName());
     this->_members.insert({user->getNickName(), user});

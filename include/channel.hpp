@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/08/20 10:57:45 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/08 10:39:02 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ class   Channel
         int                    unsetLimit();
 
         //Functional
-        int                    addUser(Client* user);
+        int                    addUser(Client* user, std::string& channel);
         int                    kickUser(Client* user);
         int                    inviteUser(Client* user);
         int                    removeUser(Client* user);

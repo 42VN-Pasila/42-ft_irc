@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/06 14:00:09 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/08 10:48:13 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,19 @@ void    Notifyer::notifyError(Client* client, int code)
 {
     std::string message = ":" + getHost() + " " + std::to_string(code) + " * "
                         + client->getNickName() + Notifyer::_notifyCode[code] + "\r\n";
+    sendMsg(client, message);              
+}
+
+void    Notifyer::notifyWindowError(Client* client, int code)
+{
+    
+}
+
+void Notifyer::notifyChannelError(Client* client, int code, std::string& channel)
+{
+    std::string message = ":" + getHost() + " " + std::to_string(code) + " " 
+                        + client->getNickName() + " " + channel + " "
+                        + Notifyer::_notifyCode[code] + "\r\n";
     sendMsg(client, message);              
 }
 

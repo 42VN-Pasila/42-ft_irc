@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/07 10:45:00 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/08 10:42:47 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,9 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
     {
         Channel* newChannel = new Channel(channelName);
         this->_channelList.insert({channelName, newChannel});
-        code = newChannel->addUser(client);
+        code = newChannel->addUser(client, channel);
         if (code != -1)
-        {
-            Notifyer::notifyError(client, code); 
-            return ;
-        }
+            return;
         subCode = newChannel->setOperator(client);
         if (subCode != -1)
         {
@@ -49,7 +46,7 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
         return ;
     }
     else
-        code = this->_channelList[channelName]->addUser(client); 
+        code = this->_channelList[channelName]->addUser(client, channel); 
     if (code == -1)
     {
         std::string msg = ":<SYSTEM> PRIVMSG " + channel + " :"+ CYAN + "Welcome " + client->getNickName() + " to the channel" + RESET + "\r\n";
@@ -61,7 +58,7 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
         }
     }
     else
-        Notifyer::notifyError(client, code);  
+        return;
 }
 
 void    Server::handlerPrivmsg(Client* client, std::string& target, std::string& msg)
