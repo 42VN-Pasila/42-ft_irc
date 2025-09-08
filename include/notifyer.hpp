@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/04 02:03:48 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/08 11:05:13 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@
 #define ERR_UNKNOWNCOMMAND      " :Unknown command"                    //421
 
 #define ERR_USERCANNOTBENULL    " :User cannot be null"                //446
-#define ERR_USERNOTINVITED      " :User is not invited to channel"     //447
 #define ERR_USERALRINVITED      " :User is already invited"            //448
 
 #define ERR_CHANNELALROPR       " :Channel already has operator"       //451
@@ -96,8 +95,12 @@ class   Notifyer
         static void notifySuccess(Client* client, const std::string& msg = "");
         
         static void notifyError(Client*  client, int code);
+
+        static void notifyWindowError(Client* client, int code);
+        
+        static void notifyChannelError(Client* client, int code, std::string& channel);
     
-        static void notifyBroadcast(Channel* channel, const std::string& msg = "");
+        static void notifyBroadcast(Channel* channel, std::string& sender, const std::string& msg = "");
 
         static void sendMsg(Client* client, const std::string& msg = "");
         
@@ -132,7 +135,6 @@ class   Notifyer
         {444, ERR_TARGNOTONSERVER},
         {445, ERR_TARGNOTONCHANNEL},
         {446, ERR_USERCANNOTBENULL},
-        {447, ERR_USERNOTINVITED},
         {448, ERR_USERALRINVITED},
         {451, ERR_CHANNELALROPR},
         {452, ERR_CHANNELNOOPR},

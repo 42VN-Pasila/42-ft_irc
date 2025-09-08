@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/05 15:10:44 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/08 11:12:24 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,35 @@ void    Notifyer::notifySuccess(Client* client, const std::string& msg)
 
 void    Notifyer::notifyError(Client* client, int code)
 {
+    std::string errorMsg = CYAN + Notifyer::_notifyCode[code] + RESET;
     std::string message = ":" + getHost() + " " + std::to_string(code) + " * "
-                        + client->getNickName() + Notifyer::_notifyCode[code] + "\r\n";
+                        + client->getNickName() + errorMsg + "\r\n";
     sendMsg(client, message);              
 }
 
-void    Notifyer::notifyBroadcast(Channel* channel, const std::string& msg)
+void    Notifyer::notifyWindowError(Client* client, int code)
+{
+    std::string errorMsg = CYAN + Notifyer::_notifyCode[code] + RESET;
+    std::string message = ":<SYSTEM> PRIVMSG :" + errorMsg + "\r\n";
+    sendMsg(client, message);
+}
+
+void Notifyer::notifyChannelError(Client* client, int code, std::string& channel)
+{
+    std::string errorMsg = CYAN + Notifyer::_notifyCode[code] + RESET;
+    std::string message = ":" + getHost() + " " + std::to_string(code) + " " 
+                        + client->getNickName() + " " + channel + " "
+                        + errorMsg + "\r\n";
+    sendMsg(client, message);              
+}
+
+void    Notifyer::notifyBroadcast(Channel* channel, std::string& sender, const std::string& msg)
 {   
     for (auto& pair : channel->getMemberList())
-        sendMsg(pair.second, msg);
+    {
+        if (pair.first != sender)
+            sendMsg(pair.second, msg);
+    }
 }
 
 void Notifyer::sendWelcome(Client* client)

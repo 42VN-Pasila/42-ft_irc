@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/05 15:11:00 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/08 10:42:47 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
 {
     int code;
     int subCode;
+    std::string nickname = client->getNickName();
+    std::string system = "";
     
     if (channel[0] != '#' || channel.length() == 1)
     {
@@ -28,12 +30,9 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
     {
         Channel* newChannel = new Channel(channelName);
         this->_channelList.insert({channelName, newChannel});
-        code = newChannel->addUser(client);
+        code = newChannel->addUser(client, channel);
         if (code != -1)
-        {
-            Notifyer::notifyError(client, code); 
-            return ;
-        }
+            return;
         subCode = newChannel->setOperator(client);
         if (subCode != -1)
         {
@@ -47,11 +46,11 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
         return ;
     }
     else
-        code = this->_channelList[channelName]->addUser(client); 
+        code = this->_channelList[channelName]->addUser(client, channel); 
     if (code == -1)
     {
-        std::string msg = "[CHANNEL " + channelName + "]: Welcome " + client->getNickName() + " to the channel";
-        Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
+        std::string msg = ":<SYSTEM> PRIVMSG " + channel + " :"+ CYAN + "Welcome " + client->getNickName() + " to the channel" + RESET + "\r\n";
+        Notifyer::notifyBroadcast(this->_channelList[channelName], system, msg);
         if (!this->_channelList[channelName]->getTopic().empty())
         {
             std::string topic = "[CHANNEL]: [TOPIC]: " + this->_channelList[channelName]->getTopic() + "\r\n"; 
@@ -59,14 +58,13 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
         }
     }
     else
-        Notifyer::notifyError(client, code);  
+        return;
 }
 
 void    Server::handlerPrivmsg(Client* client, std::string& target, std::string& msg)
 {
-    std::cout << "NOTI--" << msg << std::endl;
     std::string confirmation = ":" + client->getNickName() + " PRIVMSG " + target + " " + msg + "\r\n";
-    msg = "[" + client->getNickName() + "]: " + msg;
+    std::string nickname = client->getNickName();
 
     if (target[0] == '#')
     {
@@ -79,7 +77,7 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
         if (!validateChannel(client, channelName))
             return ;
         else
-            Notifyer::notifyBroadcast(this->_channelList[channelName], confirmation);
+            Notifyer::notifyBroadcast(this->_channelList[channelName], nickname, confirmation);
     }
     else
     {
@@ -89,16 +87,14 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
             return ;
         } 
         else
-        {
-            msg += "\r\n";
-            Notifyer::sendMsg(this->_clientList[target], msg); 
-        }
+            Notifyer::sendMsg(this->_clientList[target], confirmation); 
     }
 }
 
 void    Server::handlerPart(Client* client, std::string& channel, std::string& noti)
 {
     int code;
+    std::string nickname = client->getNickName();
     
     if (channel[0] != '#' || channel.length() == 1)
     {
@@ -114,19 +110,16 @@ void    Server::handlerPart(Client* client, std::string& channel, std::string& n
         code = this->_channelList[channelName]->removeUser(client);
         if (code == -1)
         {
-            std::string msg = client->getNickName() + " has left the channel by ";
-            std::string confirmation = ":" + client->getNickName() + " PART #" + channelName; 
+            std::string msg = ":<SYSTEM> PRIVMSG " + channel + " :" + CYAN + client->getNickName() + " has left the channel";
             std::string privmsg = "[CHANNEL " + channelName + "] : You have left the channel";
             if (!noti.empty())
             {
                 msg = msg + " because " + noti;
-                confirmation += " :" + noti;
                 privmsg  = privmsg + " because " + noti;
             }
-            Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
-            confirmation += "\r\n";
+            msg = msg + RESET + "\r\n";
+            Notifyer::notifyBroadcast(this->_channelList[channelName], nickname, msg);
             privmsg  = RED + privmsg + RESET + "\r\n";
-            Notifyer::sendMsg(this->_clientList[client->getNickName()], confirmation);
             Notifyer::sendMsg(this->_clientList[client->getNickName()], privmsg);
         }
         else
@@ -140,6 +133,7 @@ void    Server::handlerPart(Client* client, std::string& channel, std::string& n
 void    Server::handlerKick(Client* client, std::string& channel, std::string& targetUser, std::string& reason)
 {
     int code;
+    std::string nickname = client->getNickName();
 
     if (channel[0] != '#' || channel.length() == 1)
     {
@@ -167,7 +161,7 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
             msg = msg + " because " + reason;
             privmsg  = privmsg + " because " + reason;
         }
-        Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
+        Notifyer::notifyBroadcast(this->_channelList[channelName], nickname, msg);
         privmsg  = RED + privmsg + RESET + "\r\n";
         Notifyer::sendMsg(this->_clientList[targetUser], privmsg);
     }
@@ -181,6 +175,7 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
 void    Server::handlerTopic(Client* client, std::string& channel, std::string& topic)
 {
     int code;
+    std::string nickname = client->getNickName();
     
     if (channel[0] != '#' || channel.length() == 1)
     {
@@ -211,7 +206,7 @@ void    Server::handlerTopic(Client* client, std::string& channel, std::string& 
     }
     code = this->_channelList[channelName]->setTopic(topic);
     std::string msg = "Topic : " + topic;
-    Notifyer::notifyBroadcast(this->_channelList[channelName], msg);
+    Notifyer::notifyBroadcast(this->_channelList[channelName], nickname, msg);
 }
 
 void    Server::handlerInvite(Client* client, std::string& targetUser, std::string& channel)
