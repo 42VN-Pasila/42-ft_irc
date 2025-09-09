@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/09 01:02:07 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/09 09:30:39 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
         return ;
     if (!validateTargetOut(client, channelName, targetUser))
         return ;
-    code = this->_channelList[channelName]->kickUser(this->_clientList[targetUser]);
+    code = this->_channelList[channelName]->kickUser(this->_clientList[targetUser], channel);
     if (code == -1)
     {
         std::string msg = targetUser + " has been kicked out of the channel by " + client->getNickName();
