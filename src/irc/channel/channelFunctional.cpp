@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/09 01:03:07 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/09 09:28:54 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,15 @@ int    Channel::addUser(Client* user, std::string &channel)
     return -1;
 }
 
-int    Channel::kickUser(Client* user)
+int    Channel::kickUser(Client* user, std::string &channel)
 {
     if (user == nullptr)
         return  446;
     if (!this->isMember(user))
+    {
+        Notifyer::notifyWindowError(user, 442, channel);
         return 442;
+    }
     this->_members.erase(user->getNickName());
     return -1;
 }
