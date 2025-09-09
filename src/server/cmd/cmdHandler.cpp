@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/08 10:42:47 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/09 01:02:07 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
     }
     else if (!this->passwordRequired(this->_channelList[channelName], pass))
     {
-        Notifyer::notifyError(client, 470);
+        Notifyer::notifyChannelError(client, 470, channel);
         return ;
     }
     else
@@ -142,7 +142,7 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
     }
     if (client->getNickName() == targetUser)
     {
-        Notifyer::notifyError(client , 460);
+        Notifyer::notifyWindowError(client , 460, channel);
         return ;
     }
     std::string channelName = channel.substr(1);

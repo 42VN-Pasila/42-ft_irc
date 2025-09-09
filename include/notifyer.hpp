@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/08 11:05:13 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/09 00:50:09 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@
 #define ERR_CHANNELEMPTYTOPIC   " :Channel has no topic"               //457
 #define ERR_CHANNELEMPTYPASS    " :Channel has no password"            //458
 #define ERR_CHANNELZEROLIMIT    " :Channel has no limit"               //459
-#define ERR_CANNOTKICKUS        " :You cannot kick yourself"           //460
+#define ERR_CANNOTKICKUS        "You cannot kick yourself"           //460
 
 #define ERR_TOPICEMPTY          " :Topic cannot be empty"              //483
 #define ERR_PASSWORDEMPTY       " :Password cannot be empty"           //484
@@ -96,7 +96,7 @@ class   Notifyer
         
         static void notifyError(Client*  client, int code);
 
-        static void notifyWindowError(Client* client, int code);
+        static void notifyWindowError(Client* client, int code, std::string& channel);
         
         static void notifyChannelError(Client* client, int code, std::string& channel);
     
