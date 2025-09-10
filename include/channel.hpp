@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/09/10 08:55:33 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/10 11:00:42 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ class   Channel
 
         //Functional
         int                    addUser(Client* user, std::string& channel);
-        int                    kickUser(Client* user, std::string& channel);
+        int                    kickUser(Client* user, Client* target, std::string& channel);
         int                    inviteUser(Client* user);
         int                    removeUser(Client* user, std::string& channel);
         int                    removeOperator(Client* client, std::string& channel);

@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/09 23:47:55 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/10 09:55:57 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@
 #define ERR_CHANNELEMPTYTOPIC   " :Channel has no topic"               //457
 #define ERR_CHANNELEMPTYPASS    " :Channel has no password"            //458
 #define ERR_CHANNELZEROLIMIT    " :Channel has no limit"               //459
-#define ERR_CANNOTKICKUS        "You cannot kick yourself"           //460
+#define ERR_CANNOTKICKUS        " :You cannot kick yourself"           //460
+#define ERR_CANNOTKICKOP        " :You cannot kick operator"           //461
 
 #define ERR_TOPICEMPTY          " :Topic cannot be empty"              //483
 #define ERR_PASSWORDEMPTY       " :Password cannot be empty"           //484

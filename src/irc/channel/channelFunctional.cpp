@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/10 08:55:47 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/10 11:01:03 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,19 @@ int    Channel::addUser(Client* user, std::string &channel)
     return -1;
 }
 
-int    Channel::kickUser(Client* user, std::string &channel)
+int    Channel::kickUser(Client* user, Client* target, std::string& channel)
 {
-    if (user == nullptr)
-        return  446;
-    if (!this->isMember(user))
+    if (!this->isMember(target))
     {
-        Notifyer::notifyWindowError(user, 442, channel);
+        Notifyer::notifyWindowError(user, 442, channel);   
         return 442;
     }
-    this->_members.erase(user->getNickName());
+    if (this->isOperator(target))
+    {
+        Notifyer::notifyWindowError(user, 461, channel);
+        return 461;
+    }
+    this->_members.erase(target->getNickName());
     return -1;
 }
 
@@ -56,7 +59,7 @@ int    Channel::removeOperator(Client* user, std::string &channel)
         return 452;
     }
     else
-        return;
+        this->_operators.erase(user->getNickName());
     return -1;
 }
 
@@ -74,13 +77,11 @@ int    Channel::inviteUser(Client* user)
     return -1;
 }
 
-int    Channel::removeUser(Client* user, std::string& channel, std::string& channel)
+int    Channel::removeUser(Client* user, std::string& channel)
 {
-    if (user == nullptr)
-        return 446;
     if (!this->isMember(user))
         return 442;
-    if (this->getOperator() == user)
+    if (this->isOperator(user))
         this->removeOperator(user, channel);
     this->_members.erase(user->getNickName());
     return -1;
