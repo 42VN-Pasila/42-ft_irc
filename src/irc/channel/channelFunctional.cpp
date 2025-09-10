@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/09 09:28:54 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/10 08:55:47 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,15 @@ int    Channel::kickUser(Client* user, std::string &channel)
     return -1;
 }
 
-int    Channel::removeOperator(Client* client)
+int    Channel::removeOperator(Client* user, std::string &channel)
 {
-    if (this->getOperator() == nullptr)
+    if (!this->isOperator(user))
+    {
+        Notifyer::notifyWindowError(user, 452, channel);
         return 452;
-    if (this->getOperator() != client)
-        return 482;
-    this->_operator = nullptr;
+    }
+    else
+        return;
     return -1;
 }
 
@@ -72,14 +74,14 @@ int    Channel::inviteUser(Client* user)
     return -1;
 }
 
-int    Channel::removeUser(Client* user)
+int    Channel::removeUser(Client* user, std::string& channel, std::string& channel)
 {
     if (user == nullptr)
         return 446;
     if (!this->isMember(user))
         return 442;
     if (this->getOperator() == user)
-        this->removeOperator(user);
+        this->removeOperator(user, channel);
     this->_members.erase(user->getNickName());
     return -1;
 }

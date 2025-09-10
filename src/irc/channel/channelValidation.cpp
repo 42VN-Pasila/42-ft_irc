@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:21:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/20 10:57:54 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/09 10:13:25 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,16 @@
 
 int    Channel::isOperator(Client* user)
 {
-    if (user == nullptr)
-        return 446;
-    return (this->_operator == user);
+    return (this->_operators.count(user->getNickName()));
 }
 
 int    Channel::isMember(Client* user)
 {
-    if (user == nullptr)
-        return 446;
     return (this->_members.count(user->getNickName()));
 }
 
 int    Channel::isInvited(Client* user)
 {
-    if (user == nullptr)
-        return 446;
     return  (this->_invitation.count(user->getNickName()));
 }
 

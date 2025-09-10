@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/09 00:50:09 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/09 23:47:55 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@
 #define ERR_USERCANNOTBENULL    " :User cannot be null"                //446
 #define ERR_USERALRINVITED      " :User is already invited"            //448
 
-#define ERR_CHANNELALROPR       " :Channel already has operator"       //451
-#define ERR_CHANNELNOOPR        " :Channel has no operator"            //452
+#define ERR_CHANNELALROPR       " :User is already an operator"        //451
+#define ERR_CHANNELNOOPR        " :User is not an operator"            //452
 #define ERR_CHANNELNOTONLYINV   " :Channel not in invite-only mode"    //453
 #define ERR_CHANNELALRINV       " :Channel already in invite-only mode" //454
 #define ERR_CHANNELALRUNSETINV  " :Channel already unset invite-only mode" //455

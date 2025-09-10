@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 00:32:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/20 10:57:39 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/09 10:55:51 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,15 @@ int    Channel::setPassword(const std::string& password)
     return -1;
 }
 
-int    Channel::setOperator(Client* user)
+int    Channel::setOperator(Client* user, std::string& channel)
 {
-    if (user == nullptr)
-        return 446;
-    if (this->_operator != nullptr)
-        return 451;
-    else
+    if (this->isOperator(user))
     {
-        this->_operator = user;
-        LOG_SUCCESS("[CHANNEL] : Channel is now operated by : ");
-        std::cout << this->_operator->getNickName() <<std::endl;
+        Notifyer::notifyWindowError(user, 451, channel);
+        return 451;
     }
+    else
+        this->_operators.insert({user->getNickName(), user});
     return -1;
 }
 

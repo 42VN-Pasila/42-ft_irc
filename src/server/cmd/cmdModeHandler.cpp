@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/09/06 13:58:29 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/09 11:00:12 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void    Server::handlerModeO(Client* client, std::string& channel, std::string& 
     if (!validateTargetOut(client, channelName, targetUser))
         return ;
     if (mode == on)
-        code = this->_channelList[channelName]->setOperator(this->_clientList[targetUser]);
+        code = this->_channelList[channelName]->setOperator(this->_clientList[targetUser], channel);
     else
         code = this->_channelList[channelName]->removeOperator(this->_clientList[targetUser]);
     if (code == -1)
@@ -152,5 +152,5 @@ void    Server::handlerModeO(Client* client, std::string& channel, std::string& 
         Notifyer::notifyBroadcast(this->_channelList[channelName], nickname, msg);
     }
     else     
-        Notifyer::notifyError(client, code);
+        Notifyer::notifyWindowError(client, code, channel);
 }
