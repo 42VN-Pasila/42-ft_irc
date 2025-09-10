@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/08 10:42:47 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/10 11:05:06 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
         code = newChannel->addUser(client, channel);
         if (code != -1)
             return;
-        subCode = newChannel->setOperator(client);
+        subCode = newChannel->setOperator(client, channel);
         if (subCode != -1)
         {
             Notifyer::notifyError(client, subCode); 
@@ -42,7 +42,7 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
     }
     else if (!this->passwordRequired(this->_channelList[channelName], pass))
     {
-        Notifyer::notifyError(client, 470);
+        Notifyer::notifyChannelError(client, 470, channel);
         return ;
     }
     else
@@ -107,7 +107,7 @@ void    Server::handlerPart(Client* client, std::string& channel, std::string& n
         return ;
     else
     {
-        code = this->_channelList[channelName]->removeUser(client);
+        code = this->_channelList[channelName]->removeUser(client, channel);
         if (code == -1)
         {
             std::string msg = ":<SYSTEM> PRIVMSG " + channel + " :" + CYAN + client->getNickName() + " has left the channel";
@@ -142,7 +142,7 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
     }
     if (client->getNickName() == targetUser)
     {
-        Notifyer::notifyError(client , 460);
+        Notifyer::notifyWindowError(client , 460, channel);
         return ;
     }
     std::string channelName = channel.substr(1);
@@ -151,7 +151,7 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
         return ;
     if (!validateTargetOut(client, channelName, targetUser))
         return ;
-    code = this->_channelList[channelName]->kickUser(this->_clientList[targetUser]);
+    code = this->_channelList[channelName]->kickUser(client, this->_clientList[targetUser], channel);
     if (code == -1)
     {
         std::string msg = targetUser + " has been kicked out of the channel by " + client->getNickName();
@@ -167,7 +167,7 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
     }
     else
     {
-        Notifyer::notifyError(client, code);
+        Notifyer::notifyWindowError(client, code, channel);
         return ;
     }
 }

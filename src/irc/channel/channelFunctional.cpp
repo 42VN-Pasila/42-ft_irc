@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/08 11:14:08 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/10 11:01:03 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int    Channel::addUser(Client* user, std::string &channel)
 {
     if (this->isMember(user))
     {
-        Notifyer::notifyWindowError(user, 443);
+        Notifyer::notifyWindowError(user, 443, channel);
         return 443;
     }
     if  (!this->isAvailable())
@@ -35,23 +35,31 @@ int    Channel::addUser(Client* user, std::string &channel)
     return -1;
 }
 
-int    Channel::kickUser(Client* user)
+int    Channel::kickUser(Client* user, Client* target, std::string& channel)
 {
-    if (user == nullptr)
-        return  446;
-    if (!this->isMember(user))
+    if (!this->isMember(target))
+    {
+        Notifyer::notifyWindowError(user, 442, channel);   
         return 442;
-    this->_members.erase(user->getNickName());
+    }
+    if (this->isOperator(target))
+    {
+        Notifyer::notifyWindowError(user, 461, channel);
+        return 461;
+    }
+    this->_members.erase(target->getNickName());
     return -1;
 }
 
-int    Channel::removeOperator(Client* client)
+int    Channel::removeOperator(Client* user, std::string &channel)
 {
-    if (this->getOperator() == nullptr)
+    if (!this->isOperator(user))
+    {
+        Notifyer::notifyWindowError(user, 452, channel);
         return 452;
-    if (this->getOperator() != client)
-        return 482;
-    this->_operator = nullptr;
+    }
+    else
+        this->_operators.erase(user->getNickName());
     return -1;
 }
 
@@ -69,14 +77,12 @@ int    Channel::inviteUser(Client* user)
     return -1;
 }
 
-int    Channel::removeUser(Client* user)
+int    Channel::removeUser(Client* user, std::string& channel)
 {
-    if (user == nullptr)
-        return 446;
     if (!this->isMember(user))
         return 442;
-    if (this->getOperator() == user)
-        this->removeOperator(user);
+    if (this->isOperator(user))
+        this->removeOperator(user, channel);
     this->_members.erase(user->getNickName());
     return -1;
 }

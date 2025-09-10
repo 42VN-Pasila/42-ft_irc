@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/09/08 10:39:02 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/10 11:00:42 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ class   Channel
 {
     public  :
     Channel(const std::string& channelName) : _topic(""),
-                                           _operator(nullptr),
                                            _password(""),
                                            _channelName(channelName),
                                            _limit(0),
@@ -41,7 +40,7 @@ class   Channel
         int                    setTopic(const std::string& topic);
         int                    setTopicRight();
         int                    setPassword(const std::string& password);
-        int                    setOperator(Client* user);
+        int                    setOperator(Client* user, std::string& channel);
         int                    setLimit(const unsigned int& limit);
         int                    setInviteStatus(const bool& status);
 
@@ -53,10 +52,10 @@ class   Channel
 
         //Functional
         int                    addUser(Client* user, std::string& channel);
-        int                    kickUser(Client* user);
+        int                    kickUser(Client* user, Client* target, std::string& channel);
         int                    inviteUser(Client* user);
-        int                    removeUser(Client* user);
-        int                    removeOperator(Client* client);
+        int                    removeUser(Client* user, std::string& channel);
+        int                    removeOperator(Client* client, std::string& channel);
         
         //Validation
         int                     isOperator(Client* user);
@@ -74,7 +73,6 @@ class   Channel
 
     private :
         std::string             _topic;
-        Client*                 _operator;
         std::string             _password;
         std::string             _channelName;
         unsigned int            _limit;
@@ -83,4 +81,5 @@ class   Channel
         
         std::map<std::string, Client*>       _members;
         std::map<std::string, Client*>       _invitation;
+        std::map<std::string, Client*>       _operators;
 };

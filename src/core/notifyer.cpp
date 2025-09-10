@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/08 11:12:24 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/09 00:53:16 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,22 @@ void    Notifyer::notifySuccess(Client* client, const std::string& msg)
 
 void    Notifyer::notifyError(Client* client, int code)
 {
-    std::string errorMsg = CYAN + Notifyer::_notifyCode[code] + RESET;
+    std::string errorMsg = YELLOW + Notifyer::_notifyCode[code] + RESET;
     std::string message = ":" + getHost() + " " + std::to_string(code) + " * "
                         + client->getNickName() + errorMsg + "\r\n";
     sendMsg(client, message);              
 }
 
-void    Notifyer::notifyWindowError(Client* client, int code)
+void    Notifyer::notifyWindowError(Client* client, int code, std::string& channel)
 {
-    std::string errorMsg = CYAN + Notifyer::_notifyCode[code] + RESET;
-    std::string message = ":<SYSTEM> PRIVMSG :" + errorMsg + "\r\n";
+    std::string errorMsg = YELLOW + Notifyer::_notifyCode[code] + RESET;
+    std::string message = ":<SYSTEM> PRIVMSG " + channel + " :" + errorMsg + "\r\n";
     sendMsg(client, message);
 }
 
 void Notifyer::notifyChannelError(Client* client, int code, std::string& channel)
 {
-    std::string errorMsg = CYAN + Notifyer::_notifyCode[code] + RESET;
+    std::string errorMsg = YELLOW + Notifyer::_notifyCode[code] + RESET;
     std::string message = ":" + getHost() + " " + std::to_string(code) + " " 
                         + client->getNickName() + " " + channel + " "
                         + errorMsg + "\r\n";
