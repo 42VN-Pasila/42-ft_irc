@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/10 11:01:03 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/12 00:45:17 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,23 @@ int    Channel::removeOperator(Client* user, std::string &channel)
     return -1;
 }
 
-int    Channel::inviteUser(Client* user)
+int    Channel::inviteUser(Client* user, std::string& channel)
 {
-    if (user == nullptr)
-        return 446;
     if (!this->_onlyInvite)
+    {
+        Notifyer::notifyWindowError(user, 453, channel);
         return 453;
+    }
     if (this->isInvited(user))
+    {
+        Notifyer::notifyWindowError(user, 448, channel);
         return 448;
+    }
     if (this->isMember(user))
+    {
+        Notifyer::notifyWindowError(user, 443, channel);
         return 443;
+    }
     this->_invitation.insert({user->getNickName(),const_cast<Client*>(user)});
     return -1;
 }
@@ -80,7 +87,10 @@ int    Channel::inviteUser(Client* user)
 int    Channel::removeUser(Client* user, std::string& channel)
 {
     if (!this->isMember(user))
+    {
+        Notifyer::notifyError(user, 442);
         return 442;
+    }
     if (this->isOperator(user))
         this->removeOperator(user, channel);
     this->_members.erase(user->getNickName());
