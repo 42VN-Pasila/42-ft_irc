@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/09/04 02:33:42 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/11 09:19:30 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void Server::removeClient(int client_fd, int index)
     for (auto& pair : _channelList)
     {
         if (pair.second->isMember(client)) {
-            pair.second->removeUser(client);
+            std::string channelName = pair.first;
+            pair.second->removeUser(client, channelName);
         }
     }
     

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cn_getter.cpp                                      :+:      :+:    :+:   */
+/*   channelGetter.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 23:17:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/03 13:14:32 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/11 09:08:35 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 const std::string& Channel::getTopic() const
 {
     return this->_topic;   
-}
-
-Client*   Channel::getOperator() const
-{
-    return this->_operator;
 }
 
 const std::string&   Channel::getPassword() const
