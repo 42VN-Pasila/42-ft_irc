@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/09/10 11:00:42 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/12 00:41:13 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ class   Channel
         
         //Getters
         const std::string&                      getTopic() const;
-        Client*                                 getOperator() const;
         const std::string&                      getPassword() const;
         const std::string&                      getChannelName() const;
         unsigned int                            getLimit() const;
@@ -53,7 +52,7 @@ class   Channel
         //Functional
         int                    addUser(Client* user, std::string& channel);
         int                    kickUser(Client* user, Client* target, std::string& channel);
-        int                    inviteUser(Client* user);
+        int                    inviteUser(Client* user, std::string& channel);
         int                    removeUser(Client* user, std::string& channel);
         int                    removeOperator(Client* client, std::string& channel);
         

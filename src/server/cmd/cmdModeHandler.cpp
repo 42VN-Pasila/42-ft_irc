@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/09/10 11:04:35 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/11 10:58:20 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,16 @@ void    Server::handlerModeI(Client* client, std::string& channel, bool mode)
     {
         Notifyer::notifyError(client, 502); 
         return ;
-    }    
+    }
+    
     std::string channelName = channel.substr(1);
     
+    if (!this->hasServerChannel(channelName))
+    {
+        Notifyer::notifyError(client, 450); 
+        return ;
+    }    
+
     if (!validateOperator(client, channelName))
         return ;
     code = this->_channelList[channelName]->setInviteStatus(mode);
@@ -48,8 +55,16 @@ void    Server::handlerModeT(Client* client, std::string& channel, bool mode)
     {
         Notifyer::notifyError(client, 502); 
         return ;
-    }    
+    }
+      
     std::string channelName = channel.substr(1);
+
+    if (!this->hasServerChannel(channelName))
+    {
+        Notifyer::notifyError(client, 450); 
+        return ;
+    }
+    
     if (!validateOperator(client, channelName))
         return ;
     if (mode == on)
@@ -76,8 +91,16 @@ void    Server::handlerModeK(Client* client, std::string& channel, const std::st
     {
         Notifyer::notifyError(client, 502); 
         return ;
-    }    
+    }
+     
     std::string channelName = channel.substr(1);
+
+    if (!this->hasServerChannel(channelName))
+    {
+        Notifyer::notifyError(client, 450); 
+        return ;
+    }
+    
     if (!validateOperator(client, channelName))
         return ;
     if (mode == on)
@@ -105,7 +128,15 @@ void    Server::handlerModeL(Client* client, std::string& channel, const unsigne
         Notifyer::notifyError(client, 502); 
         return ;
     }    
+    
     std::string channelName = channel.substr(1);
+
+    if (!this->hasServerChannel(channelName))
+    {
+        Notifyer::notifyError(client, 450); 
+        return ;
+    }
+    
     if (!validateOperator(client, channelName))
         return ;
     if (mode == on)
@@ -134,7 +165,15 @@ void    Server::handlerModeO(Client* client, std::string& channel, std::string& 
         Notifyer::notifyError(client, 502); 
         return ;
     }    
+    
     std::string channelName = channel.substr(1);
+
+    if (!this->hasServerChannel(channelName))
+    {
+        Notifyer::notifyError(client, 450); 
+        return ;
+    }
+
     if (!validateChannel(client, channelName))
         return ;
     if (!validateOperator(client, channelName))
