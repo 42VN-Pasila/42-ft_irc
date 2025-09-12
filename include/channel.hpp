@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/09/12 00:41:13 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/12 10:33:25 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ class   Channel
         
         //Setters
         int                    setTopic(const std::string& topic);
-        int                    setTopicRight();
-        int                    setPassword(const std::string& password);
+        int                    setTopicRight(Client* client, std::string& channel);
+        int                    setPassword(Client* client, const std::string& password, std::string& channel);
         int                    setOperator(Client* user, std::string& channel);
-        int                    setLimit(const unsigned int& limit);
-        int                    setInviteStatus(const bool& status);
+        int                    setLimit(Client* client, const unsigned int& limit, std::string& channel);
+        int                    setInviteStatus(Client* user, const bool& status, std::string& channel);
 
         //Unsettes
         int                    unsetTopic();
