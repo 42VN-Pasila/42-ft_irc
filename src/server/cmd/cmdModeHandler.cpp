@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/09/11 10:58:20 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/12 10:34:18 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void    Server::handlerModeI(Client* client, std::string& channel, bool mode)
 
     if (!validateOperator(client, channelName))
         return ;
-    code = this->_channelList[channelName]->setInviteStatus(mode);
+    code = this->_channelList[channelName]->setInviteStatus(client, mode, channel);
     if (code == -1)
     {
         msg = (mode == on ? "[SERVER] : [CHANNEL] : Invite-only mode enabled" 
@@ -68,7 +68,7 @@ void    Server::handlerModeT(Client* client, std::string& channel, bool mode)
     if (!validateOperator(client, channelName))
         return ;
     if (mode == on)
-        code = this->_channelList[channelName]->setTopicRight();
+        code = this->_channelList[channelName]->setTopicRight(client, channel);
     else
         code = this->_channelList[channelName]->unsetTopicRight();
     if (code == -1)
@@ -104,7 +104,7 @@ void    Server::handlerModeK(Client* client, std::string& channel, const std::st
     if (!validateOperator(client, channelName))
         return ;
     if (mode == on)
-        code = this->_channelList[channelName]->setPassword(pass);
+        code = this->_channelList[channelName]->setPassword(client, pass, channel);
     else
         code = this->_channelList[channelName]->unsetPassword();
     if (code == -1)
@@ -140,7 +140,7 @@ void    Server::handlerModeL(Client* client, std::string& channel, const unsigne
     if (!validateOperator(client, channelName))
         return ;
     if (mode == on)
-        code = this->_channelList[channelName]->setLimit(limit);
+        code = this->_channelList[channelName]->setLimit(client, limit, channel);
     else
         code = this->_channelList[channelName]->unsetLimit();
     if (code == -1)

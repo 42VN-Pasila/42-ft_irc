@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/11 10:54:14 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/12 10:07:47 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@
 #define ERR_USERCANNOTBENULL    " :User cannot be null"                //446
 #define ERR_USERALRINVITED      " :User is already invited"            //448
 
+#define ERR_CHANNELALRTOPICR    " :Channel already set topic right"    //449
 #define ERR_CHANNELNOTEXIST     " :Server does not have this channel"  //450
 #define ERR_CHANNELALROPR       " :User is already an operator"        //451
 #define ERR_CHANNELNOOPR        " :User is not an operator"            //452
@@ -138,6 +139,7 @@ class   Notifyer
         {445, ERR_TARGNOTONCHANNEL},
         {446, ERR_USERCANNOTBENULL},
         {448, ERR_USERALRINVITED},
+        {449, ERR_CHANNELALRTOPICR},
         {450, ERR_CHANNELNOTEXIST},
         {451, ERR_CHANNELALROPR},
         {452, ERR_CHANNELNOOPR},
