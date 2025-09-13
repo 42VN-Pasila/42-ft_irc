@@ -23,3 +23,30 @@ kick -> not an operator -> failed
 kick -> not a channel user -> failed
 
 kick -> wrong channel -> failed
+
+4. MSG
+/msg #channel
+msg #general Hello everyone! -> sending message to a channel with spaces -> successful
+
++msg -> user to channel from another channel -> successful
++msg #team,#42 Hello all -> sends to both channels -> successful
++msg Huong,#team hi → one nick + one channel in the same command -> successful
++msg #nonexistent hello -> htran-th_: No such channel -> successful
++msg #general PRIVMSG test inside message (word “PRIVMSG” inside should not break parsing) -> successful
++msg #general :leading colon with nothing else (empty text) -> successful
++msg #general 你好 🌸 (Unicode characters) -> successful
+-msg -> to multiple channels (/msg #1 #2 #3 helo) -> not supported?
+-msg #general (no message text → should test how server handles it) -> Irssi: Not enough parameters given -> Server: not supported?
+-msg (no target → should trigger error) -> Irssi: Not enough parameters given -> Server: not supported?
+-msg ssdvaakjasdb (no target, message only) -> Irssi: Not enough parameters given -> Server: not supported?
+-msg #1,2 message (comma separated channels is sometimes supported) -> not supported
+-msg #1 hello        . (extra spaces) -> received message has only one space -> not supported or failed?
+-msg &localchannel hi -> Local-only channel: if there's only a single channel: #channel and &channel will behave the same. Currently it shows error: User is not on that channel -> not supported or failed
+-msg Tan :this is a test with a leading colon (IRC allows : to denote the start of the message text). -> so the received message should not have ':' -> failed
+
+
+/msg nickname message
++msg NonExistentUser hi -> successful
++msg -> multiple users (11) to 1 user-> receive ALL (navigate by option + number/arrow left/right) -> successful
++msg htran-th "hel                  o" (multiple space inside) -> successful
+-msg Huong,Triet hi → sends the same message to both users -> Now Huong receives: "Triet hi" -> failed
