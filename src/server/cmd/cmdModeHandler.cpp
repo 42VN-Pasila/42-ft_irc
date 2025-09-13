@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/09/12 10:43:48 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/13 08:27:37 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void    Server::handlerModeT(Client* client, std::string& channel, bool mode)
     if (mode == on)
         code = this->_channelList[channelName]->setTopicRight(client, channel);
     else
-        code = this->_channelList[channelName]->unsetTopicRight();
+        code = this->_channelList[channelName]->unsetTopicRight(client, channel);
     if (code == -1)
     {
         msg = (mode == on ? "[SERVER] : [CHANNEL] : Topic mode enabled only for operator" 
@@ -78,7 +78,7 @@ void    Server::handlerModeT(Client* client, std::string& channel, bool mode)
         Notifyer::notifyBroadcast(this->_channelList[channelName], nickname, msg);
     }
     else     
-        Notifyer::notifyError(client, code);
+        return;
 }
 
 void    Server::handlerModeK(Client* client, std::string& channel, const std::string& pass, bool mode)
@@ -106,7 +106,7 @@ void    Server::handlerModeK(Client* client, std::string& channel, const std::st
     if (mode == on)
         code = this->_channelList[channelName]->setPassword(client, pass, channel);
     else
-        code = this->_channelList[channelName]->unsetPassword();
+        code = this->_channelList[channelName]->unsetPassword(client, channel);
     if (code == -1)
     {
         msg = (mode == on ? "[SERVER] : [CHANNEL] : New password is set"
@@ -114,7 +114,7 @@ void    Server::handlerModeK(Client* client, std::string& channel, const std::st
         Notifyer::notifyBroadcast(this->_channelList[channelName], nickname, msg);
     }
     else     
-        Notifyer::notifyError(client, code);
+        return;
 }
 
 void    Server::handlerModeL(Client* client, std::string& channel, const unsigned int limit, bool mode)
@@ -142,7 +142,7 @@ void    Server::handlerModeL(Client* client, std::string& channel, const unsigne
     if (mode == on)
         code = this->_channelList[channelName]->setLimit(client, limit, channel);
     else
-        code = this->_channelList[channelName]->unsetLimit();
+        code = this->_channelList[channelName]->unsetLimit(client, channel);
     if (code == -1)
     {
         msg = (mode == on ? "[SERVER] : [CHANNEL] : Channel now limits only " + std::to_string(limit) + " members"
@@ -150,7 +150,7 @@ void    Server::handlerModeL(Client* client, std::string& channel, const unsigne
         Notifyer::notifyBroadcast(this->_channelList[channelName], nickname, msg);
     }
     else     
-        Notifyer::notifyError(client, code);
+        return;
     
 }
 
