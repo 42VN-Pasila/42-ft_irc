@@ -1,13 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_mode.cpp                                       :+:      :+:    :+:   */
+/*   infras.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/31 10:48:03 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/31 10:48:08 by siuol            ###   ########.fr       */
+/*   Created: 2025/08/04 21:54:25 by htran-th          #+#    #+#             */
+/*   Updated: 2025/08/06 00:26:38 by htran-th         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#pragma once
+
 #include "system.hpp"
+
+bool launchServer(char* password, int *iport);
+void setNonBlocking(int fd);

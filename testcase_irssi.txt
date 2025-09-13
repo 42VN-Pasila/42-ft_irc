@@ -1,0 +1,25 @@
+1. sign in -> /connect localhost 6400 test </connect localhost portnumber password>
+
+2. JOIN
+
+/join channel -> missing #
+
+/join #channel -> must be successful 
+
+/join #channel -> join twice -> nothing
+
+/join #channel -> channel invited only -> failed
+
+/join #channel -> channel required password -> failed
+
+/join #channel -> channel limit members -> failed
+
+3. KICK
+
+/kick #channel nickname
+
+kick -> not an operator -> failed
+
+kick -> not a channel user -> failed
+
+kick -> wrong channel -> failed

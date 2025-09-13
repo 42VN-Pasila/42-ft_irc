@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prs_system.cpp                                     :+:      :+:    :+:   */
+/*   parseSystem.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/31 00:58:36 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/31 02:24:35 by siuol            ###   ########.fr       */
+/*   Created: 2025/08/14 10:38:25 by siuol             #+#    #+#             */
+/*   Updated: 2025/08/14 10:38:26 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "system.hpp"
 
-bool    prs_validPassword(char *av)
+bool    parseValidPass(char *av)
 {
     std::string password(av);
     
@@ -37,7 +37,7 @@ bool    prs_validPassword(char *av)
     return true;
 }
 
-static bool    prs_validPort(char *av)
+static bool    parseValidPort(char *av, int *iport)
 {
     int                 value;
     std::string         port(av);
@@ -69,20 +69,17 @@ static bool    prs_validPort(char *av)
         throw std::runtime_error("Invalid arguments : Port range is only 6000-7000");
         return false;
     }
+    *iport = value;
     return true;
 }
 
-bool    prs_program(int ac, char **av)
+bool    parseProgram(int ac, char **av, int* iport)
 {
     if (ac != 3)
-    {
         throw std::runtime_error("Invalid arguments : Start program by ./irc <port_number> <password>");
-        std::cout << std::endl;
+    if (!parseValidPort(av[1], iport))
         return false;
-    }
-    if (!prs_validPort(av[1]))
-        return false;
-    if (!prs_validPassword(av[2]))
+    if (!parseValidPass(av[2]))
         return false;
     return true;
 }

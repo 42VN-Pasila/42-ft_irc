@@ -38,7 +38,7 @@ KICK #channel nickname
 KICK #channel nickname :Reason for kick
 KICK #channel nick1,nick2 :Kick multiple users
 
-5. INVITE - Invite user to channel:
+5. INVITE - Invite user to channel
 INVITE nickname #channel
 
 6. TOPIC - Set/view channel topic:

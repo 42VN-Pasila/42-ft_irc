@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cn_unsetter.cpp                                    :+:      :+:    :+:   */
+/*   channelUnsetter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 01:02:43 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/30 22:50:08 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/13 08:26:19 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,35 @@ int    Channel::unsetTopic()
     return -1;
 }
 
-int    Channel::unsetPassword()
+int    Channel::unsetPassword(Client* client, std::string& channel)
 {
     if (this->_password.empty())
+    {
+        Notifyer::notifyWindowError(client, 484, channel);
         return 484;
+    }
     this->_password = "";
     return -1;
 }
 
-int    Channel::unsetLimit()
+int    Channel::unsetLimit(Client* client, std::string& channel)
 {
     if (this->_limit == 0)
+    {
+        Notifyer::notifyWindowError(client, 459, channel);
         return 459;
+    }
     this->_limit = 0;
     return -1;
 }
 
-int    Channel::unsetTopicRight()
+int    Channel::unsetTopicRight(Client* client, std::string& channel)
 {
     if (!this->_topicRight)
+    {
+        Notifyer::notifyWindowError(client, 453, channel);
         return 453;
+    }
     this->_topicRight = false;
     return -1;
 }

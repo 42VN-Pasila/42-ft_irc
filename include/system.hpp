@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:30:42 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/05 18:03:53 by tripham          ###   ########.fr       */
+/*   Updated: 2025/09/13 15:55:48 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,28 @@
 #include <set>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <unistd.h>
+#include <poll.h>
+#include <fcntl.h>
+#include <csignal>
 #include <charconv>
 #include <sstream>
 #include <stdexcept>
 #include <poll.h>
 #include <functional>
+#include <unistd.h>
+
 #include "client.hpp"
 #include "channel.hpp"
 #include "server.hpp"
 #include "notifyer.hpp"
 #include "parser.hpp"
+#include "infras.hpp"
 
-
+class Server;
 class Notifyer;
 class Client;
 class Channel;
-class Server;
 
 // Color codes
 #define RESET   "\033[0m"
@@ -55,3 +61,5 @@ class Server;
 #define LIMIT_MEMBER 1000
 #define on true
 #define off false
+#define MULTI_TARGET_FUNCTIONS 2
+#define MODE_QTT    5

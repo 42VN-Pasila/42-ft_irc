@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cn_validation.cpp                                  :+:      :+:    :+:   */
+/*   channelValidation.cpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 11:21:55 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/30 23:34:43 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/09 10:13:25 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,16 @@
 
 int    Channel::isOperator(Client* user)
 {
-    if (user == nullptr)
-        return 446;
-    return (this->_operator == user);
+    return (this->_operators.count(user->getNickName()));
 }
 
 int    Channel::isMember(Client* user)
 {
-    if (user == nullptr)
-        return 446;
     return (this->_members.count(user->getNickName()));
 }
 
 int    Channel::isInvited(Client* user)
 {
-    if (user == nullptr)
-        return 446;
     return  (this->_invitation.count(user->getNickName()));
 }
 
@@ -58,4 +52,15 @@ bool   Channel::isAvailable()
 bool   Channel::isTopicRight()
 {
     return this->_topicRight;
+}
+
+bool   Channel::isValidPassword(std::string pass)
+{
+    for (char c : pass)
+    {
+        if (c == '\n' || c == '\t' || c == '\r' || c == ' ' || c == ',' ||
+            c == ':' || c == '#' || c == '+' || c == '-')
+        return 0;
+    }
+    return 1;
 }

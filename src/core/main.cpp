@@ -6,7 +6,7 @@
 /*   By: tripham <tripham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 18:24:18 by caonguye          #+#    #+#             */
-/*   Updated: 2025/08/05 18:26:20 by tripham          ###   ########.fr       */
+/*   Updated: 2025/09/13 15:56:08 by tripham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,13 @@ int main(int ac, char** av)
 {
     try
     {
-        prs_program(ac, av);
-		
-		unsigned int port = static_cast<unsigned int>(std::atoi(av[1]));
-    	std::string password = av[2];
-
-        // Tao Server()
-		Server server(port, password);
-		server.setupSocket();
-        // ket noi socket vao server
-		// server.run();
+        int iport;
+        parseProgram(ac, av, &iport);
+        launchServer(av[2], &iport);
     }
     catch(const std::exception& e)
     {
-        LOG_INFO(e.what());
+        LOG_ERROR(e.what());
         std::cout << std::endl;
     } 
 }

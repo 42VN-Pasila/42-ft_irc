@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sv_validation.cpp                                  :+:      :+:    :+:   */
+/*   serverValidation.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:48:25 by siuol             #+#    #+#             */
-/*   Updated: 2025/07/29 12:54:07 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/07 11:50:38 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,22 @@ bool    Server::isServerClient(Client* client)
 bool    Server::hasServerClient(std::string& clientName)
 {
     return (this->_clientList.count(clientName));
+}
+
+void    Server::validateRegistration(Client* client, std::string &nickname)
+{
+    if (!nickname.empty() && this->hasServerClient(nickname))
+    {
+        Notifyer::notifyError(client, 433);
+        client->setNickName("");
+        client->setNickStatus(false);
+        return ;
+    }
+    if (client->getPasswordStatus() && client->getNickStatus() && client->getUserStatus())
+    {
+        this->_clientList.insert({client->getNickName(), client});
+        Notifyer::sendWelcome(client);
+    }
 }
 
 bool    Server::validateChannel(Client* client, std::string& channelName)
@@ -59,7 +75,7 @@ bool    Server::validateOperator(Client* client, std::string& channelName)
     return true;
 }
 
-bool    Server::validateTarget(Client* client, std::string& channelName, std::string& target)
+bool    Server::validateTargetOut(Client* client, std::string& channelName, std::string& target)
 {
     if (!this->hasServerClient(target))
     {
@@ -69,6 +85,21 @@ bool    Server::validateTarget(Client* client, std::string& channelName, std::st
     if (!this->_channelList[channelName]->isMember(this->_clientList[target]))
     {
         Notifyer::notifyError(client, 445);
+        return false;
+    }
+    return true;
+}
+
+bool    Server::validateTargetIn(Client* client, std::string& channelName, std::string& target)
+{
+    if (!this->hasServerClient(target))
+    {
+        Notifyer::notifyError(client, 444);
+        return false;
+    }
+    if (this->_channelList[channelName]->isMember(this->_clientList[target]))
+    {
+        Notifyer::notifyError(client, 441);
         return false;
     }
     return true;
