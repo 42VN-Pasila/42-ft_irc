@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   notifyer.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/09 00:53:16 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/13 15:10:22 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void    Notifyer::notifyError(Client* client, int code)
 {
     std::string errorMsg = YELLOW + Notifyer::_notifyCode[code] + RESET;
     std::string message = ":" + getHost() + " " + std::to_string(code) + " * "
-                        + client->getNickName() + errorMsg + "\r\n";
+                        + client->getNickName() + " " + errorMsg + "\r\n";
     sendMsg(client, message);              
 }
 
