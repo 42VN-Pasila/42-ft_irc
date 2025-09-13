@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/09/13 08:26:49 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/13 14:31:16 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ class   Channel
         //Functional
         int                    addUser(Client* user, std::string& channel);
         int                    kickUser(Client* user, Client* target, std::string& channel);
-        int                    inviteUser(Client* user, std::string& channel);
+        int                    inviteUser(Client* user, Client* target, std::string& channel);
         int                    removeUser(Client* user, std::string& channel);
         int                    removeOperator(Client* client, std::string& channel);
         

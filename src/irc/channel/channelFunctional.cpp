@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channelFunctional.cpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 02:03:53 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/12 00:45:17 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/13 14:18:24 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,24 @@ int    Channel::removeOperator(Client* user, std::string &channel)
     return -1;
 }
 
-int    Channel::inviteUser(Client* user, std::string& channel)
+int    Channel::inviteUser(Client* user, Client* target, std::string& channel)
 {
     if (!this->_onlyInvite)
     {
         Notifyer::notifyWindowError(user, 453, channel);
         return 453;
     }
-    if (this->isInvited(user))
+    if (this->isInvited(target))
     {
         Notifyer::notifyWindowError(user, 448, channel);
         return 448;
     }
-    if (this->isMember(user))
+    if (this->isMember(target))
     {
         Notifyer::notifyWindowError(user, 443, channel);
         return 443;
     }
-    this->_invitation.insert({user->getNickName(),const_cast<Client*>(user)});
+    this->_invitation.insert({target->getNickName(),const_cast<Client*>(target)});
     return -1;
 }
 

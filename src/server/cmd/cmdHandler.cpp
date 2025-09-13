@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdHandler.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/11 11:28:39 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/13 14:31:27 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,7 @@ void    Server::handlerInvite(Client* client, std::string& targetUser, std::stri
         return ;
     if (!validateTargetIn(client, channelName, targetUser))
         return ;
-    code = this->_channelList[channelName]->inviteUser(this->_clientList[targetUser]);
+    code = this->_channelList[channelName]->inviteUser(client, this->_clientList[targetUser], channel);
     if (code == -1)
     {
         std::string msg = "[SERVER] : [CHANNEL] " + channelName + " send you an invitation from "
