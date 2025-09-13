@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:39:35 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/20 21:42:17 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/04 11:05:59 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 
 void    Server::parseSignUSER(Client* client, std::vector<std::string> command)
 {
-    if (command.size() < 5 || command[0] != "USER" || command[2] != "0" || command[3] != "*")
+    if (client->getUserStatus())
     {
-        Notifyer::notifyError(client, 418);
+        Notifyer::notifyError(client, 392);
         return ;
     }
-    std::string nickname = client->getNickName();
-    if (this->hasServerClient(nickname))
+    if (command.size() < 5)
     {
-        client->setNickName("");
-        client->setStatus(NICK);
-        Notifyer::notifyError(client, 433);
+        Notifyer::notifyError(client, 418);
         return ;
     }
     client->setUserName(command[1]);
@@ -44,51 +41,99 @@ void    Server::parseSignUSER(Client* client, std::vector<std::string> command)
             realName = realName + " " + command[i];
     }
     client->setRealName(realName);
-    client->setStatus(COMPLETE);
-    this->_clientList.insert({client->getNickName(), client});
+    client->setUserStatus(true);
+    std::string nickname = client->getNickName();
+    this->validateRegistration(client, nickname);
 }
 
 void    Server::parseSignNICK(Client* client, std::vector<std::string> command)
 {
-    if (command.size() != 2 || command[0] != "NICK")
+    if (client->getNickStatus())
+    {
+        Notifyer::notifyError(client, 391);
+        return ;
+    }
+    if (command.size() != 2)
     {
         Notifyer::notifyError(client, 417);
         return ;
     }
-    if (this->hasServerClient(command[1]))
+    if (!command[1].empty() && this->hasServerClient(command[1]))
     {
+        client->setNickName(command[1]);
         Notifyer::notifyError(client, 433);
+        client->setNickName("");
+        client->setNickStatus(false);
         return ;
     }
     client->setNickName(command[1]);
-    client->setStatus(USER);
+    client->setNickStatus(true);
+    std::string nickname = client->getNickName();
+    this->validateRegistration(client, nickname);
 }
 
 void    Server::parseSignPASS(Client* client, std::vector<std::string> command)
 {
-    if (command.size() != 2 || command[0] != "PASS")
+    if (client->getPasswordStatus())
+    {
+        Notifyer::notifyError(client, 390);
+        return ;
+    }
+    if (command.size() != 2)
     {
         Notifyer::notifyError(client, 415);
         return ;
     }
-    if (this->getPass() != command [1])
+    if (this->getPass() != command[1])
     {
         Notifyer::notifyError(client, 416);
         return ;
     }
-    client->setStatus(NICK); 
+    client->setPasswordStatus(true);
+    std::string nickname = client->getNickName();
+    this->validateRegistration(client, nickname);
 }
 
 void    Server::parseSign(Client* client, std::string& cmd)
 {
     std::vector<std::string>    command  = parseSplit(cmd);
     
-    if (client->getStatus() == PASS)
+    if (command[0] == "CAP")
+    {
+        if (command.size() >= 2 && command[1] == "LS")
+        {
+            Notifyer::sendMsg(client, ":localhost CAP * LS :\r\n");
+        }
+        return;
+    }
+    if (command[0] == "PING" || command[0] == "PONG" || command[0] == "VERSION" || cmd == "JOIN :")
+        return;
+    if (command[0] == "PASS")
         this->parseSignPASS(client, command);
-    else if (client->getStatus() == NICK)
+    else if (command[0] == "NICK")
         this->parseSignNICK(client, command);
-    else if (client->getStatus() == USER)
+    else if (command[0] == "USER")
         this->parseSignUSER(client, command);
     else
-        return ;
+    {
+        if (!client->getPasswordStatus())
+            Notifyer::notifyError(client, 393);
+        if (!client->getNickStatus())
+            Notifyer::notifyError(client, 394);
+        if (!client->getUserStatus())
+            Notifyer::notifyError(client, 395);
+    }
+    return;
+}
+
+void    Server::parsePing(Client* client, std::string& fullCommand)
+{
+    std::vector<std::string> cmdPack = parseSplit(fullCommand);
+    std::string msg = ":localhost PONG localhost";
+        
+    if (cmdPack.size() > 1)
+        msg += " :" + cmdPack[1];
+    msg += "\r\n";
+        
+    Notifyer::sendMsg(client, msg);
 }

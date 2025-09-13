@@ -3,16 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   notifyer.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/24 20:05:57 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/09/12 10:07:47 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "system.hpp"
+
+#define RPL_WELCOME             " 001 "
+#define RPL_YOURHOST            " 002 "    
+#define RPL_CREATED             " 003 "
+#define RPL_MYINFO              " 004 "
+
+#define ERR_ALREADYPASS         " :Password is already inputted"       //390
+#define ERR_ALREADYNICK         " :Nickname is already inputtted"      //391
+#define ERR_ALREADYUSER         " :User is already inputted"           //392
+#define ERR_NOPASS              " :Password has not been inputted"     //393
+#define ERR_NONICK              " :Nickname has not been inputted"     //394
+#define ERR_NOUSER              " :User has not been inputted"         //395
 
 #define ERR_NOSUCHNICK          " :No such nickname in the server"     //401
 #define ERR_NONICKNAMEGIVEN     " :No nickname given"                  //431
@@ -42,11 +54,12 @@
 #define ERR_UNKNOWNCOMMAND      " :Unknown command"                    //421
 
 #define ERR_USERCANNOTBENULL    " :User cannot be null"                //446
-#define ERR_USERNOTINVITED      " :User is not invited to channel"     //447
 #define ERR_USERALRINVITED      " :User is already invited"            //448
 
-#define ERR_CHANNELALROPR       " :Channel already has operator"       //451
-#define ERR_CHANNELNOOPR        " :Channel has no operator"            //452
+#define ERR_CHANNELALRTOPICR    " :Channel already set topic right"    //449
+#define ERR_CHANNELNOTEXIST     " :Server does not have this channel"  //450
+#define ERR_CHANNELALROPR       " :User is already an operator"        //451
+#define ERR_CHANNELNOOPR        " :User is not an operator"            //452
 #define ERR_CHANNELNOTONLYINV   " :Channel not in invite-only mode"    //453
 #define ERR_CHANNELALRINV       " :Channel already in invite-only mode" //454
 #define ERR_CHANNELALRUNSETINV  " :Channel already unset invite-only mode" //455
@@ -55,6 +68,7 @@
 #define ERR_CHANNELEMPTYPASS    " :Channel has no password"            //458
 #define ERR_CHANNELZEROLIMIT    " :Channel has no limit"               //459
 #define ERR_CANNOTKICKUS        " :You cannot kick yourself"           //460
+#define ERR_CANNOTKICKOP        " :You cannot kick operator"           //461
 
 #define ERR_TOPICEMPTY          " :Topic cannot be empty"              //483
 #define ERR_PASSWORDEMPTY       " :Password cannot be empty"           //484
@@ -84,14 +98,29 @@ class   Notifyer
         static void notifySuccess(Client* client, const std::string& msg = "");
         
         static void notifyError(Client*  client, int code);
+
+        static void notifyWindowError(Client* client, int code, std::string& channel);
+        
+        static void notifyChannelError(Client* client, int code, std::string& channel);
     
-        static void notifyBroadcast(Channel* channel, const std::string& msg = "");
+        static void notifyBroadcast(Channel* channel, std::string& sender, const std::string& msg = "");
 
         static void sendMsg(Client* client, const std::string& msg = "");
+        
+        static void sendWelcome(Client* client);
+        
+        static std::string     getHost();
+        static std::string     getDate();
         
     private :
         inline static std::map<int, std::string> _notifyCode = 
     {
+        {390, ERR_ALREADYPASS},
+        {391, ERR_ALREADYNICK},
+        {392, ERR_ALREADYUSER},
+        {393, ERR_NOPASS},
+        {394, ERR_NONICK},
+        {395, ERR_NOUSER},
         {415, ERR_SIGNINPASS},
         {416, ERR_SIGNININVPASS},
         {417, ERR_SIGNINNICK},
@@ -109,8 +138,9 @@ class   Notifyer
         {444, ERR_TARGNOTONSERVER},
         {445, ERR_TARGNOTONCHANNEL},
         {446, ERR_USERCANNOTBENULL},
-        {447, ERR_USERNOTINVITED},
         {448, ERR_USERALRINVITED},
+        {449, ERR_CHANNELALRTOPICR},
+        {450, ERR_CHANNELNOTEXIST},
         {451, ERR_CHANNELALROPR},
         {452, ERR_CHANNELNOOPR},
         {453, ERR_CHANNELNOTONLYINV},
@@ -132,6 +162,7 @@ class   Notifyer
         {484, ERR_PASSWORDEMPTY},
         {485, ERR_EMPTYCMD},
         {486, ERR_WRONGCMD},
+        {487, ERR_INVALIDPASSWORD},
         {490, ERR_SYNTAXJOIN},
         {491, ERR_SYNTAXPART},
         {492, ERR_SYNTAXPRIVMSG},

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:19:36 by caonguye          #+#    #+#             */
-/*   Updated: 2025/08/20 10:57:45 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/13 14:31:16 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ class   Channel
 {
     public  :
     Channel(const std::string& channelName) : _topic(""),
-                                           _operator(nullptr),
                                            _password(""),
                                            _channelName(channelName),
                                            _limit(0),
@@ -29,7 +28,6 @@ class   Channel
         
         //Getters
         const std::string&                      getTopic() const;
-        Client*                                 getOperator() const;
         const std::string&                      getPassword() const;
         const std::string&                      getChannelName() const;
         unsigned int                            getLimit() const;
@@ -39,24 +37,24 @@ class   Channel
         
         //Setters
         int                    setTopic(const std::string& topic);
-        int                    setTopicRight();
-        int                    setPassword(const std::string& password);
-        int                    setOperator(Client* user);
-        int                    setLimit(const unsigned int& limit);
-        int                    setInviteStatus(const bool& status);
+        int                    setTopicRight(Client* client, std::string& channel);
+        int                    setPassword(Client* client, const std::string& password, std::string& channel);
+        int                    setOperator(Client* user, std::string& channel);
+        int                    setLimit(Client* client, const unsigned int& limit, std::string& channel);
+        int                    setInviteStatus(Client* user, const bool& status, std::string& channel);
 
         //Unsettes
         int                    unsetTopic();
-        int                    unsetTopicRight();
-        int                    unsetPassword();
-        int                    unsetLimit();
+        int                    unsetTopicRight(Client* client, std::string& channel);
+        int                    unsetPassword(Client* client, std::string& channel);
+        int                    unsetLimit(Client* client, std::string& channel);
 
         //Functional
-        int                    addUser(Client* user);
-        int                    kickUser(Client* user);
-        int                    inviteUser(Client* user);
-        int                    removeUser(Client* user);
-        int                    removeOperator(Client* client);
+        int                    addUser(Client* user, std::string& channel);
+        int                    kickUser(Client* user, Client* target, std::string& channel);
+        int                    inviteUser(Client* user, Client* target, std::string& channel);
+        int                    removeUser(Client* user, std::string& channel);
+        int                    removeOperator(Client* client, std::string& channel);
         
         //Validation
         int                     isOperator(Client* user);
@@ -74,7 +72,6 @@ class   Channel
 
     private :
         std::string             _topic;
-        Client*                 _operator;
         std::string             _password;
         std::string             _channelName;
         unsigned int            _limit;
@@ -83,4 +80,5 @@ class   Channel
         
         std::map<std::string, Client*>       _members;
         std::map<std::string, Client*>       _invitation;
+        std::map<std::string, Client*>       _operators;
 };

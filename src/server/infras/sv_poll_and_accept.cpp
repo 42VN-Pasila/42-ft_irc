@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sv_poll_and_accept.cpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/08/18 18:20:52 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/09/11 09:19:30 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,16 @@
 volatile sig_atomic_t g_running = 1;
 
 void signal_handler(int signal) {
-    g_running = 0;
-    std::cout << "\n" << (signal == SIGINT ? "SIGINT" : "SIGQUIT") << " caught!" << std::endl;
+    if (signal == SIGCONT)
+    {
+        g_running = 1;
+        std::cout << "[" + Notifyer::getDate() + "] " + "Resume server" << std::endl;
+    }
+    else
+    {
+        g_running = 0;
+        std::cout << "\n" << "[" + Notifyer::getDate() + "] " + (signal == SIGINT ? "SIGINT" : "SIGQUIT") << " caught!" << std::endl;
+    }
 }
 
 int Server::getIndex(int fd) const {
@@ -41,7 +49,8 @@ void Server::removeClient(int client_fd, int index)
     for (auto& pair : _channelList)
     {
         if (pair.second->isMember(client)) {
-            pair.second->removeUser(client);
+            std::string channelName = pair.first;
+            pair.second->removeUser(client, channelName);
         }
     }
     
@@ -58,6 +67,8 @@ void Server::pollAndAccept() {
     int quitFlag  = 0;
     std::signal(SIGINT, signal_handler);
     std::signal(SIGQUIT, signal_handler);
+    std::signal(SIGTSTP, SIG_DFL);
+    std::signal(SIGCONT, signal_handler);
     pollfd s_pfd = {.fd = _server_fd, .events = POLLIN, .revents = 0};
     _poll_fds.push_back(s_pfd);
 
@@ -84,7 +95,7 @@ void Server::pollAndAccept() {
             pollfd c_pfd = {.fd = client_fd, .events = POLLIN, .revents = 0};
             _poll_fds.push_back(c_pfd);
             
-            std::cout << "New client connected: fd = " << client_fd << std::endl;
+            std::cout << "[" + Notifyer::getDate() + "] " + "New client connected: fd = " << client_fd << std::endl;
 
             
             Client *new_client = new Client(client_fd); //TODO: error check
@@ -96,9 +107,9 @@ void Server::pollAndAccept() {
                 int client_fd = _poll_fds[i].fd;
                 ssize_t bytesRead = recv(client_fd, buffer, sizeof(buffer) - 1, 0);
                 if (bytesRead <= 0) {
-                    if (errno == EINTR)
+                    if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK)
                         continue;
-                    std::cout << RED << "Client disconnected: fd = " << client_fd << RESET << std::endl;
+                    std::cout << RED << "[" + Notifyer::getDate() + "] " + "Client disconnected: fd = " << client_fd << RESET << std::endl;
                     removeClient(client_fd, i);
                     --i; // because the rest of the array shifted one place to the left
                     continue ; // checks the rest of the clients
@@ -108,13 +119,13 @@ void Server::pollAndAccept() {
                 if (!message.empty())
                 { 
                     Client *client = _socketList[client_fd];
-                    parseCommand(client, message, quitFlag);
-                    std::cout << "Message from client(fd " << client_fd << "): " << buffer << std::endl; // Temporarily here - delete later
+                    parsePreCommand(client, message, quitFlag);
+                    std::cout << "[" + Notifyer::getDate() + "] " + "Message from client(fd " << client_fd << "): " << buffer << std::endl; // Temporarily here - delete later
                     if (quitFlag)
                     {
                         --i;
                         quitFlag = 0;
-                        std::cout << RED << "Client disconnected: fd = " << client_fd << RESET << std::endl;
+                        std::cout << RED << "[" + Notifyer::getDate() + "] " + "Client disconnected: fd = " << client_fd << RESET << std::endl;
                         continue;
                     }
                 }

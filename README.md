@@ -10,6 +10,7 @@ A fully-featured IRC (Internet Relay Chat) server built from scratch in C++. Pro
 * Authentication & Channel Management Systems
 * Mode Implementation & Error Handling
 * Memory Management
+* Notifyer system
 
 ### **Network Infrastructure** - Huong Tran ([GitHub](https://github.com/htran312)) && Triet Pham ([GitHub](https://github.com/hihi-louis))  
 * Socket Management & Poll-based I/O

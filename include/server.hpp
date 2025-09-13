@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: htran-th <htran-th@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/15 18:29:45 by htran-th         ###   ########.fr       */
+/*   Updated: 2025/09/03 22:37:41 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,16 @@ class Server
         ~Server();
         
         //Launch
-        void    initSocket();
-        void    bindAndListen();
-        void    pollAndAccept();
-        void    gracefullyShutDown();
-        void    removeClient(int client_fd, int index);
-        void    closeAllFds();
-        int     getIndex(int fd) const;
+        void            initSocket();
+        void            bindAndListen();
+        void            pollAndAccept();
+        void            gracefullyShutDown();
+        void            removeClient(int client_fd, int index);
+        void            closeAllFds();
+        int             getIndex(int fd) const;
         
         //Exec
+        void    parsePreCommand(Client* client, std::string& fullcommand, int& quitFlag);
         void    parseCommand(Client* client, std::string& command, int& quitFlag);
 
     private :
@@ -56,9 +57,11 @@ class Server
         bool    isServerChannel(Channel* channel);
         bool    hasServerChannel(std::string& channelName);
         bool    hasServerClient(std::string& clientName);
+        void    validateRegistration(Client* client, std::string& nickname);
         bool    validateChannel(Client* client, std::string& channelName);
         bool    validateOperator(Client* client, std::string& channelName);
-        bool    validateTarget(Client* client, std::string& target, std::string& channelName);
+        bool    validateTargetIn(Client* client, std::string& target, std::string& channelName);
+        bool    validateTargetOut(Client* client, std::string& target, std::string& channelName);
         
         //cmdHandler
         void    handlerJoin(Client* client, std::string& channel, std::string& pass);
@@ -82,6 +85,7 @@ class Server
         
         //Parse
         void    parseSign(Client* client, std::string& cmd);
+        void    parsePing(Client* client, std::string& fullCommand);
         void    parseQuit(Client* client, std::string& cmd);
         void    parseSignPASS(Client* client, std::vector<std::string> command);
         void    parseSignNICK(Client* client, std::vector<std::string> command);
