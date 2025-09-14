@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdHandler.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/13 17:22:20 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/09/14 11:11:55 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void    Server::handlerPart(Client* client, std::string& channel, std::string& n
             return ;
         }
     }
+    this->removeChannel(this->_channelList[channelName]);
 }
 
 void    Server::handlerKick(Client* client, std::string& channel, std::string& targetUser, std::string& reason)
@@ -170,6 +171,7 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
         Notifyer::notifyWindowError(client, code, channel);
         return ;
     }
+    this->removeChannel(this->_channelList[channelName]);
 }
 
 void    Server::handlerTopic(Client* client, std::string& channel, std::string& topic)
