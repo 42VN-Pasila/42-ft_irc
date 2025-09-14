@@ -18,16 +18,29 @@
 /join #channel -> channel limit members -> not yet tested
 
 
-
 3. KICK
 
 /kick #channel nickname
 
-kick -> not an operator -> failed
+kick -> not an operator -> successful✅
 
-kick -> not a channel user -> failed
+kick -> not a channel user -> successful✅
 
 kick -> wrong channel -> failed
+
+kick channle(missing '#') user :msg -> Currently: "/kick 2 hihi-lou1s :j" -> Server: "NOW PARSE--KICK #2 2 :hihi-lou1s :j--"
+			-> auto adding "#" before the channel -> Return: Receiver is not on that server -> Should be: ERR_NOSUCHCHANNEL -> Wondering? ⚠️
+
+kick "#channel" WrongUser -> Currently: "NOW PARSE--KICK #2 askldjalskds :nan" -> Server: Receiver is not on that server
+			-> Should be ERR_NOSUCHNICK -> Wondering? ⚠️
+
+kick -> self-kick -> <SYSTEM>>  :You cannot kick yourself -> successful✅
+
+kick -> missing parameter -> successful✅
+
+kick -> multiple users -> successful✅
+
+kick -> channel,channel (multiple) user -> return err -> successful✅
 
 4. MSG
 /msg #channel
@@ -136,7 +149,12 @@ mode #channel +k -> set key without argument -> successful ✅👉
 
 mode #channel -k dummy -> Remove key but give parameter -> failed ⚠️ (Parameter is ignored; correct behavior is just remove the key.)
 
+/mode #channel +o username -> Try to join twice 
+			-> Server: 
+			```NOW PARSE--MODE #2 +o hihi-louis--
+			HERE: :<SYSTEM> PRIVMSG #2 : :User is already an operator
 
+			HERE: :<SYSTEM> PRIVMSG #2 : :User is already an operator``` -> two err msges, idk why, it can be due to my home's system???
 
 6. INVITE
 INVITE nickname #channel
@@ -154,6 +172,5 @@ Multiple invites
 /invite bob #channel -> operator can invite -> successful ✅
 
 /invite carol #channel -> not operator, can't invite -> successful ✅
-
 
 
