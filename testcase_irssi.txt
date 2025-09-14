@@ -39,7 +39,7 @@ msg #general Hello everyone! -> sending message to a channel with spaces -> succ
 -msg #general (no message text → should test how server handles it) -> Irssi: Not enough parameters given -> Server: not supported?
 -msg (no target → should trigger error) -> Irssi: Not enough parameters given -> Server: not supported?
 -msg ssdvaakjasdb (no target, message only) -> Irssi: Not enough parameters given -> Server: not supported?
--msg #1,2 message (comma separated channels is sometimes supported) -> not supported
+-msg #1,2 message (comma s eparated channels is sometimes supported) -> not supported
 -msg #1 hello        . (extra spaces) -> received message has only one space -> not supported or failed?
 -msg &localchannel hi -> Local-only channel: if there's only a single channel: #channel and &channel will behave the same. Currently it shows error: User is not on that channel -> not supported or failed
 -msg Tan :this is a test with a leading colon (IRC allows : to denote the start of the message text). -> so the received message should not have ':' -> failed
