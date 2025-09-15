@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parseUtility.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 17:58:04 by caonguye          #+#    #+#             */
-/*   Updated: 2025/08/18 19:27:00 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/09/15 11:51:27 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,26 @@
 std::vector<std::string>    parseSplit(std::string& cmd)
 {
     std::istringstream          stream(cmd);
-    std::vector<std::string>    command;
+    std::vector<std::string>    commandPack;
     std::string                 token;
-
-    while (stream >> token)
-        command.push_back(token);
-    return command;
+    
+    size_t pos = cmd.find(" :");
+    if (pos != std::string::npos)
+    {
+        std::string commands = cmd.substr(0, pos);
+        std::istringstream stream(commands);
+        while (stream >> token)
+            commandPack.push_back(token);
+        std::string msg = cmd.substr(pos + 1);
+        commandPack.push_back(msg); 
+    }
+    else
+    {
+        std::istringstream          stream(cmd);
+        while (stream >> token)
+            commandPack.push_back(token);
+    }
+    return commandPack;
 }
 
 std::vector<std::string>    parseSplitComma(std::string& cmd)
