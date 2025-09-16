@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/15 10:29:57 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/16 15:14:57 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
     {
         if (!this->hasServerClient(target))
         {
-            Notifyer::notifyError(client, 442);
+            Notifyer::notifyError(client, 404);
             return ;
         } 
         else
