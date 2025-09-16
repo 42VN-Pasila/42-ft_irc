@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:48:03 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/17 01:53:04 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/17 01:56:47 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void    Server::parseMode(Client* client, std::string& fullCommand)
     
     cmdPack = parseSplit(fullCommand);
     size = cmdPack.size();
-    if (size < 3 || size > 4 || cmdPack[2].length() != 2)
+    if (size < 3 || size > 4 || cmdPack[2].length() < 2)
     {
         if (this->hasServerChannel(cmdPack[1]))
         {
@@ -132,6 +132,21 @@ void    Server::parseMode(Client* client, std::string& fullCommand)
             return ;
         }
     }
+    
+    if (cmdPack[2].length() > 2)
+    {
+        if (this->hasServerChannel(cmdPack[1]))
+        {
+            Notifyer::notifyWindowError(client, 505, cmdPack[1]);
+            return ;
+        }
+        else
+        {   
+            Notifyer::notifyError(client, 505);
+            return ;
+        }
+    }
+    
     typeMode = cmdPack[2][1];
     for (int i = 0; i < MODE_QTT; i++)
     {
