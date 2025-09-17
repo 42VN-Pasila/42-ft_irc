@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   notifyer.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/13 15:10:22 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/09/17 11:07:41 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,12 @@ void Notifyer::notifyChannelError(Client* client, int code, std::string& channel
 }
 
 void    Notifyer::notifyBroadcast(Channel* channel, std::string& sender, const std::string& msg)
-{   
+{
+    std::string fullMsg = ":<SYSTEM> PRIVMSG #" + channel->getChannelName() + " :"+ CYAN + msg + RESET + "\r\n";
     for (auto& pair : channel->getMemberList())
     {
         if (pair.first != sender)
-            sendMsg(pair.second, msg);
+            sendMsg(pair.second, fullMsg);
     }
 }
 

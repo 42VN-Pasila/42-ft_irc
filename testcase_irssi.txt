@@ -115,13 +115,12 @@ Server shows error message but not user's window. -> successful ✅👉
 
 
 
-⚠️ 
+ successful ✅ 
 channel was set to invite-only, everybody left, nobody can join because it still exists + set to invite-only.
 A channel ceases to exist the moment the last user leaves. At that moment, all modes, topic, invite lists -> are destroyed too.
 If later somebody else does /join #op, it’s treated as a brand new channel with no modes, no topic, nothing -> failed
 
-
-⚠️
+client issues ✅
 /name #<channel> not showing status:
 Irssi: #3: Total of 2 nicks [1 ops, 0 halfops, 0 voices, 1 normal]
 
