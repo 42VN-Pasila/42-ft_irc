@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/15 00:10:28 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/17 22:03:18 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void    Server::parseQuit(Client* client, std::string& cmd)
     {
         Channel* channel = pair.second;
         std::string channelName = "#" + channel->getChannelName();
-        std::string quitmsg = "[CHANNEL] :" + client->getNickName() +" quit server " + msg;
+        std::string quitmsg = "Member " + client->getNickName() +" has quitted this server " + msg;
 
         if (channel->isMember(client))
-            Notifyer::notifyBroadcast(channel, quitmsg, nickname);
+            Notifyer::notifyBroadcast(channel, nickname, quitmsg);
     }
     this->removeClient(fd, index);
 }

@@ -102,8 +102,6 @@ Operator invites someone -> successful ✅
 
 +i removed, outsider joins -> successful ✅
 
-These cases succeed. But the message only shows in server. Should it appear in user's window? ✅👉
-
 mode #channel +iiiiiiiiiii -> invite-only mode set (correct behavior) -> successful ✅👉
 
 mode #channel +isdmmbgdsb -> invite-only mode set (correct behavior) -> successful ✅👉
