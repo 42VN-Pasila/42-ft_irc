@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/09/13 08:27:37 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/17 11:17:48 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void    Server::handlerModeI(Client* client, std::string& channel, bool mode)
 {
     int         code;
     std::string msg;
-    std::string nickname = client->getNickName();
+    std::string system = "";
     
     if (channel[0] != '#')
     {
@@ -39,7 +39,7 @@ void    Server::handlerModeI(Client* client, std::string& channel, bool mode)
     {
         msg = (mode == on ? "[SERVER] : [CHANNEL] : Invite-only mode enabled" 
                             : "[SERVER] : [CHANNEL] : Invite-only mode disabled");
-        Notifyer::notifyBroadcast(this->_channelList[channelName], nickname, msg);
+        Notifyer::notifyBroadcast(this->_channelList[channelName], system, msg);
     }
     else     
         return;
@@ -49,7 +49,7 @@ void    Server::handlerModeT(Client* client, std::string& channel, bool mode)
 {
     int         code;
     std::string msg;
-    std::string nickname = client->getNickName();
+    std::string system = "";
     
     if (channel[0] != '#')
     {
@@ -75,7 +75,7 @@ void    Server::handlerModeT(Client* client, std::string& channel, bool mode)
     {
         msg = (mode == on ? "[SERVER] : [CHANNEL] : Topic mode enabled only for operator" 
                             : "[SERVER] : [CHANNEL] : Topic mode enabled for all members");
-        Notifyer::notifyBroadcast(this->_channelList[channelName], nickname, msg);
+        Notifyer::notifyBroadcast(this->_channelList[channelName], system, msg);
     }
     else     
         return;
@@ -85,7 +85,7 @@ void    Server::handlerModeK(Client* client, std::string& channel, const std::st
 {
     int         code;
     std::string msg;
-    std::string nickname = client->getNickName();
+    std::string system = "";
     
     if (channel[0] != '#')
     {
@@ -111,7 +111,7 @@ void    Server::handlerModeK(Client* client, std::string& channel, const std::st
     {
         msg = (mode == on ? "[SERVER] : [CHANNEL] : New password is set"
                             : "[SERVER] : [CHANNEL] : Password is removed");
-        Notifyer::notifyBroadcast(this->_channelList[channelName], nickname, msg);
+        Notifyer::notifyBroadcast(this->_channelList[channelName], system, msg);
     }
     else     
         return;
@@ -121,7 +121,7 @@ void    Server::handlerModeL(Client* client, std::string& channel, const unsigne
 {
     int         code;
     std::string msg;
-    std::string nickname = client->getNickName();
+    std::string system = "";
     
     if (channel[0] != '#')
     {
@@ -147,7 +147,7 @@ void    Server::handlerModeL(Client* client, std::string& channel, const unsigne
     {
         msg = (mode == on ? "[SERVER] : [CHANNEL] : Channel now limits only " + std::to_string(limit) + " members"
         : "[SERVER] : [CHANNEL] : Channel now has no limit on member list");
-        Notifyer::notifyBroadcast(this->_channelList[channelName], nickname, msg);
+        Notifyer::notifyBroadcast(this->_channelList[channelName], system, msg);
     }
     else     
         return;
@@ -158,7 +158,7 @@ void    Server::handlerModeO(Client* client, std::string& channel, std::string& 
 {
     int code = -1;
     std::string msg;
-    std::string nickname = client->getNickName();
+    std::string system = "";
     
     if (channel[0] != '#')
     {
@@ -188,7 +188,7 @@ void    Server::handlerModeO(Client* client, std::string& channel, std::string& 
     {
         msg = (mode == on ? "[SERVER] : [CHANNEL] : Channel is now operated by " + targetUser
                             : "[SERVER] : [CHANNEL] : Channel is now not operated");
-        Notifyer::notifyBroadcast(this->_channelList[channelName], nickname, msg);
+        Notifyer::notifyBroadcast(this->_channelList[channelName], system, msg);
     }
     else     
         Notifyer::notifyWindowError(client, code, channel);

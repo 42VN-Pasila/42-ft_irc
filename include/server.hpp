@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:32:41 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/03 22:37:41 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/14 10:57:04 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ class Server
         void            removeClient(int client_fd, int index);
         void            closeAllFds();
         int             getIndex(int fd) const;
+        void            removeChannel(Channel* channel);
         
         //Exec
         void    parsePreCommand(Client* client, std::string& fullcommand, int& quitFlag);

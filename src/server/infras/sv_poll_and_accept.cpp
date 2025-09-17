@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/09/11 09:19:30 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/15 00:11:10 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ void Server::pollAndAccept() {
                 buffer[bytesRead] = '\0';
                 std::string message(buffer);
                 if (!message.empty())
-                { 
+                {
+                    std::cout << GREEN << "LISTEN--" << message <<"--"<< RESET<<std::endl;
                     Client *client = _socketList[client_fd];
                     parsePreCommand(client, message, quitFlag);
                     std::cout << "[" + Notifyer::getDate() + "] " + "Message from client(fd " << client_fd << "): " << buffer << std::endl; // Temporarily here - delete later

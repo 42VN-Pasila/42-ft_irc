@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/12 10:07:47 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/16 14:20:27 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@
 #define ERR_SYNTAXCHANNEL       " :Invalid CHANNEL - CHANNEL param requires '#' <#channel>" //502
 #define ERR_SYNTAXQUIT          " :Invalid QUIT syntax"                 //503
 #define ERR_SYNTAXEMPTYCOMMA    " :Empty after a comma"                 //504
+
+#define ERR_NOTSPMULTIMODE      " :Server does not support multimode"   //505
 
 class   Notifyer
 {
@@ -177,6 +179,7 @@ class   Notifyer
         {501, ERR_SYNTAXMODET},
         {502, ERR_SYNTAXCHANNEL},
         {503, ERR_SYNTAXQUIT},
-        {504,ERR_SYNTAXEMPTYCOMMA}
+        {504,ERR_SYNTAXEMPTYCOMMA},
+        {505, ERR_NOTSPMULTIMODE}
     };
 };

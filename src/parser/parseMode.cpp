@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parseMode.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:48:03 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/06 19:39:58 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/09/17 01:56:47 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,32 @@ void    Server::parseMode(Client* client, std::string& fullCommand)
     size = cmdPack.size();
     if (size < 3 || size > 4 || cmdPack[2].length() < 2)
     {
-        Notifyer::notifyError(client, 496);
-        return ;
+        if (this->hasServerChannel(cmdPack[1]))
+        {
+            Notifyer::notifyWindowError(client, 496, cmdPack[1]);
+            return ;
+        }
+        else
+        {   
+            Notifyer::notifyError(client, 496);
+            return ;
+        }
     }
+    
+    if (cmdPack[2].length() > 2)
+    {
+        if (this->hasServerChannel(cmdPack[1]))
+        {
+            Notifyer::notifyWindowError(client, 505, cmdPack[1]);
+            return ;
+        }
+        else
+        {   
+            Notifyer::notifyError(client, 505);
+            return ;
+        }
+    }
+    
     typeMode = cmdPack[2][1];
     for (int i = 0; i < MODE_QTT; i++)
     {

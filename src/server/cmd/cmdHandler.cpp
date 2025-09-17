@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdHandler.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/13 14:31:27 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/09/17 10:57:14 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
         code = this->_channelList[channelName]->addUser(client, channel); 
     if (code == -1)
     {
-        std::string msg = ":<SYSTEM> PRIVMSG " + channel + " :"+ CYAN + "Welcome " + client->getNickName() + " to the channel" + RESET + "\r\n";
+        std::string msg =  "Welcome " + client->getNickName() + " to the channel" + RESET + "\r\n";
         Notifyer::notifyBroadcast(this->_channelList[channelName], system, msg);
         if (!this->_channelList[channelName]->getTopic().empty())
         {
@@ -83,7 +83,7 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
     {
         if (!this->hasServerClient(target))
         {
-            Notifyer::notifyError(client, 442);
+            Notifyer::notifyError(client, 404);
             return ;
         } 
         else
@@ -110,7 +110,7 @@ void    Server::handlerPart(Client* client, std::string& channel, std::string& n
         code = this->_channelList[channelName]->removeUser(client, channel);
         if (code == -1)
         {
-            std::string msg = ":<SYSTEM> PRIVMSG " + channel + " :" + CYAN + client->getNickName() + " has left the channel";
+            std::string msg = client->getNickName() + " has left the channel";
             std::string privmsg = "[CHANNEL " + channelName + "] : You have left the channel";
             if (!noti.empty())
             {
@@ -128,6 +128,7 @@ void    Server::handlerPart(Client* client, std::string& channel, std::string& n
             return ;
         }
     }
+    this->removeChannel(this->_channelList[channelName]);
 }
 
 void    Server::handlerKick(Client* client, std::string& channel, std::string& targetUser, std::string& reason)
@@ -170,6 +171,7 @@ void    Server::handlerKick(Client* client, std::string& channel, std::string& t
         Notifyer::notifyWindowError(client, code, channel);
         return ;
     }
+    this->removeChannel(this->_channelList[channelName]);
 }
 
 void    Server::handlerTopic(Client* client, std::string& channel, std::string& topic)

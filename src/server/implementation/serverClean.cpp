@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 02:18:31 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/11 09:08:03 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/14 11:08:47 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,15 @@ Server::~Server()
     }
 
     std::cout << "Shutting down server!" << std::endl;
+}
+
+void    Server::removeChannel(Channel* channel)
+{
+    if (channel->isEmpty())
+    {
+        std::string channelName = channel->getChannelName();
+        this->_channelList.erase(channelName);
+        channel->cleanUp();
+        delete channel;
+    }
 }
