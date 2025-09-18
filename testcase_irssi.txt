@@ -131,7 +131,7 @@ mode #channel +k -> set key without argument -> successful ✅👉
 
 /mode #channel +k pass1 pass2 -> not accepts space(s) in between -> successful ✅
 
-mode #channel -k dummy -> Remove key but give parameter -> failed ⚠️ (Parameter is ignored; correct behavior is just remove the key.)
+mode #channel -k dummy -> Remove key but give parameter -> successful ✅
 
 /mode #channel +o username -> Try to join twice 
 			-> Server: 
