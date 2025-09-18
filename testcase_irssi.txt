@@ -102,14 +102,13 @@ Operator invites someone -> successful ✅
 
 +i removed, outsider joins -> successful ✅
 
-mode #channel +iiiiiiiiiii -> invite-only mode set (correct behavior) -> successful ✅👉
+mode #channel +iiiiiiiiiii -> Not support multi mode -> successful ✅
 
-mode #channel +isdmmbgdsb -> invite-only mode set (correct behavior) -> successful ✅👉
+mode #channel +isdmmbgdsb -> Not support multi mode -> successful ✅
 
-mode #channel -iiii -> invite-only mode disable (correct behavior) -> successful ✅👉
+mode #channel -iiii -> Not support multi mode -> successful ✅
 
-Non-operator tries to set +i. In user's window should show: #<channel> You're not channel operator.
-Server shows error message but not user's window. -> successful ✅👉
+Non-operator tries to set +i. In user's window should show: #<channel> You're not channel operator -> successful✅
 
 
 
@@ -127,12 +126,10 @@ TESSTING +k -k mode:
 /mode #channel +k password (set password)
 /mode #channel -k          (remove password)
 
-
-These cases succeed. But the message only shows in server. Should it appear in user's window? ✅👉
-mode #channel +k secret -> Non-operator tries to set key -> successful ✅👉
+mode #channel +k secret -> Non-operator tries to set key -> successful ✅
 mode #channel +k -> set key without argument -> successful ✅👉
 
-/mode #channel +k pass1 pass2 -> accepts space(s) in between -> should it? ⚠️
+/mode #channel +k pass1 pass2 -> not accepts space(s) in between -> successful ✅
 
 mode #channel -k dummy -> Remove key but give parameter -> failed ⚠️ (Parameter is ignored; correct behavior is just remove the key.)
 
@@ -145,8 +142,6 @@ mode #channel -k dummy -> Remove key but give parameter -> failed ⚠️ (Parame
 
 6. INVITE
 INVITE nickname #channel
-
-These cases succeed. But the message only shows in server. Should it appear in user's window? ✅👉
 
 Invite when already in channel -> successful ✅👉
 
