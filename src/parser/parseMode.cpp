@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:48:03 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/17 01:56:47 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/18 10:14:55 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void    Server::parseModeK(Client* client, std::string& fullCommand)
 
     cmdPack = parseSplit(fullCommand);
     size = cmdPack.size();
-    if  ((cmdPack[2][0] == '+' && size != 4) || (cmdPack[2][0] == '-' && size != 3))
+    if  ((cmdPack[2][0] == '+' && size != 4) || (cmdPack[2][0] == '-' && size < 3))
     {
         Notifyer::notifyError(client, 498);
         return ;
