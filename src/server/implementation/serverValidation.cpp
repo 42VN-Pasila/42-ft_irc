@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   serverValidation.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:48:25 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/07 11:50:38 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/13 18:02:57 by caonguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ bool    Server::validateOperator(Client* client, std::string& channelName)
         return false;
     if (!this->_channelList[channelName]->isOperator(client))
     {
-        Notifyer::notifyError(client, 482);
+        std::string channel = "#" + channelName;
+        Notifyer::notifyWindowError(client, 482, channel);
         return false;
     }
     return true;
@@ -77,14 +78,15 @@ bool    Server::validateOperator(Client* client, std::string& channelName)
 
 bool    Server::validateTargetOut(Client* client, std::string& channelName, std::string& target)
 {
+    std::string channel = "#" + channelName;
     if (!this->hasServerClient(target))
     {
-        Notifyer::notifyError(client, 444);
+        Notifyer::notifyWindowError(client, 444, channel);
         return false;
     }
     if (!this->_channelList[channelName]->isMember(this->_clientList[target]))
     {
-        Notifyer::notifyError(client, 445);
+        Notifyer::notifyWindowError(client, 445, channel);
         return false;
     }
     return true;
@@ -92,14 +94,15 @@ bool    Server::validateTargetOut(Client* client, std::string& channelName, std:
 
 bool    Server::validateTargetIn(Client* client, std::string& channelName, std::string& target)
 {
+    std::string channel = "#" + channelName;
     if (!this->hasServerClient(target))
     {
-        Notifyer::notifyError(client, 444);
+        Notifyer::notifyWindowError(client, 444, channel);
         return false;
     }
     if (this->_channelList[channelName]->isMember(this->_clientList[target]))
     {
-        Notifyer::notifyError(client, 441);
+        Notifyer::notifyWindowError(client, 441, channel);
         return false;
     }
     return true;

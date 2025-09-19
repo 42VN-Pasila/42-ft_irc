@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 10:38:25 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/14 10:38:26 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/14 11:37:09 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool    parseValidPass(char *av)
     for (char c: password)
     {
         if (!std::isprint(c))
-        {
+        { 
             throw std::runtime_error("Invalid password : Password contains unprintable character");
             return false;
         }

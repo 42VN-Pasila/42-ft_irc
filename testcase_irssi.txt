@@ -28,12 +28,6 @@ kick -> not a channel user -> successful✅
 
 kick -> wrong channel -> failed
 
-kick channle(missing '#') user :msg -> Currently: "/kick 2 hihi-lou1s :j" -> Server: "NOW PARSE--KICK #2 2 :hihi-lou1s :j--"
-			-> auto adding "#" before the channel -> Return: Receiver is not on that server -> Should be: ERR_NOSUCHCHANNEL -> Wondering? ⚠️
-
-kick "#channel" WrongUser -> Currently: "NOW PARSE--KICK #2 askldjalskds :nan" -> Server: Receiver is not on that server
-			-> Should be ERR_NOSUCHNICK -> Wondering? ⚠️
-
 kick -> self-kick -> <SYSTEM>>  :You cannot kick yourself -> successful✅
 
 kick -> missing parameter -> successful✅
@@ -60,23 +54,19 @@ msg #channel :leading colon with nothing else (empty text) -> successful✅
 
 msg #channel 你好 🌸 (Unicode characters) -> successful✅
 
-msg -> to multiple channels (/msg #1 #2 #3 helo) -> not supported? ⚠️
+msg #channel (no message text → should test how server handles it) -> Irssi: Not enough parameters given -> Irssi issues ✅
 
-msg #channel (no message text → should test how server handles it) -> Irssi: Not enough parameters given -> Server: not supported? ⚠️
+msg (no target → should trigger error) -> Irssi: Not enough parameters given -> Irssi issues ✅
 
-msg (no target → should trigger error) -> Irssi: Not enough parameters given -> Server: not supported? ⚠️
+msg ssdvaakjasdb (no target, message only) -> Irssi: Not enough parameters given -> Irssi issues ✅
 
-msg ssdvaakjasdb (no target, message only) -> Irssi: Not enough parameters given -> Server: not supported? ⚠️
+msg #1,2 message (comma separated channels is sometimes supported) -> Irssi issues ✅
 
-msg #1,2 message (comma separated channels is sometimes supported) -> not supported ⚠️
+msg #1 hello        . (extra spaces) -> received message has only one space -> successful✅
 
-msg #1 hello        . (extra spaces) -> received message has only one space -> not supported or failed? ⚠️
+msg Tan :this is a test with a leading colon (IRC allows : to denote the start of the message text). -> successful✅
 
-msg &localchannel hi -> Local-only channel: if there's only a single channel: #channel and &channel will behave the same. Currently it shows error: User is not on that channel -> not supported or failed ⚠️
-
-msg Tan :this is a test with a leading colon (IRC allows : to denote the start of the message text). -> so the received message should not have ':' -> failed ⚠️
-
-msg #op hello -> when user is not joined to the channel → should return 404 ERR_CANNOTSENDTOCHAN. Currently: 442 * htran-th_  :User is not on that channel -> failed ⚠️
+msg #op hello -> when user is not joined to the channel → should return 404 ERR_CANNOTSENDTOCHAN.-> successful✅
 
 
 
@@ -89,7 +79,7 @@ msg -> multiple users (11) to 1 user-> receive ALL (navigate by option + number/
 
 msg htran-th "hel                  o" (multiple space inside) -> successful ✅
 
-msg Huong,Triet hi → sends the same message to both users -> Now Huong receives: "Triet hi" -> failed ⚠️
+msg Huong,Triet hi → sends the same message to both users -> Now Huong receives: "Triet hi" -> successful ✅
 
 5. MODE
 /mode #channel +abcd
@@ -112,26 +102,22 @@ Operator invites someone -> successful ✅
 
 +i removed, outsider joins -> successful ✅
 
-These cases succeed. But the message only shows in server. Should it appear in user's window? ✅👉
+mode #channel +iiiiiiiiiii -> Not support multi mode -> successful ✅
 
-mode #channel +iiiiiiiiiii -> invite-only mode set (correct behavior) -> successful ✅👉
+mode #channel +isdmmbgdsb -> Not support multi mode -> successful ✅
 
-mode #channel +isdmmbgdsb -> invite-only mode set (correct behavior) -> successful ✅👉
+mode #channel -iiii -> Not support multi mode -> successful ✅
 
-mode #channel -iiii -> invite-only mode disable (correct behavior) -> successful ✅👉
-
-Non-operator tries to set +i. In user's window should show: #<channel> You're not channel operator.
-Server shows error message but not user's window. -> successful ✅👉
+Non-operator tries to set +i. In user's window should show: #<channel> You're not channel operator -> successful✅
 
 
 
-⚠️ 
+ successful ✅ 
 channel was set to invite-only, everybody left, nobody can join because it still exists + set to invite-only.
 A channel ceases to exist the moment the last user leaves. At that moment, all modes, topic, invite lists -> are destroyed too.
 If later somebody else does /join #op, it’s treated as a brand new channel with no modes, no topic, nothing -> failed
 
-
-⚠️
+client issues ✅
 /name #<channel> not showing status:
 Irssi: #3: Total of 2 nicks [1 ops, 0 halfops, 0 voices, 1 normal]
 
@@ -140,14 +126,12 @@ TESSTING +k -k mode:
 /mode #channel +k password (set password)
 /mode #channel -k          (remove password)
 
-
-These cases succeed. But the message only shows in server. Should it appear in user's window? ✅👉
-mode #channel +k secret -> Non-operator tries to set key -> successful ✅👉
+mode #channel +k secret -> Non-operator tries to set key -> successful ✅
 mode #channel +k -> set key without argument -> successful ✅👉
 
-/mode #channel +k pass1 pass2 -> accepts space(s) in between -> should it? ⚠️
+/mode #channel +k pass1 pass2 -> not accepts space(s) in between -> successful ✅
 
-mode #channel -k dummy -> Remove key but give parameter -> failed ⚠️ (Parameter is ignored; correct behavior is just remove the key.)
+mode #channel -k dummy -> Remove key but give parameter -> successful ✅
 
 /mode #channel +o username -> Try to join twice 
 			-> Server: 
@@ -158,8 +142,6 @@ mode #channel -k dummy -> Remove key but give parameter -> failed ⚠️ (Parame
 
 6. INVITE
 INVITE nickname #channel
-
-These cases succeed. But the message only shows in server. Should it appear in user's window? ✅👉
 
 Invite when already in channel -> successful ✅👉
 
@@ -172,5 +154,4 @@ Multiple invites
 /invite bob #channel -> operator can invite -> successful ✅
 
 /invite carol #channel -> not operator, can't invite -> successful ✅
-
 
