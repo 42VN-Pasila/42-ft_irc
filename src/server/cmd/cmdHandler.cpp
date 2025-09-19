@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 10:57:54 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/19 12:14:44 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/19 14:24:33 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ void    Server::handlerJoin(Client* client, std::string& channel, std::string& p
 
 void    Server::handlerPrivmsg(Client* client, std::string& target, std::string& msg)
 {
-    std::string confirmation = ":" + client->getNickName() + " PRIVMSG " + target + " " + msg;
-    std::string privmsgConfirmation = confirmation + "\r\n";
+    std::string confirmation = ":" + client->getNickName() + " PRIVMSG " + target + " " + msg + "\r\n";
     std::string nickname = client->getNickName();
 
     if (target[0] == '#')
@@ -78,13 +77,13 @@ void    Server::handlerPrivmsg(Client* client, std::string& target, std::string&
         if (!validateChannel(client, channelName))
             return ;
         else
-            Notifyer::notifyBroadcast(this->_channelList[channelName], nickname, confirmation);
+            Notifyer::notifyBroadcastMsg(this->_channelList[channelName], nickname, confirmation);
     }
     else
     {
         if (!this->hasServerClient(target))
         {
-            Notifyer::notifyError(client, 404);
+            Notifyer::notifyError(client, 442);
             return ;
         } 
         else

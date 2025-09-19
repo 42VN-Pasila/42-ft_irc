@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/17 11:07:41 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/19 14:17:06 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,15 @@ void    Notifyer::notifyBroadcast(Channel* channel, std::string& sender, const s
     {
         if (pair.first != sender)
             sendMsg(pair.second, fullMsg);
+    }
+}
+
+void    Notifyer::notifyBroadcastMsg(Channel* channel, std::string& sender, const std::string& msg)
+{   
+    for (auto& pair : channel->getMemberList())
+    {
+        if (pair.first != sender)
+            sendMsg(pair.second, msg);
     }
 }
 
