@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/09/20 04:51:37 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/21 01:47:11 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,9 +185,9 @@ void    Server::handlerModeO(Client* client, std::string& channel, std::string& 
     if (code == -1)
     {
         msg = (mode == on ? "[SERVER] : [CHANNEL] : Channel is now operated by " + targetUser
-                            : "[SERVER] : [CHANNEL] : Channel is now not operated");
+                            : "[SERVER] : [CHANNEL] : Channel is now not operated" + targetUser);
         Notifyer::notifyBroadcast(this->_channelList[channelName], system, msg);
     }
     else     
-        Notifyer::notifyWindowError(client, code, channel);
+        return;
 }
