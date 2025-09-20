@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:37 by caonguye          #+#    #+#             */
-/*   Updated: 2025/09/17 11:17:48 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/20 04:51:37 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,8 +175,6 @@ void    Server::handlerModeO(Client* client, std::string& channel, std::string& 
     }
 
     if (!validateChannel(client, channelName))
-        return ;
-    if (!validateOperator(client, channelName))
         return ;
     if (!validateTargetOut(client, channelName, targetUser))
         return ;
