@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:47:44 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/17 22:03:18 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/21 13:10:17 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,14 @@ void    Server::parseCommand(Client* client, std::string& command, int& quitFlag
 
 void    Server::parsePreCommand(Client* client, std::string &fullcommand, int& quitFlag)
 {
-    std::stringstream ss(fullcommand);
+    std::string buffer = client->getBuffer() + fullcommand;
     std::string command;
+    size_t  cur = 0;
+    size_t  found;
 
-    while (std::getline(ss, command))
+    while (found = buffer.find("\n") != std::string::npos)
     {
+        
         if (!command.empty() && command.back() == '\r')
             command.pop_back();
         std::cout << RED << "PRE COMMAND PARSE" <<"--"<<command<<"--"<<RESET<<std::endl;
