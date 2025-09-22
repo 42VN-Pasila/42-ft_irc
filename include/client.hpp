@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:40:45 by caonguye          #+#    #+#             */
-/*   Updated: 2025/09/02 23:49:34 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/21 11:14:53 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ class Client
         std::string   getUserName()         const;
         std::string   getNickName()         const;
         std::string   getRealName()         const;
+        std::string   getBuffer()           const;
         int           getSocket()           const;
         bool          getPasswordStatus()   const;
         bool          getNickStatus()       const;
@@ -33,6 +34,7 @@ class Client
         void    setUserName(const std::string& name);
         void    setNickName(const std::string& name);
         void    setRealName(const std::string& name);
+        void    setBuffer(const std::string& buffer);
         void    setPasswordStatus(bool status);
         void    setNickStatus(bool status);
         void    setUserStatus(bool status);
@@ -41,6 +43,7 @@ class Client
         std::string     _userName;
         std::string     _nickName;
         std::string     _realName;
+        std::string     _commandBuffer;
         int             _socket;
         bool            _passwordStatus;
         bool            _nickStatus;

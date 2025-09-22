@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:51:17 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/19 14:23:27 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/21 00:36:34 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@
 #define ERR_CHANNELEMPTYPASS    " :Channel has no password"            //458
 #define ERR_CHANNELZEROLIMIT    " :Channel has no limit"               //459
 #define ERR_CANNOTKICKUS        " :You cannot kick yourself"           //460
-#define ERR_CANNOTKICKOP        " :You cannot kick operator"           //461
+#define ERR_CANNOTKICKOP        " :You cannot kick operator"           //462
 
 #define ERR_TOPICEMPTY          " :Topic cannot be empty"              //483
 #define ERR_PASSWORDEMPTY       " :Password cannot be empty"           //484
@@ -157,6 +157,7 @@ class   Notifyer
         {459, ERR_CHANNELZEROLIMIT},
         {460, ERR_CANNOTKICKUS},
         {461, ERR_NEEDMOREPARAMS},
+        {462, ERR_CANNOTKICKOP},
         {470, ERR_CHANNELINCRPASSWORD},
         {471, ERR_CHANNELISFULL},
         {473, ERR_CHANNELINVITEONLY},
