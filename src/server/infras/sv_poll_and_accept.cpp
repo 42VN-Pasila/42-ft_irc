@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/09/21 20:24:33 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/24 20:35:36 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void Server::pollAndAccept() {
         }
         for (size_t i = 1; i < _poll_fds.size(); ++i) {
             if (_poll_fds[i].revents & POLLIN) {
-                char buffer[1000];
+                char buffer[1001];
                 int client_fd = _poll_fds[i].fd;
                 ssize_t bytesRead = recv(client_fd, buffer, sizeof(buffer) - 1, 0);
                 if (bytesRead <= 0) {
