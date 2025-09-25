@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/09/24 20:35:36 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/25 22:53:00 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,9 @@ void Server::pollAndAccept() {
         }
         for (size_t i = 1; i < _poll_fds.size(); ++i) {
             if (_poll_fds[i].revents & POLLIN) {
-                char buffer[1001];
+                char buffer[CMD_STANDARD + 1];
                 int client_fd = _poll_fds[i].fd;
-                ssize_t bytesRead = recv(client_fd, buffer, sizeof(buffer) - 1, 0);
+                ssize_t bytesRead = recv(client_fd, buffer, CMD_STANDARD, 0);
                 if (bytesRead <= 0) {
                     if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK)
                         continue;
@@ -115,6 +115,21 @@ void Server::pollAndAccept() {
                     continue ; // checks the rest of the clients
                 }
                 buffer[bytesRead] = '\0';
+                if (bytesRead == CMD_STANDARD)
+                {
+                    while (buffer[bytesRead - 1] != '\n')
+                    {
+                        bytesRead = recv(client_fd, buffer, CMD_STANDARD, 0);
+                        if (bytesRead <= 0)
+                        {
+                            removeClient(client_fd, i);
+                            --i;
+                            break;
+                        }
+                    }
+                    if (buffer[bytesRead - 1] == '\n')
+                        recv(client_fd, buffer, sizeof(buffer) - 1, 0);
+                }
                 std::string message(buffer);
                 if (!message.empty())
                 {
