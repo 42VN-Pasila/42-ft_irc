@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:14:07 by siuol             #+#    #+#             */
-/*   Updated: 2025/09/19 14:17:06 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/25 23:29:39 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 void    Notifyer::sendMsg(Client* client, const std::string& msg)
 {
     int socket = client->getSocket();
-    
-    std::cout << "HERE: " <<msg<<std::endl;
     
     if (socket < 0)
     {

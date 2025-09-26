@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   system.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caonguye <caonguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:30:42 by siuol             #+#    #+#             */
-/*   Updated: 2025/08/24 19:48:53 by caonguye         ###   ########.fr       */
+/*   Updated: 2025/09/25 23:05:27 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 #include <sstream>
 #include <functional>
 #include <unistd.h>
+#include <string.h>
 
 #include "client.hpp"
 #include "channel.hpp"
@@ -61,3 +62,7 @@ class Channel;
 #define off false
 #define MULTI_TARGET_FUNCTIONS 2
 #define MODE_QTT    5
+
+#define CMD_STANDARD    1000
+#define MSG_SIZE        512
+#define PASSWORD_SIZE   14             

@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/09/21 20:24:33 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/26 10:45:07 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,9 @@ void Server::pollAndAccept() {
         }
         for (size_t i = 1; i < _poll_fds.size(); ++i) {
             if (_poll_fds[i].revents & POLLIN) {
-                char buffer[1000];
+                char buffer[CMD_STANDARD + 1];
                 int client_fd = _poll_fds[i].fd;
-                ssize_t bytesRead = recv(client_fd, buffer, sizeof(buffer) - 1, 0);
+                ssize_t bytesRead = recv(client_fd, buffer, CMD_STANDARD, 0);
                 if (bytesRead <= 0) {
                     if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK)
                         continue;
@@ -115,19 +115,41 @@ void Server::pollAndAccept() {
                     continue ; // checks the rest of the clients
                 }
                 buffer[bytesRead] = '\0';
-                std::string message(buffer);
-                if (!message.empty())
+                if (bytesRead == CMD_STANDARD)
                 {
-                    //std::cout << GREEN << "LISTEN--" << message <<"--"<< RESET<<std::endl;
-                    Client *client = _socketList[client_fd];
-                    parsePreCommand(client, message, quitFlag);
-                    std::cout << "[" + Notifyer::getDate() + "] " + "Message from client(fd " << client_fd << "): " << buffer << std::endl; // Temporarily here - delete later
-                    if (quitFlag)
+                    while (bytesRead >=2 && buffer[bytesRead - 1] != '\n' && buffer[bytesRead - 2] != '\r')
                     {
-                        --i;
-                        quitFlag = 0;
-                        std::cout << RED << "[" + Notifyer::getDate() + "] " + "Client disconnected: fd = " << client_fd << RESET << std::endl;
-                        continue;
+                        memset(buffer, 0, sizeof(buffer));
+                        bytesRead = recv(client_fd, buffer, CMD_STANDARD, MSG_DONTWAIT);
+                        if (bytesRead > 0) buffer[bytesRead] = '\0';
+                        if (bytesRead <= 0)
+                        {
+                            removeClient(client_fd, i);
+                            --i;
+                            break;
+                        }
+                    }
+                    if (bytesRead >=2 && buffer[bytesRead - 1] != '\n' && buffer[bytesRead - 2] != '\r')
+                        recv(client_fd, buffer, CMD_STANDARD, MSG_DONTWAIT);
+                    Notifyer::notifyError(_socketList[client_fd], 506);
+                    std::cout << "[" + Notifyer::getDate() + "] " + "Message from client(fd " << client_fd << "): " << RED << "Error : Overtext" << RESET << std::endl;
+                }
+                else
+                {                    
+                    std::string message(buffer);
+                    if (!message.empty())
+                    {
+                        //std::cout << GREEN << "LISTEN--" << message <<"--"<< RESET<<std::endl;
+                        Client *client = _socketList[client_fd];
+                        parsePreCommand(client, message, quitFlag);
+                        std::cout << "[" + Notifyer::getDate() + "] " + "Message from client(fd " << client_fd << "): " << buffer << std::endl; // Temporarily here - delete later
+                        if (quitFlag)
+                        {
+                            --i;
+                            quitFlag = 0;
+                            std::cout << RED << "[" + Notifyer::getDate() + "] " + "Client disconnected: fd = " << client_fd << RESET << std::endl;
+                            continue;
+                        }
                     }
                 }
             }
