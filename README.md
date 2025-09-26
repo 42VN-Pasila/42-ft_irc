@@ -119,3 +119,7 @@ QUIT :Goodbye
 * Software Architecture: Design patterns (function pointers, state machines), clean OOP design, comprehensive error handling, automated testing
 * Network Protocols: IRC RFC mastery, buffer management, client-server architecture, authentication systems
 * C++ Expertise: STL proficiency, exception safety, professional coding standards, maintainable code structure
+
+| ***IRC Server Terminal*** | ***Client 1 Connection*** | ***Client 2 Multi-chat*** |
+|-----------|--------------|-----------|
+| ![IRC Server](assets/TerminalClient.gif) | ![Client 1](assets/Client1.gif) | ![Client 2](assets/Client2.gif) |
