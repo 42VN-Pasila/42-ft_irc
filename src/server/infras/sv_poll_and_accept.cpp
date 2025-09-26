@@ -6,7 +6,7 @@
 /*   By: siuol <siuol@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 21:00:42 by htran-th          #+#    #+#             */
-/*   Updated: 2025/09/25 22:53:00 by siuol            ###   ########.fr       */
+/*   Updated: 2025/09/26 10:45:07 by siuol            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,11 @@ void Server::pollAndAccept() {
                 buffer[bytesRead] = '\0';
                 if (bytesRead == CMD_STANDARD)
                 {
-                    while (buffer[bytesRead - 1] != '\n')
+                    while (bytesRead >=2 && buffer[bytesRead - 1] != '\n' && buffer[bytesRead - 2] != '\r')
                     {
-                        bytesRead = recv(client_fd, buffer, CMD_STANDARD, 0);
+                        memset(buffer, 0, sizeof(buffer));
+                        bytesRead = recv(client_fd, buffer, CMD_STANDARD, MSG_DONTWAIT);
+                        if (bytesRead > 0) buffer[bytesRead] = '\0';
                         if (bytesRead <= 0)
                         {
                             removeClient(client_fd, i);
@@ -127,22 +129,27 @@ void Server::pollAndAccept() {
                             break;
                         }
                     }
-                    if (buffer[bytesRead - 1] == '\n')
-                        recv(client_fd, buffer, sizeof(buffer) - 1, 0);
+                    if (bytesRead >=2 && buffer[bytesRead - 1] != '\n' && buffer[bytesRead - 2] != '\r')
+                        recv(client_fd, buffer, CMD_STANDARD, MSG_DONTWAIT);
+                    Notifyer::notifyError(_socketList[client_fd], 506);
+                    std::cout << "[" + Notifyer::getDate() + "] " + "Message from client(fd " << client_fd << "): " << RED << "Error : Overtext" << RESET << std::endl;
                 }
-                std::string message(buffer);
-                if (!message.empty())
-                {
-                    //std::cout << GREEN << "LISTEN--" << message <<"--"<< RESET<<std::endl;
-                    Client *client = _socketList[client_fd];
-                    parsePreCommand(client, message, quitFlag);
-                    std::cout << "[" + Notifyer::getDate() + "] " + "Message from client(fd " << client_fd << "): " << buffer << std::endl; // Temporarily here - delete later
-                    if (quitFlag)
+                else
+                {                    
+                    std::string message(buffer);
+                    if (!message.empty())
                     {
-                        --i;
-                        quitFlag = 0;
-                        std::cout << RED << "[" + Notifyer::getDate() + "] " + "Client disconnected: fd = " << client_fd << RESET << std::endl;
-                        continue;
+                        //std::cout << GREEN << "LISTEN--" << message <<"--"<< RESET<<std::endl;
+                        Client *client = _socketList[client_fd];
+                        parsePreCommand(client, message, quitFlag);
+                        std::cout << "[" + Notifyer::getDate() + "] " + "Message from client(fd " << client_fd << "): " << buffer << std::endl; // Temporarily here - delete later
+                        if (quitFlag)
+                        {
+                            --i;
+                            quitFlag = 0;
+                            std::cout << RED << "[" + Notifyer::getDate() + "] " + "Client disconnected: fd = " << client_fd << RESET << std::endl;
+                            continue;
+                        }
                     }
                 }
             }
