@@ -122,4 +122,4 @@ QUIT :Goodbye
 
 | ***IRC Server Terminal*** | ***Client 1 Connection*** | ***Client 2 Multi-chat*** |
 |-----------|--------------|-----------|
-| ![IRC Server](assets/TerminalClient.gif) | ![Client 1](assets/Client1.gif) | ![Client 2](assets/Client2.gif) |
+| ![IRC Server](assets/Server.gif) | ![Client 1](assets/Client1.gif) | ![Client 2](assets/Client2.gif) |
